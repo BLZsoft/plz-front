@@ -50,36 +50,3 @@ jobs:
           aws_bucket: ${{ secrets.S3_BUCKET }}
           source_dir: 'dist'
           destination_dir: ''
-
-  notify_success:
-    name: 'Notify success'
-    needs: deploy
-    runs-on: [ self-hosted ]
-    if: ${{ success() }}
-    steps:
-      - name: Notify on Discord - Success
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: success
-          username: admin.bmw-nsk.ru
-          color: '#00ff00'
-          avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
-          text: 'Развёртывание на тестовом контуре завершено успешно!'
-          description: https://admin.test.bmw-nsk.ru
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
-  notify_failure:
-    name: 'Notify failure'
-    needs: deploy
-    runs-on: [ self-hosted ]
-    if: ${{ always() && !success() }}
-    steps:
-      - name: Notify on Discord - Failure
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: error
-          username: admin.bmw-nsk.ru
-          color: '#ff0000'
-          avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
-          text: 'Развёртывание на тестовом контуре завершено с ошибкой!'
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
