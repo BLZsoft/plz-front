@@ -1,0 +1,97 @@
+Subject: [PATCH] ci(deploy): deployment workflow
+---
+Index: .github/workflows/deploy-develop.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.github/workflows/deploy-develop.yml b/.github/workflows/deploy-develop.yml
+new file mode 100644
+--- /dev/null	(revision 68f0c6044615af4d2e70905ef4fbadccde7ccd60)
++++ b/.github/workflows/deploy-develop.yml	(revision 68f0c6044615af4d2e70905ef4fbadccde7ccd60)
+@@ -0,0 +1,85 @@
++name: 'Deploy'
++
++on:
++  push:
++    branches: [ master ]
++
++concurrency:
++  group: 'deploy'
++  cancel-in-progress: true
++
++jobs:
++  deploy:
++    name: 'Deploy'
++    runs-on: [ self-hosted ]
++    environment:
++      name: development
++      url: https://пожликбез.рф
++    steps:
++      - name: 'Checkout'
++        uses: actions/checkout@v3
++
++      - name: 'Install pnpm'
++        uses: pnpm/action-setup@v2
++        with:
++          version: 7
++
++      - name: 'Install Node.js'
++        uses: actions/setup-node@v3
++        with:
++          node-version: 18
++          cache: 'pnpm'
++
++      - name: 'Install dependencies'
++        run: pnpm install --ignore-scripts
++
++      - name: 'Build'
++        env:
++          VITE_APP_URL: ${{ vars.APP_URL }}
++          VITE_API_URL: ${{ vars.API_URL }}
++          VITE_LOGTO_ENDPOINT: ${{ vars.LOGTO_ENDPOINT }}
++          VITE_LOGTO_APP_ID: ${{ vars.LOGTO_APP_ID }}
++        run: pnpm build --base ${{ secrets.CDN_ENDPOINT }}
++
++      - name: 'Upload build'
++        uses: shallwefootball/s3-upload-action@master
++        with:
++          endpoint: ${{ secrets.S3_ENDPOINT }}
++          aws_key_id: ${{ secrets.S3_ACCESS_KEY }}
++          aws_secret_access_key: ${{ secrets.S3_SECRET_KEY }}
++          aws_bucket: ${{ secrets.S3_BUCKET }}
++          source_dir: 'dist'
++          destination_dir: ''
++
++  notify_success:
++    name: 'Notify success'
++    needs: deploy
++    runs-on: [ self-hosted ]
++    if: ${{ success() }}
++    steps:
++      - name: Notify on Discord - Success
++        uses: rjstone/discord-webhook-notify@v1
++        with:
++          severity: success
++          username: admin.bmw-nsk.ru
++          color: '#00ff00'
++          avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
++          text: 'Развёртывание на тестовом контуре завершено успешно!'
++          description: https://admin.test.bmw-nsk.ru
++          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
++
++  notify_failure:
++    name: 'Notify failure'
++    needs: deploy
++    runs-on: [ self-hosted ]
++    if: ${{ always() && !success() }}
++    steps:
++      - name: Notify on Discord - Failure
++        uses: rjstone/discord-webhook-notify@v1
++        with:
++          severity: error
++          username: admin.bmw-nsk.ru
++          color: '#ff0000'
++          avatarUrl: https://github.githubassets.com/images/modules/logos_page/Octocat.png
++          text: 'Развёртывание на тестовом контуре завершено с ошибкой!'
++          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

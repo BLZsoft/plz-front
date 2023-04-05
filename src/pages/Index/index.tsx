@@ -12,7 +12,6 @@ const Index = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      console.log(commonConfig.baseUrl + '/callback', '@@@');
       signIn(commonConfig.baseUrl + '/callback');
     }
   }, [isAuthenticated]);
