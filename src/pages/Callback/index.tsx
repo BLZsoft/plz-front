@@ -13,7 +13,7 @@ const Callback = () => {
     return <div>Redirecting...</div>;
   }
 
-  return <div>Callback</div>;
+  return <div>Callback!!</div>;
 };
 
 export default Callback;
