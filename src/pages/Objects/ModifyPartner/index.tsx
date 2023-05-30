@@ -4,7 +4,7 @@ import Paragraph from 'antd/es/typography/Paragraph';
 const ModifyPartners = () => {
   return (
     <div>
-      <Paragraph>Создание партнера</Paragraph>
+      <Paragraph>Создание объекта</Paragraph>
       <Button type="primary" size="large">
         Сохранить
       </Button>
