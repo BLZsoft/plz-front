@@ -1,21 +1,21 @@
 import { RouteObject } from 'react-router-dom';
 
-import ModifyPartners from './ModifyPartner';
+import ModifyObject from './ModifyObject';
 
 import Objects from './index';
 
-export const partnersPaths = {
+export const objectsPaths = {
   list: '/objects',
   modify: '/objects/modify/:id?',
 };
 
-export const partnerRoutes: RouteObject[] = [
+export const objectsRoutes: RouteObject[] = [
   {
-    path: partnersPaths.list,
+    path: objectsPaths.list,
     element: <Objects />,
   },
   {
-    path: partnersPaths.modify,
-    element: <ModifyPartners />,
+    path: objectsPaths.modify,
+    element: <ModifyObject />,
   },
 ];

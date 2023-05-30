@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { useLogto } from '@logto/react';
 import { commonConfig } from 'shared/config/common';
 
-import { partnersPaths } from '../Partners/routes';
+import { objectsPaths } from '../Objects/routes';
 
 const Index = () => {
   const { isAuthenticated, signIn, isLoading } = useLogto();
@@ -20,7 +20,7 @@ const Index = () => {
     return <span>Loading...</span>;
   }
 
-  return <Navigate to={partnersPaths.list} />;
+  return <Navigate to={objectsPaths.list} />;
 };
 
 export default Index;

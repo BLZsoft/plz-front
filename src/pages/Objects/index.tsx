@@ -7,7 +7,7 @@ import Paragraph from 'antd/es/typography/Paragraph';
 
 import { useApi } from '../../app/providers/with-api';
 
-import { partnersPaths } from './routes';
+import { objectsPaths } from './routes';
 
 const Objects = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Objects = () => {
   return (
     <div>
       <Paragraph>Список объектов</Paragraph>
-      <Button type="primary" onClick={() => navigate(partnersPaths.modify)} size="large">
+      <Button type="primary" onClick={() => navigate(objectsPaths.modify)} size="large">
         Создать объект
       </Button>
     </div>
