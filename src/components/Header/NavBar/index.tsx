@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import React from 'react';
 
 import { ManageAccounts } from '@styled-icons/material/ManageAccounts';
+import { ReceiptLong } from '@styled-icons/material/ReceiptLong';
 import { TooltipCustom } from 'shared/ui/TooltipCustom';
 import styled from 'styled-components';
 
@@ -10,8 +11,23 @@ import { NavMenuItem } from './styles';
 export const NavBar: FC = () => {
   return (
     <StyledNav>
-      <TooltipCustom key={'Партнеры'} placement="bottom" title={'Партнеры'}>
-        <NavMenuItem to="/partners">
+      <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
+        <NavMenuItem to="/objects">
+          <ManageAccounts height={40} width={40} />
+        </NavMenuItem>
+      </TooltipCustom>
+      <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
+        <NavMenuItem to="/objects">
+          <ReceiptLong height={40} width={40} />
+        </NavMenuItem>
+      </TooltipCustom>
+      <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
+        <NavMenuItem to="/objects">
+          <ManageAccounts height={40} width={40} />
+        </NavMenuItem>
+      </TooltipCustom>
+      <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
+        <NavMenuItem to="/objects">
           <ManageAccounts height={40} width={40} />
         </NavMenuItem>
       </TooltipCustom>
