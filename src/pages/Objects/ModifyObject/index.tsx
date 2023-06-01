@@ -1,7 +1,7 @@
 import Button from 'antd/es/button';
 import Paragraph from 'antd/es/typography/Paragraph';
 
-const ModifyPartners = () => {
+const ModifyObject = () => {
   return (
     <div>
       <Paragraph>Создание объекта</Paragraph>
@@ -12,4 +12,4 @@ const ModifyPartners = () => {
   );
 };
 
-export default ModifyPartners;
+export default ModifyObject;

@@ -1,10 +1,10 @@
 import Button from 'antd/es/button';
 import Paragraph from 'antd/es/typography/Paragraph';
 
-const ModifyPartners = () => {
+const ModifyObjects = () => {
   return (
     <div>
-      <Paragraph>Создание партнера</Paragraph>
+      <Paragraph>Создание объекта</Paragraph>
       <Button type="primary" size="large">
         Сохранить
       </Button>
@@ -12,4 +12,4 @@ const ModifyPartners = () => {
   );
 };
 
-export default ModifyPartners;
+export default ModifyObjects;

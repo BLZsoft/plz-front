@@ -12,22 +12,22 @@ export const NavBar: FC = () => {
   return (
     <StyledNav>
       <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
-        <NavMenuItem to="/objects">
+        <NavMenuItem to="/partners">
           <ManageAccounts height={40} width={40} />
         </NavMenuItem>
       </TooltipCustom>
       <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
-        <NavMenuItem to="/objects">
+        <NavMenuItem to="/partners">
           <ReceiptLong height={40} width={40} />
         </NavMenuItem>
       </TooltipCustom>
       <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
-        <NavMenuItem to="/objects">
+        <NavMenuItem to="/partners">
           <ManageAccounts height={40} width={40} />
         </NavMenuItem>
       </TooltipCustom>
       <TooltipCustom key={'Объекты'} placement="bottom" title={'Объекты'}>
-        <NavMenuItem to="/objects">
+        <NavMenuItem to="/partners">
           <ManageAccounts height={40} width={40} />
         </NavMenuItem>
       </TooltipCustom>

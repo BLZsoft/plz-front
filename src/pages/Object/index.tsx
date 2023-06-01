@@ -9,7 +9,7 @@ import { useApi } from '../../app/providers/with-api';
 
 import { partnersPaths } from './routes';
 
-const Objects = () => {
+const Object = () => {
   const navigate = useNavigate();
 
   const api = useApi();
@@ -28,4 +28,4 @@ const Objects = () => {
   );
 };
 
-export default Objects;
+export default Object;
