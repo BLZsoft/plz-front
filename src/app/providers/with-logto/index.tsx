@@ -4,7 +4,6 @@ import { LogtoProvider } from '@logto/react';
 import { logtoConfig } from 'shared/config/logto';
 
 export const withLogto = (App: FC) => {
-  console.log(logtoConfig);
   const WithProvider = (props: Record<string, unknown>) => {
     return (
       <LogtoProvider config={logtoConfig}>

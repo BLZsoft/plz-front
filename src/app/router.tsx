@@ -8,6 +8,7 @@ import Index from 'pages/Index';
 import { objectsRoutes } from 'pages/Objects/routes';
 import { partnerRoutes } from 'pages/Partners/routes';
 
+import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { Layout } from '../components/Layout';
 
@@ -39,6 +40,7 @@ export const Router = () => {
       <GlobalStyle />
       <Header disabled={!isAuthenticated} />
       <Layout disabled={!isAuthenticated}>{routesContent}</Layout>
+      <Footer disabled={!isAuthenticated} />
     </>
   );
 };

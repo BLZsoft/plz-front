@@ -90,7 +90,7 @@ export const PartnersApiAxiosParamCreator = function (configuration?: Configurat
          * @throws {RequiredError}
          */
         partnersControllerFindAll: async (skip?: number, take?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/partners`;
+            const localVarPath = `/objects`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

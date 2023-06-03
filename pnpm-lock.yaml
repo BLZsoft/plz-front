@@ -4,6 +4,9 @@ dependencies:
   '@logto/react':
     specifier: 1.0.0
     version: 1.0.0(react@18.2.0)
+  '@styled-icons/boxicons-regular':
+    specifier: ^10.47.0
+    version: 10.47.0(react@18.2.0)(styled-components@5.3.9)
   '@styled-icons/material':
     specifier: 10.47.0
     version: 10.47.0(react@18.2.0)(styled-components@5.3.9)
@@ -941,6 +944,18 @@ packages:
     dependencies:
       lodash.orderby: 4.6.0
       lodash.pick: 4.4.0
+    dev: false
+
+  /@styled-icons/boxicons-regular@10.47.0(react@18.2.0)(styled-components@5.3.9):
+    resolution: {integrity: sha512-z8KczDp4VArXvOn8i2j66Xs4oX9oiiJEhMoHydY3uC9kdtImcxhZ/xHPrgTJLkbK6f5ikwB4CKVnSqQGzzAJNw==}
+    peerDependencies:
+      react: '*'
+      styled-components: '*'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@styled-icons/styled-icon': 10.7.0(react@18.2.0)(styled-components@5.3.9)
+      react: 18.2.0
+      styled-components: 5.3.9(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
     dev: false
 
   /@styled-icons/material@10.47.0(react@18.2.0)(styled-components@5.3.9):

@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
-import { NavBar } from 'components/Header/NavBar';
-
+import { HeaderTitle } from './HeaderTitle';
 import { LogoLink } from './LogoLink';
 import { StyledHeaderWrapper, StyledHeaderContent, ToolBar } from './ui';
 import { UserTools } from './UserTools';
@@ -12,7 +11,7 @@ export const Header: FC<{ disabled: boolean }> = ({ disabled }) => {
       <StyledHeaderContent>
         <ToolBar size="large">
           <LogoLink />
-          <NavBar />
+          <HeaderTitle />
           <UserTools />
         </ToolBar>
       </StyledHeaderContent>
