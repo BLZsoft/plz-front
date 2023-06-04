@@ -3,17 +3,22 @@ import { useEffect, useState, useMemo } from 'react';
 
 // import { useNavigate } from 'react-router-dom';
 <DeleteTwoTone />;
-import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
-import { Card, Space, Row, Col, Popover } from 'antd';
+import { DeleteTwoTone, EditTwoTone, PlusOutlined } from '@ant-design/icons';
+import { Card, Space, Row, Col, Popover, FloatButton } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { TooltipCustom } from 'shared/ui/TooltipCustom';
-
 // import Button from 'antd/es/button';
 
 import { useApi } from '../../app/providers/with-api';
 
 // import { objectsPaths } from './routes';
 
+const floatingBtnStyle = {
+  right: '10%',
+  bottom: '10%',
+  width: '60px',
+  height: '60px',
+};
 const CardExtraComponent = ({ name, handleDelete }) => (
   <Space direction="horizontal" size={10}>
     <TooltipCustom key={'Редактировать'} placement="bottom" title={'Редактировать'}>
@@ -106,7 +111,24 @@ const Objects = () => {
     [objects],
   );
 
-  return <div>{renderObjectsList}</div>;
+  return (
+    <div>
+      {renderObjectsList}
+      <FloatButton
+        tooltip={<div>Добавить объект</div>}
+        trigger="click"
+        icon={
+          <PlusOutlined
+            style={{
+              'font-size': '24px',
+            }}
+          />
+        }
+        type="primary"
+        style={floatingBtnStyle}
+      />
+    </div>
+  );
 };
 
 export default Objects;
