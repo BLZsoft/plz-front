@@ -6,7 +6,6 @@ import { useLogto } from '@logto/react';
 import Callback from 'pages/Callback';
 import Index from 'pages/Index';
 import { objectsRoutes } from 'pages/Objects/routes';
-import { partnerRoutes } from 'pages/Partners/routes';
 
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
@@ -15,7 +14,6 @@ import { Layout } from '../components/Layout';
 import { GlobalStyle } from './providers/with-theme/globalStyle';
 
 const routes = [
-  ...partnerRoutes,
   ...objectsRoutes,
   {
     element: <Callback />,
