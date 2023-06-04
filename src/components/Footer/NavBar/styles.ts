@@ -7,6 +7,10 @@ export const NavMenuItem = styled(NavLink)`
   & > svg {
     transition: all 0.3s;
   }
+  &:hover {
+    color: #fff;
+    opacity: 0.8;
+  }
 `;
 
 export const StyledNav = styled.nav`
@@ -14,7 +18,7 @@ export const StyledNav = styled.nav`
   max-width: 450px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
   column-gap: 32px;
   margin: 0 auto;
 `;
