@@ -2,7 +2,7 @@ import type React from 'react';
 
 import styled from 'styled-components';
 
-export const StyledFooterWrapper = styled.footer<{ disabled: boolean }>`
+export const StyledFooterWrapper = styled.header<{ disabled: boolean }>`
   position: fixed;
   display: ${({ disabled }) => (disabled ? 'none' : 'flex')};
   flex-direction: row;

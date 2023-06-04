@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import logoPath from 'shared/assets/logo.png';
 import styled from 'styled-components';
+
+import logoPath from 'shared/assets/logo.svg';
 
 export const LogoLink: FC = () => {
   return (

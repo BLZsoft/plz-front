@@ -201,7 +201,7 @@ export const PartnersApiAxiosParamCreator = function (configuration?: Configurat
         partnersControllerRemove: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('partnersControllerRemove', 'id', id)
-            const localVarPath = `/partners/{id}`
+            const localVarPath = `/objects/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

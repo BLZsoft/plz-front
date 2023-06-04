@@ -24,7 +24,6 @@ export const StyledHeaderContent = styled.div`
   width: 100%;
   margin: 0 auto;
   height: 100%;
-  border-bottom: 1px solid gray;
 `;
 
 export interface ToolBarProps extends React.ComponentPropsWithRef<'header'> {

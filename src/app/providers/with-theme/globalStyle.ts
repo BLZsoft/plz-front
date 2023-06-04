@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
     text-align: left;
     // FIXME to pallet
     color: black;
-    background-color: #ffffff;
+    background-color: rgb(246, 246, 246);
     -webkit-font-smoothing: antialiased;
     display: block;
     -moz-osx-font-smoothing: grayscale;
