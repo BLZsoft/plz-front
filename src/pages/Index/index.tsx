@@ -19,7 +19,7 @@ const Index = () => {
     return <span>Loading...</span>;
   }
 
-  return <Navigate to="/objects" replace={true} />;
+  return <Navigate to="/partners" replace={true} />;
 };
 
 export default Index;
