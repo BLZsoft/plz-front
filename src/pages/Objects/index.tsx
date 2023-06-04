@@ -15,10 +15,7 @@ const Objects = () => {
   const api = useApi();
 
   useEffect(() => {
-    api.partners
-      .partnersControllerFindAll({ skip: 0, take: 10 })
-      .then((d) => console.log(d))
-      .catch((error) => console.log(error));
+    api.partners.partnersControllerFind().then((d: unknown) => console.log(d));
   }, []);
 
   return (
