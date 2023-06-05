@@ -117,13 +117,7 @@ const Objects = () => {
       <FloatButton
         tooltip={<div>Добавить объект</div>}
         trigger="click"
-        icon={
-          <PlusOutlined
-            style={{
-              'font-size': '24px',
-            }}
-          />
-        }
+        icon={<PlusOutlined />}
         type="primary"
         style={floatingBtnStyle}
       />
