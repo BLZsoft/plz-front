@@ -61,51 +61,48 @@ const Objects = () => {
     () =>
       objects?.length ? (
         <Space direction="horizontal" size={16}>
-          {objects.map(
-            (obj: Record<string, string>) =>
-              console.log(obj) || (
-                <Card
-                  key={obj?.id}
-                  hoverable
-                  title={obj?.name}
-                  extra={<CardExtraComponent handleDelete={deleteObject(obj?.id)} name={obj?.name} />}
-                  style={{ width: 400 }}
-                >
-                  <Row>
-                    <Col span={6}>
-                      <Paragraph strong>Адрес</Paragraph>
-                    </Col>
-                    <Col span={10} offset={8}>
-                      <Paragraph type="secondary">{obj?.objectAddress || 'Курск, Ленина 42'}</Paragraph>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={6}>
-                      <Paragraph strong>{obj?.sp2type}</Paragraph>
-                    </Col>
-                    <Col span={10} offset={8}>
-                      <Paragraph type="secondary">{obj?.sp2name}</Paragraph>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={6}>
-                      <Paragraph strong>Класс</Paragraph>
-                    </Col>
-                    <Col span={10} offset={8}>
-                      <Paragraph type="secondary">{obj?.class}</Paragraph>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={6}>
-                      <Paragraph strong>Категория</Paragraph>
-                    </Col>
-                    <Col span={10} offset={8}>
-                      <Paragraph type="secondary">{obj?.category || '-'}</Paragraph>
-                    </Col>
-                  </Row>
-                </Card>
-              ),
-          )}
+          {objects.map((obj: Record<string, string>) => (
+            <Card
+              key={obj?.id}
+              hoverable
+              title={obj?.name}
+              extra={<CardExtraComponent handleDelete={deleteObject(obj?.id)} name={obj?.name} />}
+              style={{ width: 400 }}
+            >
+              <Row>
+                <Col span={6}>
+                  <Paragraph strong>Адрес</Paragraph>
+                </Col>
+                <Col span={10} offset={8}>
+                  <Paragraph type="secondary">{obj?.objectAddress || 'Курск, Ленина 42'}</Paragraph>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={6}>
+                  <Paragraph strong>{obj?.sp2type}</Paragraph>
+                </Col>
+                <Col span={10} offset={8}>
+                  <Paragraph type="secondary">{obj?.sp2name}</Paragraph>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={6}>
+                  <Paragraph strong>Класс</Paragraph>
+                </Col>
+                <Col span={10} offset={8}>
+                  <Paragraph type="secondary">{obj?.class}</Paragraph>
+                </Col>
+              </Row>
+              <Row>
+                <Col span={6}>
+                  <Paragraph strong>Категория</Paragraph>
+                </Col>
+                <Col span={10} offset={8}>
+                  <Paragraph type="secondary">{obj?.category || '-'}</Paragraph>
+                </Col>
+              </Row>
+            </Card>
+          ))}
         </Space>
       ) : null,
     [objects],
