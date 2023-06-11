@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { useEffect, useState, useMemo } from 'react';
 
-// import { useNavigate } from 'react-router-dom';
-<DeleteTwoTone />;
-import { DeleteTwoTone, EditTwoTone, PlusOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+
+import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons';
 import { Card, Space, Row, Col, Popover, FloatButton } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { TooltipCustom } from 'shared/ui/TooltipCustom';
@@ -21,9 +21,6 @@ const floatingBtnStyle = {
 };
 const CardExtraComponent = ({ name, handleDelete }) => (
   <Space direction="horizontal" size={10}>
-    <TooltipCustom key={'Редактировать'} placement="bottom" title={'Редактировать'}>
-      <EditTwoTone twoToneColor="#ff3f3d" />
-    </TooltipCustom>
     <Popover title={`Удалить объект ${name} ?`} trigger="click" content={<a onClick={handleDelete}>Да</a>}>
       <TooltipCustom key={'Удалить'} placement="bottom" title={'Удалить'}>
         <DeleteTwoTone twoToneColor="#ff3f3d" />
@@ -39,6 +36,8 @@ const Objects = () => {
   const [updateFlag, setUpdateFlag] = useState(true);
 
   const api = useApi();
+
+  const navigate = useNavigate();
 
   const deleteObject = (id: string) => () => {
     api.partners.partnersControllerRemove({ id }).then(() => {
@@ -68,6 +67,7 @@ const Objects = () => {
               title={obj?.name}
               extra={<CardExtraComponent handleDelete={deleteObject(obj?.id)} name={obj?.name} />}
               style={{ width: 400 }}
+              onClick={() => navigate(`/objects/modify/${obj?.id}`)}
             >
               <Row>
                 <Col span={6}>
@@ -113,6 +113,7 @@ const Objects = () => {
       {renderObjectsList}
       <FloatButton
         tooltip={<div>Добавить объект</div>}
+        onClick={() => navigate('/objects/modify/new')}
         trigger="click"
         icon={<PlusOutlined />}
         type="primary"
