@@ -25,7 +25,7 @@ export const DadataGeoPicker: FC<Partial<Props>> = (props) => {
       token={commonConfig.dadataApiKey}
       filterLanguage={'ru'}
       filterRestrictValue
-      defaultQuery={!props.value?.rawValue ? 'Новосибирск' : undefined}
+      defaultQuery={!props.value?.rawValue ? 'Москва' : undefined}
       httpCache={true}
       customInput={Input}
       delay={300}

@@ -1,43 +1,108 @@
-import { DaDataAddress, DaDataSuggestion } from 'react-dadata';
+// @ts-nocheck
+import { useEffect } from 'react';
 
-import { Button, Checkbox, Form, Input, Select } from 'antd';
+import { DaDataAddress, DaDataSuggestion } from 'react-dadata';
+import { useParams } from 'react-router-dom';
+
+import { Button, Radio, Form, Input, Select, notification } from 'antd';
 import { DadataGeoPicker } from 'shared/ui/DadataGeoPicker';
+
+import { useApi } from '../../../app/providers/with-api';
 
 import { default as MOCK_DATA } from './f_sp2.json';
 
+const makeOptionValue = (data) => `${data.f}#${data.name}`;
+
 const ModifyObject = () => {
+  const { id: objectId } = useParams();
+  const [form] = Form.useForm();
+  const api = useApi();
+  const [notificationApi, contextHolder] = notification.useNotification();
+  const openNotification = (title: string, description: string) => {
+    notificationApi.info({
+      message: title,
+      description,
+      placement: 'topRight',
+    });
+  };
   const onFinish = (values: any) => {
     console.log('Success:', MOCK_DATA, values);
+    const createPartnerDto = {
+      name: values.name,
+      // type: values.type,
+      sp2type: values.sp2.split('#')[0] as string,
+      sp2name: values.sp2.split('#')[1] as string,
+      sp2questions: '',
+      upFloors: 2,
+      isUnderFloor: true,
+      underFloors: 2,
+      fireRoomArea: 2222,
+      tradeArea: 0,
+      blackTradeRooms: true,
+      height: 22,
+      volume: 235,
+      class: 'C01',
+      degree: 'IV',
+    };
+    console.log('!!!!', objectId);
+
+    if (objectId && objectId === 'new') {
+      api.partners
+        .partnersControllerCreate({
+          createPartnerDto,
+        })
+        .then(() => {
+          openNotification(values.name, 'Объект сохранен');
+        })
+        .catch(() => console.log('error'));
+    } else if (objectId) {
+      api.partners
+        .partnersControllerUpdate({
+          id: objectId,
+          updatePartnerDto: createPartnerDto,
+        })
+        .then(() => {
+          openNotification(values.name, 'Объект обновлен');
+        })
+        .catch(() => console.log('error'));
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
+    openNotification('Ошибка', 'Не удалось сохранить объект');
   };
-  const ddd = {
-    x: 1,
-    u: 1,
-  };
+
+  useEffect(() => {
+    if (objectId) {
+      api.partners.partnersControllerFindOne({ id: objectId }).then((data) => {
+        form.setFieldsValue(data?.data);
+      });
+    }
+  }, [objectId]);
+
   return (
     <Form
+      form={form}
       name="object"
+      size="large"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 800 }}
-      initialValues={{ remember: false }}
+      style={{ maxWidth: 800, width: '100%' }}
+      initialValues={{ type: 'building' }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
+      {contextHolder}
       <Form.Item label="Название объекта" name="name" rules={[{ required: true, message: 'Введите название' }]}>
         <Input />
       </Form.Item>
-
-      <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
-        <Input />
-      </Form.Item>
-
-      <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox>Remember me</Checkbox>
+      <Form.Item label="Тип здания" name="type">
+        <Radio.Group>
+          <Radio value="building">Здание</Radio>
+          <Radio value="room">Помещение</Radio>
+        </Radio.Group>
       </Form.Item>
       <Form.Item
         label="Адрес"
@@ -57,15 +122,19 @@ const ModifyObject = () => {
       >
         <DadataGeoPicker />
       </Form.Item>
-      <Form.Item label="Select">
+      <Form.Item label="Тип СП2" name="sp2" rules={[{ required: true, message: 'Выберите СП2' }]}>
         <Select>
-          <Select.Option value={ddd}>Demo</Select.Option>
+          {MOCK_DATA.map((option) => (
+            <Select.Option key={option._id.$oid} value={makeOptionValue(option)}>
+              {option.name}
+            </Select.Option>
+          ))}
         </Select>
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Сохранить
         </Button>
       </Form.Item>
     </Form>

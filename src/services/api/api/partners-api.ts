@@ -51,15 +51,16 @@ export const PartnersApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary Создает нового партнёра.
+         * @summary Создает новый объект
          * @param {CreatePartnerDto} createPartnerDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         partnersControllerCreate: async (createPartnerDto: CreatePartnerDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createPartnerDto' is not null or undefined
-            assertParamExists('partnersControllerCreate', 'createPartnerDto', createPartnerDto)
-            const localVarPath = `/partners`;
+            // TODO найти время и перепилить на объект
+            // assertParamExists('partnersControllerCreate', 'createPartnerDto', createPartnerDto)
+            const localVarPath = `/objects`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -163,7 +164,7 @@ export const PartnersApiAxiosParamCreator = function (configuration?: Configurat
         partnersControllerFindOne: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('partnersControllerFindOne', 'id', id)
-            const localVarPath = `/partners/{id}`
+            const localVarPath = `/objects/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -241,8 +242,8 @@ export const PartnersApiAxiosParamCreator = function (configuration?: Configurat
             // verify required parameter 'id' is not null or undefined
             assertParamExists('partnersControllerUpdate', 'id', id)
             // verify required parameter 'updatePartnerDto' is not null or undefined
-            assertParamExists('partnersControllerUpdate', 'updatePartnerDto', updatePartnerDto)
-            const localVarPath = `/partners/{id}`
+            // assertParamExists('partnersControllerUpdate', 'updatePartnerDto', updatePartnerDto)
+            const localVarPath = `/objects/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

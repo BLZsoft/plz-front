@@ -3,15 +3,12 @@ import { useEffect, useState, useMemo } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { DeleteTwoTone, PlusOutlined } from '@ant-design/icons';
-import { Card, Space, Row, Col, Popover, FloatButton } from 'antd';
+import { PlusOutlined, DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
+import { Space, FloatButton, Card, Col, Row, Popover } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
 import { TooltipCustom } from 'shared/ui/TooltipCustom';
-// import Button from 'antd/es/button';
 
 import { useApi } from '../../app/providers/with-api';
-
-// import { objectsPaths } from './routes';
 
 const floatingBtnStyle = {
   right: '10%',
@@ -19,8 +16,11 @@ const floatingBtnStyle = {
   width: '60px',
   height: '60px',
 };
-const CardExtraComponent = ({ name, handleDelete }) => (
+const CardExtraComponent = ({ name, handleDelete, handleEdit }) => (
   <Space direction="horizontal" size={10}>
+    <TooltipCustom key={'Редактировать'} placement="bottom" title={'Редактировать'}>
+      <EditTwoTone twoToneColor="#ff3f3d" onClick={handleEdit} />
+    </TooltipCustom>
     <Popover title={`Удалить объект ${name} ?`} trigger="click" content={<a onClick={handleDelete}>Да</a>}>
       <TooltipCustom key={'Удалить'} placement="bottom" title={'Удалить'}>
         <DeleteTwoTone twoToneColor="#ff3f3d" />
@@ -33,7 +33,7 @@ const Objects = () => {
   // const navigate = useNavigate();
   // TODO для демонстрации
   const [objects, setObjectsList] = useState([]);
-  const [updateFlag, setUpdateFlag] = useState(true);
+  // const [updateFlag, setUpdateFlag] = useState(true);
 
   const api = useApi();
 
@@ -41,33 +41,43 @@ const Objects = () => {
 
   const deleteObject = (id: string) => () => {
     api.partners.partnersControllerRemove({ id }).then(() => {
-      setUpdateFlag(true);
-    });
-  };
-
-  useEffect(() => {
-    if (updateFlag === true) {
       api.partners.partnersControllerFind().then((data: unknown) => {
         if (data && data?.data?.data) {
           setObjectsList(data?.data?.data);
         }
       });
-      setUpdateFlag(false);
-    }
-  }, [updateFlag]);
+    });
+  };
+
+  const handleEdit = (id: string) => () => {
+    navigate(`/objects/modify/${id}`);
+  };
+
+  useEffect(() => {
+    api.partners.partnersControllerFind().then((data: unknown) => {
+      if (data && data?.data?.data) {
+        setObjectsList(data?.data?.data);
+      }
+    });
+  }, []);
 
   const renderObjectsList = useMemo(
     () =>
       objects?.length ? (
-        <Space direction="horizontal" size={16}>
+        <Space direction="vertical" size={16}>
           {objects.map((obj: Record<string, string>) => (
             <Card
               key={obj?.id}
               hoverable
               title={obj?.name}
-              extra={<CardExtraComponent handleDelete={deleteObject(obj?.id)} name={obj?.name} />}
+              extra={
+                <CardExtraComponent
+                  handleDelete={deleteObject(obj?.id)}
+                  name={obj?.name}
+                  handleEdit={handleEdit(obj?.id)}
+                />
+              }
               style={{ width: 400 }}
-              onClick={() => navigate(`/objects/modify/${obj?.id}`)}
             >
               <Row>
                 <Col span={6}>
