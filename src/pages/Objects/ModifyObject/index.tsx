@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { DaDataAddress, DaDataSuggestion } from 'react-dadata';
 import { useParams } from 'react-router-dom';
@@ -8,12 +8,20 @@ import { Button, Radio, Form, Input, Select, notification } from 'antd';
 import { DadataGeoPicker } from 'shared/ui/DadataGeoPicker';
 
 import { useApi } from '../../../app/providers/with-api';
+import { getDataByType, getFloorsByType, getAreasByTypeAndFloor, getHeightByTypeAndFloor } from '../utils';
 
-import { default as MOCK_DATA } from './f_sp2.json';
+import { default as SP2_DATA } from './data_sp2_.json';
+import { default as F_DATA } from './f_sp2.json';
 
 const makeOptionValue = (data) => `${data.f}#${data.name}`;
+const CATEGORIES = ['А', 'Б', 'В1', 'В2', 'В3', 'В4', 'Г', 'Д'];
 
 const ModifyObject = () => {
+  const [floors, setFloors] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const [heights, setHeights] = useState([]);
+  const [dataByType, setDataByType] = useState([]);
+  const [typeF, setTypeF] = useState(null);
   const { id: objectId } = useParams();
   const [form] = Form.useForm();
   const api = useApi();
@@ -26,7 +34,7 @@ const ModifyObject = () => {
     });
   };
   const onFinish = (values: any) => {
-    console.log('Success:', MOCK_DATA, values);
+    console.log('Success:', SP2_DATA, values);
     const createPartnerDto = {
       name: values.name,
       // type: values.type,
@@ -44,7 +52,6 @@ const ModifyObject = () => {
       class: 'C01',
       degree: 'IV',
     };
-    console.log('!!!!', objectId);
 
     if (objectId && objectId === 'new') {
       api.partners
@@ -81,6 +88,67 @@ const ModifyObject = () => {
     }
   }, [objectId]);
 
+  // const typeF = values?.selectedTopic?.id?.f;
+  // const dataByType = getDataByType(SP2_DATA, typeF);
+  // const currentFloor = values?.objectUpfloors?.value;
+  // const currentArea = values?.objectFireRoomArea?.value;
+  // const currentHeight = values?.objectHeight?.value;
+  // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
+  //   SP2_DATA,
+  //   typeF,
+  //   currentFloor,
+  //   currentArea,
+  //   currentHeight,
+  // );
+  console.log(typeF);
+
+  const sp2Change = (val) => {
+    // console.log(changed, allValues);
+    const typeF = val?.split('#')[0];
+    const dataByType = getDataByType(SP2_DATA, typeF);
+    const floors = getFloorsByType(dataByType);
+
+    setTypeF(typeF);
+    setDataByType(dataByType);
+    setFloors(floors);
+
+    return val;
+    // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
+    //   SP2_DATA,
+    //   typeF,
+    //   currentFloor,
+    //   currentArea,
+    //   currentHeight,
+    // );
+  };
+  const floorsChange = (val) => {
+    const areas = getAreasByTypeAndFloor(dataByType, val);
+    setAreas(areas);
+
+    return val;
+    // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
+    //   SP2_DATA,
+    //   typeF,
+    //   currentFloor,
+    //   currentArea,
+    //   currentHeight,
+    // );
+  };
+  const areaChange = (val, vals) => {
+    const heights = getHeightByTypeAndFloor(dataByType, vals.objectFloors, val);
+    setHeights(heights);
+    console.log(val, heights, vals);
+
+    return val;
+    // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
+    //   SP2_DATA,
+    //   typeF,
+    //   currentFloor,
+    //   currentArea,
+    //   currentHeight,
+    // );
+  };
+
   return (
     <Form
       form={form}
@@ -92,6 +160,7 @@ const ModifyObject = () => {
       initialValues={{ type: 'building' }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      // onValuesChange={onFormValuesChanges}
       autoComplete="off"
     >
       {contextHolder}
@@ -122,16 +191,72 @@ const ModifyObject = () => {
       >
         <DadataGeoPicker />
       </Form.Item>
-      <Form.Item label="Тип СП2" name="sp2" rules={[{ required: true, message: 'Выберите СП2' }]}>
+      <Form.Item label="Тип СП2" name="sp2" rules={[{ required: true, message: 'Выберите СП2' }]} normalize={sp2Change}>
         <Select>
-          {MOCK_DATA.map((option) => (
+          {F_DATA.map((option) => (
             <Select.Option key={option._id.$oid} value={makeOptionValue(option)}>
               {option.name}
             </Select.Option>
           ))}
         </Select>
       </Form.Item>
-
+      <Form.Item label="Ширина здания, м" name="objectWidth" rules={[{ required: true, message: 'Выберите ширину' }]}>
+        <Select>
+          <Select.Option value={50}>менее 60</Select.Option>
+          <Select.Option value={70}>более 60</Select.Option>
+        </Select>
+      </Form.Item>
+      <Form.Item
+        label="Количество надземных этажей"
+        rules={[{ required: true, message: 'Выберите этаж' }]}
+        key="select_objectUpfloors"
+        name="objectUpfloors"
+        normalize={floorsChange}
+      >
+        <Select>
+          {floors.map((item) => (
+            <Select.Option id={item} value={item} />
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        label="Площадь этажа пожарного отсека, м2"
+        rules={[{ required: true, message: 'Задайте площадь' }]}
+        key="select_objectFireRoomArea"
+        name="objectFireRoomArea"
+        normalize={areaChange}
+      >
+        <Select>
+          {areas.map((item) => (
+            <Select.Option id={item} value={item} />
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        label="Высота здания, м"
+        rules={[{ required: true, message: 'Задайте высоту' }]}
+        key="select_objectHeight"
+        name="objectHeight"
+        // normalize={heightsChange}
+      >
+        <Select>
+          {heights.map((item) => (
+            <Select.Option id={item} value={item} />
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        label="Категория по взрывопожарной или пожарной опасности"
+        rules={[{ required: true, message: 'Выберите Категорию' }]}
+        key="select_objectCategory"
+        name="objectCategory"
+      >
+        <Select>
+          {CATEGORIES.map((item) => (
+            <Select.Option id={item} value={item} />
+          ))}
+        </Select>
+      </Form.Item>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
           Сохранить
