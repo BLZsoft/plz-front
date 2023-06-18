@@ -6,10 +6,9 @@ import { useEffect, useState, useMemo } from 'react';
 import { DeleteTwoTone, EditTwoTone, PlusOutlined } from '@ant-design/icons';
 import { Card, Space, Row, Col, Popover, FloatButton } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
+import { useApi } from 'shared/hooks/useApi';
 import { TooltipCustom } from 'shared/ui/TooltipCustom';
 // import Button from 'antd/es/button';
-
-import { useApi } from '../../app/providers/with-api';
 
 // import { objectsPaths } from './routes';
 
@@ -41,18 +40,13 @@ const Objects = () => {
   const api = useApi();
 
   const deleteObject = (id: string) => () => {
-    api.partners.partnersControllerRemove({ id }).then(() => {
+    api.objectsControllerRemove({ id }).then(() => {
       setUpdateFlag(true);
     });
   };
 
   useEffect(() => {
     if (updateFlag === true) {
-      api.partners.partnersControllerFind().then((data: unknown) => {
-        if (data && data?.data?.data) {
-          setObjectsList(data?.data?.data);
-        }
-      });
       setUpdateFlag(false);
     }
   }, [updateFlag]);

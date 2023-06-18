@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 
 import { Avatar } from 'antd';
 import Dropdown from 'antd/es/dropdown';
@@ -12,10 +12,11 @@ type UserInfoDropdownProps = {
   shortName?: string | null;
   avatarSize?: number;
   avatar?: string | null;
+  setModal: Dispatch<boolean>;
 };
 
-export const UserInfo: React.VFC<UserInfoDropdownProps> = (props) => {
-  const { avatar, shortName, avatarSize = 40 } = props;
+export const UserInfoDropdown: React.VFC<UserInfoDropdownProps> = (props) => {
+  const { avatar, shortName, avatarSize = 40, setModal } = props;
 
   return (
     <UserInfoContainer>
@@ -29,7 +30,7 @@ export const UserInfo: React.VFC<UserInfoDropdownProps> = (props) => {
                 {shortName}
               </Title>
             </StyledTitleContainer>
-            <UserItems />
+            <UserItems setModal={setModal} />
           </DefaultOverlay>
         }
       >

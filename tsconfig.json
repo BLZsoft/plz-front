@@ -17,6 +17,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  "extends": "./tsconfig.paths.json",
   "include": ["src", "prettier.config.js"],
   "exclude": ["node_modules/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]

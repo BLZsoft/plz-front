@@ -1,18 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useLogto } from '@logto/react';
-import { Api } from 'services/api/apiAdapter';
-
-const ApiContext = React.createContext<Api | null>(null);
-
-export const useApi = () => {
-  return useContext(ApiContext)!;
-};
+import { Configuration, DefaultApi } from 'services/api';
+import { Resources } from 'shared/config/logto';
+import { ApiContext } from 'shared/hooks/useApi';
 
 export function withApi(WrappedComponent: React.ComponentType) {
   function WithApi() {
-    const { getAccessToken } = useLogto();
-    const api = new Api(getAccessToken);
+    const { getAccessToken, signOut } = useLogto();
+
+    const tokenIssuer = useCallback(async () => {
+      try {
+        return getAccessToken(Resources.API);
+      } catch (e) {
+        await signOut();
+      }
+    }, [getAccessToken]);
+
+    const api = useMemo(() => {
+      const configuration = new Configuration({
+        //@ts-expect-error skip
+        accessToken: tokenIssuer,
+      });
+
+      return new DefaultApi(configuration);
+    }, [tokenIssuer]);
 
     return (
       <ApiContext.Provider value={api}>
@@ -20,6 +32,7 @@ export function withApi(WrappedComponent: React.ComponentType) {
       </ApiContext.Provider>
     );
   }
+
   WithApi.displayName = 'WithApi';
   return WithApi;
 }

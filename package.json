@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "postinstall": "pnpm swagger",
+    "postinstall": "is-ci || pnpm swagger:prod",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint src --cache --ext .ts,.tsx --quiet --fix",
-    "swagger": "openapi-generator-cli generate -i https://api.test.bmw-nsk.ru/swagger.json -g typescript-axios -o ./src/services/api/ --skip-validate-spec --additional-properties=useSingleRequestParameter=true,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api"
+    "test": "pnpm test:typescript && pnpm test:lint && pnpm test:prettier",
+    "test:typescript": "tsc --noEmit",
+    "test:lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "test:prettier": "prettier . --ignore-unknown",
+    "swagger:prod": "openapi-generator-cli generate --generator-key prod --enable-post-process-file"
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
@@ -25,7 +28,8 @@
     "react-dadata": "^2.23.1",
     "react-dom": "18.2.0",
     "react-is": "18.2.0",
-    "styled-components": "5.3.9"
+    "styled-components": "5.3.9",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.5.2",
@@ -43,6 +47,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-sonarjs": "0.18.0",
     "eslint-plugin-unused-imports": "2.0.0",
+    "is-ci": "^3.0.1",
     "prettier": "2.8.4",
     "react-router-dom": "6.8.2",
     "typescript": "4.9.3",

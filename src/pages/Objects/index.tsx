@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { PlusOutlined, DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 import { Space, FloatButton, Card, Col, Row, Popover } from 'antd';
 import Paragraph from 'antd/es/typography/Paragraph';
+import { useApi } from 'shared/hooks/useApi';
 import { TooltipCustom } from 'shared/ui/TooltipCustom';
-
-import { useApi } from '../../app/providers/with-api';
 
 const floatingBtnStyle = {
   right: '10%',
@@ -40,10 +39,10 @@ const Objects = () => {
   const navigate = useNavigate();
 
   const deleteObject = (id: string) => () => {
-    api.partners.partnersControllerRemove({ id }).then(() => {
-      api.partners.partnersControllerFind().then((data: unknown) => {
-        if (data && data?.data?.data) {
-          setObjectsList(data?.data?.data);
+    api.objectsControllerRemove({ id }).then(() => {
+      api.objectsControllerFind().then((data: unknown) => {
+        if (data && data?.data) {
+          setObjectsList(data?.data);
         }
       });
     });
@@ -54,9 +53,9 @@ const Objects = () => {
   };
 
   useEffect(() => {
-    api.partners.partnersControllerFind().then((data: unknown) => {
-      if (data && data?.data?.data) {
-        setObjectsList(data?.data?.data);
+    api.objectsControllerFind().then((data: unknown) => {
+      if (data && data?.data) {
+        setObjectsList(data?.data);
       }
     });
   }, []);

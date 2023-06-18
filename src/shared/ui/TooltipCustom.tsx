@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import AntTooltip from 'antd/es/tooltip';
 import styled from 'styled-components';
 
 import type { TooltipProps } from 'antd/es/tooltip';
 
-const Tooltip: React.FC<TooltipProps> = ({ className, children, overlay, ...restProps }) => (
-  <AntTooltip arrow={{ pointAtCenter: true }} overlay={overlay} overlayClassName={className} {...restProps}>
+const Tooltip: React.FC<TooltipProps> = forwardRef(({ className, children, overlay, ...restProps }, ref) => (
+  <AntTooltip arrow={{ pointAtCenter: true }} overlay={overlay} overlayClassName={className} ref={ref} {...restProps}>
     {children}
   </AntTooltip>
-);
+));
 
 export const TooltipCustom = styled(Tooltip)`
   max-width: 400px !important;

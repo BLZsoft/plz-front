@@ -1,10 +1,22 @@
 import { LogtoConfig } from '@logto/react';
 
-import { API_URL } from './api';
+export enum Resources {
+  API = 'https://пожликбез.рф/api',
+}
+
+export enum Scope {
+  // https://docs.logto.io/docs/recipes/integrate-logto/react/#fetch-user-information
+  Email = 'email',
+  Phone = 'phone',
+
+  // Scope для API
+  ReadAllObjects = 'read-all:objects',
+  WriteAllObjects = 'write-all:objects',
+}
 
 export const logtoConfig: LogtoConfig = {
   endpoint: import.meta.env.VITE_LOGTO_ENDPOINT,
   appId: import.meta.env.VITE_LOGTO_APP_ID,
-  resources: [API_URL],
-  // scopes: Object.values(Scope),
+  resources: Object.values(Resources),
+  scopes: Object.values(Scope),
 };

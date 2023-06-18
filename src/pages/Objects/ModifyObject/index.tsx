@@ -1,19 +1,19 @@
-// @ts-nocheck
 import { useEffect, useState } from 'react';
 
 import { DaDataAddress, DaDataSuggestion } from 'react-dadata';
 import { useParams } from 'react-router-dom';
 
 import { Button, Radio, Form, Input, Select, notification } from 'antd';
+import { CreateObjectDto } from 'services/api';
+import { useApi } from 'shared/hooks/useApi';
 import { DadataGeoPicker } from 'shared/ui/DadataGeoPicker';
 
-import { useApi } from '../../../app/providers/with-api';
 import { getDataByType, getFloorsByType, getAreasByTypeAndFloor, getHeightByTypeAndFloor } from '../utils';
 
 import { default as SP2_DATA } from './data_sp2_.json';
 import { default as F_DATA } from './f_sp2.json';
 
-const makeOptionValue = (data) => `${data.f}#${data.name}`;
+const makeOptionValue = (data: { f: string; name: string }) => `${data.f}#${data.name}`;
 const CATEGORIES = ['А', 'Б', 'В1', 'В2', 'В3', 'В4', 'Г', 'Д'];
 
 const ModifyObject = () => {
@@ -21,7 +21,7 @@ const ModifyObject = () => {
   const [areas, setAreas] = useState([]);
   const [heights, setHeights] = useState([]);
   const [dataByType, setDataByType] = useState([]);
-  const [typeF, setTypeF] = useState(null);
+  const [typeF, setTypeF] = useState<string | null>(null);
   const { id: objectId } = useParams();
   const [form] = Form.useForm();
   const api = useApi();
@@ -34,39 +34,37 @@ const ModifyObject = () => {
     });
   };
   const onFinish = (values: any) => {
-    console.log('Success:', SP2_DATA, values);
-    const createPartnerDto = {
+    const createObjectDto: CreateObjectDto = {
       name: values.name,
-      // type: values.type,
       sp2type: values.sp2.split('#')[0] as string,
       sp2name: values.sp2.split('#')[1] as string,
       sp2questions: '',
-      upFloors: 2,
+      address: 'values.geo',
+      typeOfBuild: values.typeOfBuild,
+      upFloors: Number(values.upFloors),
       isUnderFloor: true,
       underFloors: 2,
-      fireRoomArea: 2222,
+      fireRoomArea: Number(values.fireRoomArea),
       tradeArea: 0,
       blackTradeRooms: true,
-      height: 22,
+      height: Number(values.height) || 9,
       volume: 235,
-      class: 'C01',
+      _class: 'C01',
       degree: 'IV',
     };
 
     if (objectId && objectId === 'new') {
-      api.partners
-        .partnersControllerCreate({
-          createPartnerDto,
-        })
+      api
+        .objectsControllerCreate({ createObjectDto })
         .then(() => {
           openNotification(values.name, 'Объект сохранен');
         })
         .catch(() => console.log('error'));
     } else if (objectId) {
-      api.partners
-        .partnersControllerUpdate({
-          id: objectId,
-          updatePartnerDto: createPartnerDto,
+      api
+        .objectsControllerUpdate({
+          id: Number(objectId),
+          updateObjectDto: createObjectDto,
         })
         .then(() => {
           openNotification(values.name, 'Объект обновлен');
@@ -82,28 +80,15 @@ const ModifyObject = () => {
 
   useEffect(() => {
     if (objectId) {
-      api.partners.partnersControllerFindOne({ id: objectId }).then((data) => {
-        form.setFieldsValue(data?.data);
+      api.objectsControllerFindOne({ id: Number(objectId) }).then((data) => {
+        form.setFieldsValue(data);
       });
     }
   }, [objectId]);
 
-  // const typeF = values?.selectedTopic?.id?.f;
-  // const dataByType = getDataByType(SP2_DATA, typeF);
-  // const currentFloor = values?.objectUpfloors?.value;
-  // const currentArea = values?.objectFireRoomArea?.value;
-  // const currentHeight = values?.objectHeight?.value;
-  // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
-  //   SP2_DATA,
-  //   typeF,
-  //   currentFloor,
-  //   currentArea,
-  //   currentHeight,
-  // );
-  console.log(typeF);
+  console.log(typeF, dataByType);
 
-  const sp2Change = (val) => {
-    // console.log(changed, allValues);
+  const sp2Change = (val: string) => {
     const typeF = val?.split('#')[0];
     const dataByType = getDataByType(SP2_DATA, typeF);
     const floors = getFloorsByType(dataByType);
@@ -113,40 +98,16 @@ const ModifyObject = () => {
     setFloors(floors);
 
     return val;
-    // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
-    //   SP2_DATA,
-    //   typeF,
-    //   currentFloor,
-    //   currentArea,
-    //   currentHeight,
-    // );
   };
-  const floorsChange = (val) => {
-    const areas = getAreasByTypeAndFloor(dataByType, val);
-    setAreas(areas);
+  const floorsChange = (val: number) => {
+    setAreas(getAreasByTypeAndFloor(dataByType, val));
 
     return val;
-    // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
-    //   SP2_DATA,
-    //   typeF,
-    //   currentFloor,
-    //   currentArea,
-    //   currentHeight,
-    // );
   };
-  const areaChange = (val, vals) => {
-    const heights = getHeightByTypeAndFloor(dataByType, vals.objectFloors, val);
-    setHeights(heights);
-    console.log(val, heights, vals);
+  const areaChange = (val: unknown, prevValue: { objectFloors: number }, values: { upFloors: number }) => {
+    setHeights(getHeightByTypeAndFloor(dataByType, values.upFloors, val));
 
     return val;
-    // const [objectClass, objectDegree, objectCategory] = getClassAndDegree(
-    //   SP2_DATA,
-    //   typeF,
-    //   currentFloor,
-    //   currentArea,
-    //   currentHeight,
-    // );
   };
 
   return (
@@ -155,8 +116,8 @@ const ModifyObject = () => {
       name="object"
       size="large"
       labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 800, width: '100%' }}
+      // layout="vertical"
+      style={{ maxWidth: 1024, width: '100%' }}
       initialValues={{ type: 'building' }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -167,7 +128,7 @@ const ModifyObject = () => {
       <Form.Item label="Название объекта" name="name" rules={[{ required: true, message: 'Введите название' }]}>
         <Input />
       </Form.Item>
-      <Form.Item label="Тип здания" name="type">
+      <Form.Item label="Тип здания" name="typeOfBuild">
         <Radio.Group>
           <Radio value="building">Здание</Radio>
           <Radio value="room">Помещение</Radio>
@@ -209,39 +170,41 @@ const ModifyObject = () => {
       <Form.Item
         label="Количество надземных этажей"
         rules={[{ required: true, message: 'Выберите этаж' }]}
-        key="select_objectUpfloors"
-        name="objectUpfloors"
+        key="select_upFloors"
+        name="upFloors"
         normalize={floorsChange}
+        dependencies={['sp2']}
       >
         <Select>
           {floors.map((item) => (
-            <Select.Option id={item} value={item} />
+            <Select.Option id={item} value={item} children={item} />
           ))}
         </Select>
       </Form.Item>
       <Form.Item
         label="Площадь этажа пожарного отсека, м2"
         rules={[{ required: true, message: 'Задайте площадь' }]}
-        key="select_objectFireRoomArea"
-        name="objectFireRoomArea"
+        key="select_fireRoomArea"
+        name="fireRoomArea"
         normalize={areaChange}
+        dependencies={['upFloors']}
       >
         <Select>
           {areas.map((item) => (
-            <Select.Option id={item} value={item} />
+            <Select.Option id={item} value={item} children={item} />
           ))}
         </Select>
       </Form.Item>
       <Form.Item
         label="Высота здания, м"
         rules={[{ required: true, message: 'Задайте высоту' }]}
-        key="select_objectHeight"
-        name="objectHeight"
-        // normalize={heightsChange}
+        key="select_height"
+        name="height"
+        dependencies={['upFloors', 'fireRoomArea']}
       >
         <Select>
           {heights.map((item) => (
-            <Select.Option id={item} value={item} />
+            <Select.Option id={item} value={item} children={item} />
           ))}
         </Select>
       </Form.Item>
@@ -253,7 +216,7 @@ const ModifyObject = () => {
       >
         <Select>
           {CATEGORIES.map((item) => (
-            <Select.Option id={item} value={item} />
+            <Select.Option id={item} value={item} children={item} />
           ))}
         </Select>
       </Form.Item>
@@ -267,3 +230,18 @@ const ModifyObject = () => {
 };
 
 export default ModifyObject;
+
+// .string('name')
+// .string('sp2type')
+// .string('sp2name')
+// .string('sp2questions')
+// .int('upFloors')
+// .boolean('isUnderFloor')
+// .int('underFloors')
+// .float('fireRoomArea')
+// .float('tradeArea')
+// .boolean('blackTradeRooms')
+// .float('height')
+// .float('volume')
+// .string('class')
+// .string('degree');

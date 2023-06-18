@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Button from 'antd/es/button';
 import Paragraph from 'antd/es/typography/Paragraph';
-
-import { useApi } from '../../app/providers/with-api';
+import { useApi } from 'shared/hooks/useApi';
 
 import { calcsPaths } from './routes';
 
@@ -14,9 +13,7 @@ const Objects = () => {
 
   const api = useApi();
 
-  useEffect(() => {
-    api.partners.partnersControllerFind().then((d: unknown) => console.log(d));
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div>
