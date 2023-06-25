@@ -6,7 +6,7 @@ import styled from 'styled-components';
 type Props = {
   title: string;
   icon: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 };
 export const MenuItem: FC<Props> = ({ icon, onClick, title }) => {
   return (
@@ -27,6 +27,8 @@ export const StyledOverlayItem = styled.div`
   padding-left: 18px;
   width: calc(100% - 18px);
   align-items: center;
+
+  color: black;
 
   cursor: pointer;
 

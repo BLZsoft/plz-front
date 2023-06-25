@@ -186,6 +186,8 @@ const ModifyObject = () => {
         rules={[{ required: true, message: 'Задайте площадь' }]}
         key="select_fireRoomArea"
         name="fireRoomArea"
+        // FIXME: @a.dudnikov
+        // @ts-ignore
         normalize={areaChange}
         dependencies={['upFloors']}
       >

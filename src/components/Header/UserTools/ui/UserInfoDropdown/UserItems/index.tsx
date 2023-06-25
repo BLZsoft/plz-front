@@ -1,20 +1,19 @@
-import { Dispatch } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Logout, Edit } from '@styled-icons/material';
 import { useUserInfo } from 'app/providers/with-user-info';
+import { profilePaths } from 'pages/Profile/routes';
 
 import { MenuItem } from './MenuItem';
 
-type Props = {
-  setModal: Dispatch<boolean>;
-};
-
-export function UserItems({ setModal }: Props) {
+export function UserItems() {
   const { signOut } = useUserInfo();
 
   return (
     <>
-      <MenuItem title={'Редактировать'} icon={<Edit height={24} width={24} />} onClick={() => setModal(true)} />
+      <Link to={profilePaths.index}>
+        <MenuItem title={'Редактировать'} icon={<Edit height={24} width={24} />} />
+      </Link>
       <MenuItem title={'Выйти'} icon={<Logout height={24} width={24} color="red" />} onClick={signOut} />
     </>
   );
