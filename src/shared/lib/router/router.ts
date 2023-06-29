@@ -2,13 +2,22 @@ import { createHistoryRouter } from 'atomic-router';
 import { sample } from 'effector';
 import { createBrowserHistory } from 'history';
 
-import { appStarted } from '~/shared/config/init';
-import { routing } from '~/shared/config/routing';
+import { appStarted } from '~/shared/lib/lifecycle';
 
-import { controls } from './controls.ts';
+import { controls } from './controls';
+import { routes } from './routes';
 
 export const router = createHistoryRouter({
-  routes: routing,
+  routes: [
+    {
+      path: '/',
+      route: routes.home,
+    },
+    {
+      path: '/logto/callback',
+      route: routes.logto.callback,
+    },
+  ],
   controls,
 });
 

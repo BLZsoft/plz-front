@@ -1,10 +1,10 @@
 import { Layout } from '~/pages/layout';
 
 import { route } from './model';
-import { HomePageView } from './view';
+import { LogtoCallbackView } from './view';
 
-export const HomePage = {
+export const LogtoCallbackPage = {
   route,
-  view: HomePageView,
+  view: LogtoCallbackView,
   layout: Layout,
 };

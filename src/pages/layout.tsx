@@ -1,20 +1,10 @@
-import { FC, PropsWithChildren, useEffect } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
-import { Link } from 'atomic-router-react';
+import { Header } from '~/widgets/header';
 
-import { routes } from '~/shared/lib/routes';
-
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
-  useEffect(() => {
-    console.log('Layout mounted');
-  }, []);
-
-  return (
-    <>
-      <header>
-        Some header <Link to={routes.another}>Go To another</Link>
-      </header>
-      {children}
-    </>
-  );
-};
+export const Layout: FC<PropsWithChildren> = ({ children }) => (
+  <>
+    <Header />
+    {children}
+  </>
+);

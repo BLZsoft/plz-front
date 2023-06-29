@@ -1,9 +1,8 @@
 import { createRoutesView } from 'atomic-router-react';
 
-import { AnotherPage } from './another';
 import { HomePage } from './home';
-import { Layout } from './layout.tsx';
+import { LogtoCallbackPage } from './logto/callback';
 
 export const Pages = createRoutesView({
-  routes: [HomePage, AnotherPage].map((r) => ({ ...r, layout: Layout })),
+  routes: [HomePage, LogtoCallbackPage],
 });

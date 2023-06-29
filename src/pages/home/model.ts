@@ -1,3 +1,3 @@
-import { routes } from '~/shared/lib/routes';
+import { routes } from '~/shared/lib/router';
 
 export const route = routes.home;

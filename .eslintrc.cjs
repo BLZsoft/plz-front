@@ -30,10 +30,13 @@ module.exports = {
       { type: 'shared', pattern: 'shared/*' },
     ],
     'boundaries/ignore': ['**/*.test.*'],
+    tailwindcss: {
+      config: 'tailwind.config.cjs',
+    },
   },
-  plugins: ['react-refresh'],
+  plugins: ['filename-rules'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
+    'filename-rules/match': ['error', 'kebab-case'],
     'import/order': [
       'error',
       {
@@ -95,7 +98,7 @@ module.exports = {
           },
           {
             message: 'Private imports are prohibited, use public imports instead',
-            group: ['~/features/*/**'],
+            group: ['~/features/*/*/**'],
           },
           {
             message: 'Private imports are prohibited, use public imports instead',
@@ -137,7 +140,7 @@ module.exports = {
       },
     ],
     'boundaries/element-types': [
-      'warn',
+      'error',
       {
         default: 'disallow',
         rules: [
