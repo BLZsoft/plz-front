@@ -1,9 +1,6 @@
-import flowRight from 'lodash/flowRight';
+import compose from 'compose-function'
 
-import { withApi } from './with-api';
-import { withLogto } from './with-logto';
-import { withStrictMode } from './with-strict-mode';
-import { withThemeConfig } from './with-theme-config';
-import { withUserInfo } from './with-user-info';
+import {withStrictMode} from "./with-strict-mode.tsx";
+import {withRouter} from "./with-router.tsx";
 
-export const withProviders = flowRight(withStrictMode, withLogto, withUserInfo, withApi, withThemeConfig);
+export const withProviders = compose(withStrictMode, withRouter)
