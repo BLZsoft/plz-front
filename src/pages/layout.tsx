@@ -5,6 +5,6 @@ import { Header } from '~/widgets/header';
 export const Layout: FC<PropsWithChildren> = ({ children }) => (
   <>
     <Header />
-    {children}
+    <div className={'container py-8'}>{children}</div>
   </>
 );

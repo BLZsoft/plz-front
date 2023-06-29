@@ -14,6 +14,10 @@ export const router = createHistoryRouter({
       route: routes.home,
     },
     {
+      path: '/profile',
+      route: routes.profile,
+    },
+    {
       path: '/logto/callback',
       route: routes.logto.callback,
     },
