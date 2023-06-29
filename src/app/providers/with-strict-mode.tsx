@@ -1,11 +1,13 @@
-import {FC, StrictMode} from "react";
+import { FC, StrictMode } from 'react';
 
 export const withStrictMode = (App: FC) => {
-  const WithStrictMode = () => <StrictMode>
-    <App/>
-  </StrictMode>
+  const WithStrictMode = () => (
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
 
-  WithStrictMode.displayName = 'WithStrictMode'
-  
-  return WithStrictMode
-}
+  WithStrictMode.displayName = 'WithStrictMode';
+
+  return WithStrictMode;
+};

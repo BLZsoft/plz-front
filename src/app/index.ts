@@ -1,5 +1,5 @@
-import {Pages} from '~/pages'
+import { Pages } from '~/pages';
 
-import {withProviders} from './providers'
+import { withProviders } from './providers';
 
-export const App = withProviders(Pages)
+export const App = withProviders(Pages);

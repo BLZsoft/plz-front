@@ -4,11 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "is-ci || husky install",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "pnpm test:typescript && pnpm test:lint && pnpm test:prettier",
+    "test:typescript": "tsc --noEmit",
+    "test:lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "test:prettier": "prettier . --ignore-unknown"
   },
   "dependencies": {
+    "@logto/browser": "^2.1.0",
     "atomic-router": "^0.8.0",
     "atomic-router-react": "^0.8.3",
     "compose-function": "^3.0.3",
@@ -19,6 +25,9 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "@nabla/vite-plugin-eslint": "^1.5.0",
     "@types/compose-function": "^0.0.30",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
@@ -26,10 +35,27 @@
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "eslint": "^8.38.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-boundaries": "^3.1.1",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "husky": "^8.0.3",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^13.2.3",
+    "prettier": "^2.8.8",
+    "tailwindcss-vite-plugin": "^0.0.7",
     "typescript": "^5.0.2",
     "vite": "^4.3.9",
+    "vite-plugin-pwa": "^0.16.4",
     "vite-tsconfig-paths": "^4.2.0"
+  },
+  "packageManager": "pnpm@8.6.0",
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

@@ -1,7 +1,7 @@
-import {route} from './model.ts'
-import {HomePageView} from "./view.tsx";
+import { route } from './model.ts';
+import { HomePageView } from './view.tsx';
 
 export const HomePage = {
-    route,
-    view: HomePageView
-}
+  route,
+  view: HomePageView,
+};

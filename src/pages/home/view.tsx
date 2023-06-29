@@ -1,1 +1,1 @@
-export const HomePageView = () => <h1>Home page</h1>
+export const HomePageView = () => <h1>Home page</h1>;

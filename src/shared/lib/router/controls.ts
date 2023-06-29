@@ -1,3 +1,3 @@
-import {createRouterControls} from "atomic-router";
+import { createRouterControls } from 'atomic-router';
 
-export const controls = createRouterControls()
+export const controls = createRouterControls();

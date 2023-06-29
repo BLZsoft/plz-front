@@ -1,10 +1,11 @@
-import {createRoot} from 'react-dom/client'
+import { createRoot } from 'react-dom/client';
 
-import {App} from "~/app";
-import {appStarted} from "~/shared/config/init";
+import { App } from '~/app';
 
-const container = document.getElementById('root') as HTMLElement
-const root = createRoot(container)
+import { appStarted } from '~/shared/config/init';
 
-appStarted()
-root.render(<App/>)
+const container = document.getElementById('root') as HTMLElement;
+const root = createRoot(container);
+
+appStarted();
+root.render(<App />);

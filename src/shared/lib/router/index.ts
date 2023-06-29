@@ -1,1 +1,1 @@
-export {router} from './router.ts'
+export { router } from './router.ts';
