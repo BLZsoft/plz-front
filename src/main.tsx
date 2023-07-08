@@ -1,15 +1,13 @@
-import React from 'react';
+import { attachLogger } from 'effector-logger';
+import { createRoot } from 'react-dom/client';
 
-import { BrowserRouter } from 'react-router-dom';
+import { App } from '~/app';
 
-import ReactDOM from 'react-dom/client';
+import { appStarted } from '~/shared/lib/lifecycle';
 
-import { App } from './app';
+const container = document.getElementById('root') as HTMLElement;
+const root = createRoot(container);
 
-import './index.css';
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-);
+attachLogger();
+appStarted();
+root.render(<App />);

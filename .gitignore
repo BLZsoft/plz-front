@@ -11,18 +11,15 @@ node_modules
 dist
 dist-ssr
 *.local
+.eslintcache
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.eslintcache
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-.env*
-!.env.example
