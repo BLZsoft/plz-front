@@ -5,7 +5,7 @@
   "tailwind": {
     "config": "tailwind.config.cjs",
     "css": "./src/app/globals.css",
-    "baseColor": "red",
+    "baseColor": "zinc",
     "cssVariables": false
   },
   "aliases": {

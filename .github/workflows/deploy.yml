@@ -31,14 +31,18 @@ jobs:
           cache: 'pnpm'
 
       - name: 'Install dependencies'
-        run: pnpm install --ignore-scripts
+        run: pnpm install
+        env:
+          SUPABASE_DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
 
       - name: 'Build'
         env:
-          VITE_APP_URL: ${{ vars.APP_URL }}
-          VITE_API_URL: ${{ vars.API_URL }}
-          VITE_LOGTO_ENDPOINT: ${{ vars.LOGTO_ENDPOINT }}
-          VITE_LOGTO_APP_ID: ${{ vars.LOGTO_APP_ID }}
+          VITE_APP_URL: ${{ vars.VITE_APP_URL }}
+          VITE_LOGTO_ENDPOINT: ${{ vars.VITE_LOGTO_ENDPOINT }}
+          VITE_LOGTO_APP_ID: ${{ vars.VITE_LOGTO_APP_ID }}
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+
         run: pnpm build --base ${{ secrets.CDN_ENDPOINT }}
 
       - name: 'Upload build'
