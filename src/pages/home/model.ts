@@ -1,31 +1,23 @@
-import { createEffect, createStore, sample } from 'effector';
+import { chainRoute } from 'atomic-router';
+import { undefined } from 'zod';
 
 import { chainAuthenticated } from '~/features/authn/protected-routes';
 
+import { objectsModel } from '~/entities/objects';
+
 import { routes } from '~/shared/lib/router';
-import { Database, getAuthnSupabase } from '~/shared/lib/supabase';
 
 export const currentRoute = routes.home;
 
 export const authenticatedRoute = chainAuthenticated(currentRoute);
 
-export type Todo = Database['public']['Tables']['todo']['Row'];
-
-const fetchDataFx = createEffect<void, Todo[]>(async () => {
-  const supabaseClient = await getAuthnSupabase();
-
-  const { data } = await supabaseClient.from('todo').select();
-
-  if (!data) {
-    throw new Error('data is empty');
-  }
-
-  return data;
+export const dataLoadedRoute = chainRoute({
+  route: authenticatedRoute,
+  beforeOpen: {
+    effect: objectsModel.fetchObjectsFx,
+    mapParams: () => undefined,
+  },
+  openOn: objectsModel.fetchObjectsFx.doneData,
 });
 
-export const $data = createStore<Todo[]>([]).on(fetchDataFx.doneData, (_, payload) => payload);
-
-sample({
-  clock: authenticatedRoute.opened,
-  target: fetchDataFx,
-});
+export const $data = objectsModel.$objects;

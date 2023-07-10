@@ -10,6 +10,8 @@ import { Database } from './database.types';
 export const anonSupabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 export const getAuthnSupabase = async (): Promise<SupabaseClient<Database>> => {
+  return anonSupabase;
+
   const authenticated = await logtoClient.isAuthenticated();
 
   if (authenticated) {
