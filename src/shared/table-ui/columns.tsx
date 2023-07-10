@@ -34,7 +34,7 @@ export const columns: ColumnDef<ObjectType>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
+    cell: () => {
 
       return (
         <DropdownMenu>
