@@ -16,3 +16,5 @@ export const HomePageView: FC<Props> = ({ data }) => (
     </div>
   </>
 );
+
+export const HomePageLoader = () => <h1>Загрузка...</h1>;
