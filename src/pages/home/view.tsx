@@ -1,15 +1,18 @@
 import { FC } from 'react';
 
-import { Todo } from './model';
+import { ObjectsTable } from '~/widgets/objectsTable';
+
+import { ObjectType } from '~/shared/api/objects';
+import { columns } from '~/shared/table-ui/columns';
 
 type Props = {
-  data: Todo[];
+  data: ObjectType[];
 };
 
 export const HomePageView: FC<Props> = ({ data }) => (
   <>
-    {data?.map((t) => (
-      <h1 key={t.id}>{t.name}</h1>
-    ))}
+    <div className="container mx-auto py-10">
+      <ObjectsTable data={data} columns={columns} />
+    </div>
   </>
 );
