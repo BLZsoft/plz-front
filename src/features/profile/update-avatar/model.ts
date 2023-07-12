@@ -3,7 +3,7 @@ import { createEffect, sample } from 'effector';
 import { viewerModel } from '~/entities/viewer';
 
 import { profileApi } from '~/shared/api/profile';
-import { getAuthnSupabase } from '~/shared/lib/supabase';
+import { supabaseManager } from '~/shared/lib/supabase';
 import { uuid } from '~/shared/lib/utils';
 
 export const updateAvatarFx = createEffect<Blob | null, string>(async (newAvatar) => {
@@ -16,7 +16,7 @@ export const updateAvatarFx = createEffect<Blob | null, string>(async (newAvatar
     throw new Error('Can not get current user id');
   }
 
-  const supabaseClient = await getAuthnSupabase();
+  const supabaseClient = await supabaseManager.getClient();
 
   const fileName = uuid();
   const { data: uploadResult, error } = await supabaseClient.storage

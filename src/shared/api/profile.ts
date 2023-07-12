@@ -2,7 +2,7 @@
 import { UserInfoResponse } from '@logto/browser';
 
 import { logtoClient } from '~/shared/lib/logto';
-import { getAuthnSupabase } from '~/shared/lib/supabase';
+import { supabaseManager } from '~/shared/lib/supabase';
 import { Nullable } from '~/shared/lib/utils';
 
 export type Profile = UserInfoResponse;
@@ -37,7 +37,7 @@ function fetchProfile() {
 }
 
 async function updateProfile(updateProfileDto: UpdateProfileDto): Promise<UpdateProfileResponse> {
-  const supabaseClient = await getAuthnSupabase();
+  const supabaseClient = await supabaseManager.getClient();
 
   const { data, error } = await supabaseClient.functions.invoke('updateProfile', {
     body: updateProfileDto,
