@@ -6,8 +6,6 @@ import { SupabaseSessionManager } from './supabase-session-manager';
 import { LogtoSupabaseSessionProvider } from './supabase-session-manager/session-provider/logto';
 import { LocalStorageSupabaseSessionStorage } from './supabase-session-manager/session-storage/local-storage';
 
-// TODO: @d.tankov — сохранять supabase токен в localStorage и переиспользовать клиент (как logtoClient)
-
 export const supabaseManager = new SupabaseSessionManager<Database>({
   supabaseUrl: SUPABASE_URL,
   supabaseAnonKey: SUPABASE_ANON_KEY,
