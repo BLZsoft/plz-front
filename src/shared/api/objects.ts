@@ -1,4 +1,4 @@
-import { Database, getAuthnSupabase } from '~/shared/lib/supabase';
+import { Database, supabaseManager } from '~/shared/lib/supabase';
 
 export type Organization = {
   id: string;
@@ -11,7 +11,7 @@ export type ObjectType = Database['public']['Tables']['objects']['Row'];
 export type ObjectTypeResponse = ObjectType[];
 
 async function fetchObjects(): Promise<ObjectTypeResponse> {
-  const supabaseClient = await getAuthnSupabase();
+  const supabaseClient = await supabaseManager.getClient();
 
   const { data, error } = await supabaseClient.from('objects').select();
   if (error) {
