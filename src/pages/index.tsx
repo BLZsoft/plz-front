@@ -1,10 +1,10 @@
 import { createRoutesView } from 'atomic-router-react';
 
-import { ProfilePage } from '~/pages/profile';
-
 import { HomePage } from './home';
 import { LogtoCallbackPage } from './logto/callback';
+import { OrganizationsPage } from './organizations';
+import { ProfilePage } from './profile';
 
 export const Pages = createRoutesView({
-  routes: [HomePage, ProfilePage, LogtoCallbackPage],
+  routes: [HomePage, ProfilePage, OrganizationsPage, LogtoCallbackPage],
 });

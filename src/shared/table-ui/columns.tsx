@@ -1,8 +1,8 @@
-import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal, ArrowUpDown } from "lucide-react"
+import { ColumnDef } from '@tanstack/react-table';
+import { MoreHorizontal, ArrowUpDown } from 'lucide-react';
 
-import { ObjectType } from "~/shared/api/objects";
-import { Button } from "~/shared/ui/button"
+import { ObjectType } from '~/shared/api/objects';
+import { Button } from '~/shared/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,32 +10,27 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/shared/ui/dropdown-menu"
-
+} from '~/shared/ui/dropdown-menu';
 
 export const columns: ColumnDef<ObjectType>[] = [
   {
-    accessorKey: "name",
+    accessorKey: 'name',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Название
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
-    accessorKey: "address",
-    header: "Адрес",
+    accessorKey: 'address',
+    header: 'Адрес',
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: () => {
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -53,7 +48,7 @@ export const columns: ColumnDef<ObjectType>[] = [
             <DropdownMenuItem>Удалить объект</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

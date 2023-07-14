@@ -1,8 +1,5 @@
-// TODO: @d.tankov — API Layer should be effector effects
 import { UserInfoResponse } from '@logto/browser';
 
-import { logtoClient } from '~/shared/lib/logto';
-import { supabaseManager } from '~/shared/lib/supabase';
 import { Nullable } from '~/shared/lib/utils';
 
 export type Profile = UserInfoResponse;
@@ -30,27 +27,4 @@ export type UpdateProfileResponse = {
   applicationId: Nullable<string>;
   isSuspended: boolean;
   hasPassword: boolean;
-};
-
-function fetchProfile() {
-  return logtoClient.fetchUserInfo();
-}
-
-async function updateProfile(updateProfileDto: UpdateProfileDto): Promise<UpdateProfileResponse> {
-  const supabaseClient = await supabaseManager.getClient();
-
-  const { data, error } = await supabaseClient.functions.invoke('updateProfile', {
-    body: updateProfileDto,
-  });
-
-  if (error) {
-    throw error;
-  }
-
-  return data as UpdateProfileResponse;
-}
-
-export const profileApi = {
-  fetchProfile,
-  updateProfile,
 };

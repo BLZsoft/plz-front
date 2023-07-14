@@ -1,9 +1,11 @@
 import { FC } from 'react';
 
-import { CreditCard, LogOut, User } from 'lucide-react';
+import { Link } from 'atomic-router-react';
+import { CreditCard, LogOut, User, Users } from 'lucide-react';
 
 import { ViewerAvatar } from '~/entities/viewer';
 
+import { routes } from '~/shared/lib/router';
 import { Button } from '~/shared/ui/button';
 import {
   DropdownMenu,
@@ -16,10 +18,9 @@ import {
 
 type Props = {
   onSignOut: () => void;
-  onProfile: () => void;
 };
 
-export const ProfileMenuView: FC<Props> = ({ onSignOut, onProfile }) => (
+export const ProfileMenuView: FC<Props> = ({ onSignOut }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button variant="ghost" className={'h-12 w-12'}>
@@ -32,15 +33,26 @@ export const ProfileMenuView: FC<Props> = ({ onSignOut, onProfile }) => (
 
       <DropdownMenuSeparator />
 
-      <DropdownMenuItem onClick={onProfile}>
-        <User className="mr-2 h-4 w-4" />
-        <span>Профиль</span>
-      </DropdownMenuItem>
+      <Link to={routes.profile}>
+        <DropdownMenuItem>
+          <User className="mr-2 h-4 w-4" />
+          <span>Профиль</span>
+        </DropdownMenuItem>
+      </Link>
 
       <DropdownMenuItem>
         <CreditCard className="mr-2 h-4 w-4" />
         <span>Оплата</span>
       </DropdownMenuItem>
+
+      <DropdownMenuSeparator />
+
+      <Link to={routes.organizations}>
+        <DropdownMenuItem>
+          <Users className="mr-2 h-4 w-4" />
+          <span>Организации</span>
+        </DropdownMenuItem>
+      </Link>
 
       <DropdownMenuSeparator />
 
