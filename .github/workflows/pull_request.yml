@@ -1,0 +1,43 @@
+name: 'Pull request'
+run-name: 'Pull request: #${{ github.event.pull_request.number }} by ${{ github.actor }}'
+
+on:
+  pull_request:
+    branches: [master]
+
+concurrency:
+  group: 'pr-${{ github.event.pull_request.number }}'
+  cancel-in-progress: true
+
+jobs:
+  code-quality:
+    name: 'Code quality'
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+
+      - name: 'Install pnpm'
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - name: 'Install Node.js'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: 'Install dependencies'
+        run: pnpm install --frozen-lockfile
+        env:
+          SUPABASE_DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
+
+      - name: 'Check TS'
+        run: pnpm test:typescript
+
+      - name: 'Check ESLint'
+        run: pnpm test:lint
+
+      - name: 'Check Prettier'
+        run: pnpm test:prettier --check

@@ -31,7 +31,7 @@ jobs:
           cache: 'pnpm'
 
       - name: 'Install dependencies'
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
         env:
           SUPABASE_DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
 
@@ -42,6 +42,7 @@ jobs:
           VITE_LOGTO_APP_ID: ${{ vars.VITE_LOGTO_APP_ID }}
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+          VITE_DADATA_API_KEY: ${{ secrets.VITE_DADATA_API_KEY }}
 
         run: pnpm build --base ${{ secrets.CDN_ENDPOINT }}
 
