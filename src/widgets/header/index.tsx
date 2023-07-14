@@ -1,6 +1,6 @@
 import { Link } from 'atomic-router-react';
 
-import { OrganizationSelectActive } from '~/features/organization/select-active';
+import { OrganizationSelect } from '~/features/organization/select';
 
 import Logo from '~/shared/assets/logo.svg';
 import { routes } from '~/shared/lib/router';
@@ -16,7 +16,7 @@ export const Header = () => (
           <span className={'hidden sm:inline-block'}>Пожликбез</span>
         </Link>
 
-        <OrganizationSelectActive />
+        <OrganizationSelect />
       </div>
 
       <div className={'flex h-full items-center space-x-2'}>

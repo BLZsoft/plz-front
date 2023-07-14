@@ -5,13 +5,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 import { Skeleton } from '~/shared/ui/skeleton';
 
 export type Props = {
-  current: string | null;
-  options: Organization[] | null;
+  loading: boolean;
+  current: string;
+  options: Organization[];
   onChange: (org: string) => void;
 };
 
-export const View: FC<Props> = ({ current, options, onChange }) =>
-  !current ? (
+export const View: FC<Props> = ({ loading, current, options, onChange }) =>
+  loading ? (
     <Skeleton className="h-4 w-[250px]" />
   ) : (
     <Select value={current} onValueChange={onChange}>

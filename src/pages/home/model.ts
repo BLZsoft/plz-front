@@ -1,7 +1,8 @@
-import { chainRoute } from 'atomic-router';
-import { undefined } from 'zod';
+import { chainRoute, RouteParams, RouteParamsAndQuery } from 'atomic-router';
+import { createEvent, sample } from 'effector';
 
 import { chainAuthenticated } from '~/features/authn/protected-routes';
+import { selectOrganizationModel } from '~/features/organization/select';
 
 import { objectsModel } from '~/entities/objects';
 
@@ -11,13 +12,26 @@ export const currentRoute = routes.home;
 
 export const authenticatedRoute = chainAuthenticated(currentRoute);
 
+const dataLoadStarted = createEvent<RouteParamsAndQuery<RouteParams>>();
+
+sample({
+  clock: dataLoadStarted,
+  source: selectOrganizationModel.$selectedOrganizationId,
+  fn: (id) => ({ organizationId: id }),
+  target: objectsModel.fetchObjectsFx,
+});
+
 export const dataLoadedRoute = chainRoute({
   route: authenticatedRoute,
-  beforeOpen: {
-    effect: objectsModel.fetchObjectsFx,
-    mapParams: () => undefined,
-  },
+  beforeOpen: dataLoadStarted,
   openOn: objectsModel.fetchObjectsFx.doneData,
+});
+
+sample({
+  source: selectOrganizationModel.$selectedOrganizationId,
+  filter: currentRoute.$isOpened,
+  fn: (id) => ({ organizationId: id }),
+  target: objectsModel.fetchObjectsFx,
 });
 
 export const $data = objectsModel.$objects;

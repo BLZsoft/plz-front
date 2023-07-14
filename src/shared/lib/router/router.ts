@@ -18,6 +18,14 @@ export const router = createHistoryRouter({
       route: routes.profile,
     },
     {
+      path: '/organizations',
+      route: routes.organizations,
+    },
+    {
+      path: '/organizations/:organizationId',
+      route: routes.organizationDetailsPage,
+    },
+    {
       path: '/logto/callback',
       route: routes.logto.callback,
     },
