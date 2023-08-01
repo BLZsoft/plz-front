@@ -1,8 +1,9 @@
 import { reflect } from '@effector/reflect';
 import { createRouteView } from 'atomic-router-react';
 
+import { ProfilePageLayout } from './layout';
 import { $defaultValues, authenticatedRoute, currentRoute } from './model';
-import { ProfilePageLayout, ProfilePageLoader, ProfilePageView } from './view';
+import { ProfilePageLoader, ProfilePageView } from './view';
 
 export const ProfilePage = {
   route: currentRoute,

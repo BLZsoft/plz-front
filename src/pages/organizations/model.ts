@@ -7,7 +7,7 @@ import { organizationsModel } from '~/entities/organizations';
 
 import { routes } from '~/shared/lib/router';
 
-export const currentRoute = routes.organizations;
+export const currentRoute = routes.organizations.root;
 
 export const authenticatedRoute = chainAuthenticated(currentRoute);
 

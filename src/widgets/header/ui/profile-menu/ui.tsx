@@ -47,7 +47,7 @@ export const ProfileMenuView: FC<Props> = ({ onSignOut }) => (
 
       <DropdownMenuSeparator />
 
-      <Link to={routes.organizations}>
+      <Link to={routes.organizations.home}>
         <DropdownMenuItem>
           <Users className="mr-2 h-4 w-4" />
           <span>Организации</span>
