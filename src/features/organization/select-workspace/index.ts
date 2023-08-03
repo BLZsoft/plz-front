@@ -1,5 +1,6 @@
 import { reflect } from '@effector/reflect';
 import { combine } from 'effector';
+import { and, not } from 'patronum';
 
 import { organizationsModel } from '~/entities/organizations';
 
@@ -8,7 +9,10 @@ import { Props, View } from './ui';
 
 const PERSONAL_ID = 'personal';
 
-const $loading = organizationsModel.getAvailableOrganizationsFx.pending;
+const $loading = and(
+  not(organizationsModel.$availableOrganizations.map((orgs) => orgs.length)),
+  organizationsModel.getAvailableOrganizationsFx.pending,
+);
 
 const $current = selectOrganizationModel.$selectedOrganizationId.map((v) => v ?? PERSONAL_ID);
 

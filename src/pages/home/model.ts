@@ -2,7 +2,7 @@ import { chainRoute, RouteParams, RouteParamsAndQuery } from 'atomic-router';
 import { createEvent, sample } from 'effector';
 
 import { chainAuthenticated } from '~/features/authn/protected-routes';
-import { selectOrganizationModel } from '~/features/organization/select';
+import { selectOrganizationModel } from '~/features/organization/select-workspace';
 
 import { objectsModel } from '~/entities/objects';
 
