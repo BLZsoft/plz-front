@@ -1,3 +1,4 @@
+// TODO: @d.tankov — разделить "organizations" на "workspaces" и "organizations"
 import { reflect } from '@effector/reflect';
 import { combine } from 'effector';
 import { and, not } from 'patronum';

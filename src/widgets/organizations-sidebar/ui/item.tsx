@@ -1,27 +1,35 @@
-import { FC } from 'react';
+import { PropsWithChildren } from 'react';
 
+import { RouteInstance, RouteParams } from 'atomic-router';
 import { Link } from 'atomic-router-react';
 import { clsx } from 'clsx';
 
-import { routes } from '~/shared/lib/router';
-
-type Props = {
-  id: string;
-  name: string;
+type Props<Params extends RouteParams = RouteParams> = PropsWithChildren<{
+  to: RouteInstance<Params>;
+  params?: Params;
   isActive?: boolean;
-};
+  className?: string;
+}>;
 
-export const OrganizationsSidebarItem: FC<Props> = ({ id, name, isActive }) => {
+export const OrganizationsSidebarItem = <Params extends RouteParams>({
+  to,
+  params,
+  isActive,
+  className,
+  children,
+}: Props<Params>) => {
   return (
     <Link
-      to={routes.organizations.details}
-      params={{ organizationId: id }}
+      to={to}
+      params={params}
       className={clsx(
-        'block w-full p-4 text-left transition-colors hover:bg-red-600 hover:text-white',
-        isActive && 'bg-red-500 text-white',
+        'flex w-full items-center px-2 py-4 text-left transition-colors hover:text-white  md:p-4',
+        !isActive && 'hover:bg-red-500',
+        isActive && 'bg-red-500 text-white hover:bg-red-600',
+        className,
       )}
     >
-      {name}
+      {children}
     </Link>
   );
 };

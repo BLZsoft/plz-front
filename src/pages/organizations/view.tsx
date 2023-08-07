@@ -21,7 +21,7 @@ export const OrganizationsPageView: FC<Props> = ({ data, ChildRoutes }) => {
       <div className={'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3'}>
         <OrganizationsSidebar organizations={data} className={clsx(!isHomePage && 'hidden md:block')} />
 
-        <main className={clsx('col-span-1 min-h-[600px] xl:col-span-2', isHomePage && 'hidden md:block')}>
+        <main className={clsx('col-span-1 min-h-[600px] p-0 md:p-4 xl:col-span-2', isHomePage && 'hidden md:block')}>
           <ChildRoutes />
         </main>
       </div>

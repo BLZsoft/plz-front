@@ -1,26 +1,39 @@
 import { FC, PropsWithChildren } from 'react';
 
+import { clsx } from 'clsx';
+
 // https://ui.shadcn.com/docs/components/typography#p
 
-const H1: FC<PropsWithChildren> = ({ children }) => (
-  <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">{children}</h1>
+type Props = PropsWithChildren<{
+  className?: string;
+}>;
+
+const H1: FC<Props> = ({ children, className }) => (
+  <h1 className={clsx('scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl', className)}>{children}</h1>
 );
 
-const H2: FC<PropsWithChildren> = ({ children }) => (
-  <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+const H2: FC<Props> = ({ children, className }) => (
+  <h2
+    className={clsx(
+      'scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0',
+      className,
+    )}
+  >
     {children}
   </h2>
 );
 
-const H3: FC<PropsWithChildren> = ({ children }) => (
-  <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">{children}</h3>
+const H3: FC<Props> = ({ children, className }) => (
+  <h3 className={clsx('scroll-m-20 text-2xl font-semibold tracking-tight', className)}>{children}</h3>
 );
 
-const H4: FC<PropsWithChildren> = ({ children }) => (
-  <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">{children}</h4>
+const H4: FC<Props> = ({ children, className }) => (
+  <h4 className={clsx('scroll-m-20 text-xl font-semibold tracking-tight', className)}>{children}</h4>
 );
 
-const P: FC<PropsWithChildren> = ({ children }) => <p className="leading-7 [&:not(:first-child)]:mt-6">{children}</p>;
+const P: FC<Props> = ({ children, className }) => (
+  <p className={clsx('leading-7 [&:not(:first-child)]:mt-6', className)}>{children}</p>
+);
 
 export const Typography = {
   H1,

@@ -1,7 +1,7 @@
 import { currentRoute } from './model';
-import { OrganizationDetailsPageView } from './view';
+import { OrganizationCreatePageView } from './view';
 
-export const OrganizationDetailPage = {
+export const OrganizationCreatePage = {
   route: currentRoute,
-  view: OrganizationDetailsPageView,
+  view: OrganizationCreatePageView,
 };
