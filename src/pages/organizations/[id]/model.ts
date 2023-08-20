@@ -4,7 +4,8 @@ import { combine, createEffect, createEvent, createStore, sample } from 'effecto
 import { organizationsModel } from '~/entities/organizations';
 import { viewerModel } from '~/entities/viewer';
 
-import { Membership, organizationsApi } from '~/shared/api/organizations';
+import { MemberData, Membership, organizationsApi } from '~/shared/api/organizations';
+import { usersApi } from '~/shared/api/users';
 import { routes } from '~/shared/lib/router';
 
 export const currentRoute = routes.organizations.details;
@@ -15,20 +16,38 @@ export const $organization = combine(
   ({ organizationId }, organizations) => organizations.find((org) => org.id === organizationId),
 );
 
-const requestMembersFx = createEffect<string, Membership[]>((organizationId) =>
-  organizationsApi.fetchMembers(organizationId),
+const requestMembershipsFx = createEffect<string, Membership[]>((organizationId) =>
+  organizationsApi.fetchMemberships(organizationId),
 );
 
-export const $members = createStore<Membership[] | null>(null)
-  .on(requestMembersFx.doneData, (_, payload) => payload)
-  .on(requestMembersFx.failData, () => null);
+const requestMembersDataFx = createEffect<Membership[], MemberData[]>((memberships) =>
+  Promise.all(
+    memberships.map((m) =>
+      usersApi.getUserByFields({ id: m.user_id }).then((r) => ({
+        ...r[0],
+        role: m.role,
+      })),
+    ),
+  ),
+);
+
+sample({
+  source: requestMembershipsFx.doneData,
+  target: requestMembersDataFx,
+});
+
+export const $members = createStore<MemberData[] | null>(null)
+  .on(requestMembersDataFx.doneData, (_, payload) => payload)
+  .on(requestMembersDataFx.failData, () => null);
+
+$members.watch((v) => console.log(v));
 
 export const $role = combine(
   {
     viewer: viewerModel.$viewer,
     members: $members,
   },
-  ({ viewer, members }) => members?.find((m) => m.user_id === viewer?.sub)?.role ?? null,
+  ({ viewer, members }) => members?.find((m) => m.id === viewer?.sub)?.role ?? null,
 );
 
 export const dataLoadedRoute = (<Params extends { organizationId: string }>(route: RouteInstance<Params>) => {
@@ -37,12 +56,12 @@ export const dataLoadedRoute = (<Params extends { organizationId: string }>(rout
   sample({
     clock: dataRequested,
     fn: ({ params }) => params.organizationId,
-    target: requestMembersFx,
+    target: requestMembershipsFx,
   });
 
   return chainRoute({
     route: route,
     beforeOpen: dataRequested,
-    openOn: requestMembersFx.doneData,
+    openOn: requestMembersDataFx.doneData,
   });
 })(currentRoute);

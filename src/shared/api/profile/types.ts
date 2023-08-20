@@ -13,7 +13,7 @@ export type UpdateProfileDto = {
   avatar?: string;
 };
 
-export type UpdateProfileResponse = {
+export type UserData = {
   id: string;
   username: Nullable<string>;
   primaryEmail: Nullable<string>;
