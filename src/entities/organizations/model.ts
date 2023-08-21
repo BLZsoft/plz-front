@@ -9,10 +9,7 @@ export const getAvailableOrganizationsFx = createEffect<void, Organization[]>(()
 
 export const $availableOrganizations: Store<Organization[]> = createStore<Organization[]>([]).on(
   getAvailableOrganizationsFx.doneData,
-  (_, payload) => {
-    console.log(payload);
-    return payload;
-  },
+  (_, payload) => payload,
 );
 
 sample({

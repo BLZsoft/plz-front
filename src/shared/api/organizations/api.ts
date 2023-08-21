@@ -1,6 +1,6 @@
 import { supabaseManager } from '~/shared/lib/supabase';
 
-import { CreateOrganizationDto, Organization } from './types';
+import { CreateOrganizationDto, Membership, Organization } from './types';
 
 export async function availableOrganizations(): Promise<Organization[]> {
   const supabaseClient = await supabaseManager.getClient();
@@ -33,4 +33,19 @@ export async function createOrganization(organization: CreateOrganizationDto): P
   }
 
   return data[0];
+}
+
+export async function fetchMemberships(organizationId: string): Promise<Membership[]> {
+  const supabaseClient = await supabaseManager.getClient();
+
+  const { data, error } = await supabaseClient
+    .from('members_to_organizations')
+    .select()
+    .eq('organization_id', organizationId);
+
+  if (!data) {
+    throw error;
+  }
+
+  return data;
 }

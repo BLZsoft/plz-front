@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { viewerModel } from '~/entities/viewer';
 
-import { profileApi, UpdateProfileDto, UpdateProfileResponse } from '~/shared/api/profile';
+import { profileApi, UpdateProfileDto, UserData } from '~/shared/api/profile';
 
 export const formSchema = z.object({
   username: z
@@ -17,9 +17,7 @@ export const formSchema = z.object({
 
 export type FormValues = z.infer<typeof formSchema>;
 
-export const updateProfileFx = createEffect<UpdateProfileDto, UpdateProfileResponse>((data) =>
-  profileApi.updateProfile(data),
-);
+export const updateProfileFx = createEffect<UpdateProfileDto, UserData>((data) => profileApi.updateProfile(data));
 
 sample({
   clock: updateProfileFx.doneData,

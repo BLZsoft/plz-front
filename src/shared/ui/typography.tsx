@@ -31,6 +31,10 @@ const H4: FC<Props> = ({ children, className }) => (
   <h4 className={clsx('scroll-m-20 text-xl font-semibold tracking-tight', className)}>{children}</h4>
 );
 
+const H5: FC<Props> = ({ children, className }) => (
+  <h5 className={clsx('scroll-m-20 text-xl font-semibold tracking-tight', className)}>{children}</h5>
+);
+
 const P: FC<Props> = ({ children, className }) => (
   <p className={clsx('leading-7 [&:not(:first-child)]:mt-6', className)}>{children}</p>
 );
@@ -40,5 +44,6 @@ export const Typography = {
   H2,
   H3,
   H4,
+  H5,
   P,
 };
