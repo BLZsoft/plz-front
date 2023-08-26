@@ -49,3 +49,19 @@ export async function fetchMemberships(organizationId: string): Promise<Membersh
 
   return data;
 }
+
+export async function removeMember(organizationId: string, memberId: string): Promise<string> {
+  const supabaseClient = await supabaseManager.getClient();
+
+  const { error } = await supabaseClient
+    .from('members_to_organizations')
+    .delete()
+    .eq('organization_id', organizationId)
+    .eq('user_id', memberId);
+
+  if (error) {
+    throw error;
+  }
+
+  return memberId;
+}
