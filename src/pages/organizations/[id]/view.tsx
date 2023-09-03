@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Link } from 'atomic-router-react';
 import { ChevronLeft, MessageCircle, Phone } from 'lucide-react';
 
+import { InviteMemberButton } from '~/features/organization/invite-member';
 import { RemoveMemberIconButton } from '~/features/organization/remove-member';
 
 import { OrganizationMemberRow } from '~/entities/organization-members';
@@ -39,7 +40,11 @@ export const OrganizationDetailsPageView: FC<Props> = ({ viewer, organization, m
         <div className={'flex flex-row items-center justify-between'}>
           <Typography.H5>Список участников</Typography.H5>
 
-          {role === 'owner' && <Button size={'sm'}>Пригласить</Button>}
+          {role === 'owner' && (
+            <InviteMemberButton organizationId={organization.id} size={'sm'}>
+              Пригласить
+            </InviteMemberButton>
+          )}
         </div>
 
         {/* TODO: Меню с kebab иконкой для мобильных устройств */}
