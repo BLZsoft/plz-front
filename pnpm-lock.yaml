@@ -14,6 +14,15 @@ dependencies:
   '@logto/browser':
     specifier: ^2.1.0
     version: 2.1.0
+  '@maskito/core':
+    specifier: ^1.4.0
+    version: 1.4.0
+  '@maskito/kit':
+    specifier: ^1.4.0
+    version: 1.4.0(@maskito/core@1.4.0)
+  '@maskito/react':
+    specifier: ^1.4.0
+    version: 1.4.0(@maskito/core@1.4.0)(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-avatar':
     specifier: ^1.0.3
     version: 1.0.3(@types/react-dom@18.0.11)(@types/react@18.0.37)(react-dom@18.2.0)(react@18.2.0)
@@ -595,6 +604,7 @@ packages:
     resolution:
       { integrity: sha512-2BShG/d5yoZyXZfVePH91urL5wTG6ASZU9M4o03lKK8u8UW1y08OMttBSOADTcJrnPMpvDXRG3G8fyLh4ovs8w== }
     engines: { node: '>=4' }
+    deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-unicode-property-regex instead.
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -2173,6 +2183,33 @@ packages:
       '@silverhand/essentials': 2.7.0
       camelcase-keys: 7.0.2
       jose: 4.14.4
+    dev: false
+
+  /@maskito/core@1.4.0:
+    resolution:
+      { integrity: sha512-Q5o3vQ4c52VzJf6dvA1RgruMHM3uwPCjw2ghwJDNeU7W9xn/iuI61KN/kyuMeZDicRQwE+ddVokg2jEtYiPfJw== }
+    dev: false
+
+  /@maskito/kit@1.4.0(@maskito/core@1.4.0):
+    resolution:
+      { integrity: sha512-1hILMNvXbX2GisdrvnFmqqWrjsD4jhUJUWAviIXUBXlxGuh++yqBxx07XEC6BwtYeMDxHD/dF0i5xQ9/oNdxcg== }
+    peerDependencies:
+      '@maskito/core': ^1.4.0
+    dependencies:
+      '@maskito/core': 1.4.0
+    dev: false
+
+  /@maskito/react@1.4.0(@maskito/core@1.4.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      { integrity: sha512-vmdBGAyFiujBXMofWblj0KZiGbPMolB3MAKgzMA//vc53TEVq2efvDsok7toCuKzdOBzSNkEPmnNJo0iWnALHg== }
+    peerDependencies:
+      '@maskito/core': ^1.4.0
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      '@maskito/core': 1.4.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@nabla/vite-plugin-eslint@1.5.0(eslint@8.38.0)(vite@4.3.9):

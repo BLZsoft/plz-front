@@ -1,11 +1,15 @@
 import { FC } from 'react';
 
 import { Link } from 'atomic-router-react';
-import { ChevronLeft, MessageCircle, Phone, Trash } from 'lucide-react';
+import { ChevronLeft, MessageCircle, Phone } from 'lucide-react';
+
+import { InviteMemberButton } from '~/features/organization/invite-member';
+import { RemoveMemberIconButton } from '~/features/organization/remove-member';
 
 import { OrganizationMemberRow } from '~/entities/organization-members';
 
 import { MemberData, Organization } from '~/shared/api/organizations';
+import { Profile } from '~/shared/api/profile';
 import { routes } from '~/shared/lib/router';
 import { Button } from '~/shared/ui/button';
 import { Separator } from '~/shared/ui/separator';
@@ -13,12 +17,13 @@ import { Skeleton } from '~/shared/ui/skeleton';
 import { Typography } from '~/shared/ui/typography';
 
 export type Props = {
+  viewer: Profile;
   organization?: Organization;
   role?: string;
   members?: MemberData[];
 };
 
-export const OrganizationDetailsPageView: FC<Props> = ({ organization, members, role }) => (
+export const OrganizationDetailsPageView: FC<Props> = ({ viewer, organization, members, role }) => (
   <>
     <div className={'flex flex-row items-center'}>
       <Button variant="link" size="icon" className={'md:hidden'} asChild>
@@ -30,12 +35,16 @@ export const OrganizationDetailsPageView: FC<Props> = ({ organization, members, 
       {organization && <Typography.H4 className={'mb-1 md:text-2xl'}>{organization.name}</Typography.H4>}
     </div>
 
-    {members && (
+    {organization && members && (
       <div>
         <div className={'flex flex-row items-center justify-between'}>
           <Typography.H5>Список участников</Typography.H5>
 
-          {role === 'owner' && <Button size={'sm'}>Пригласить</Button>}
+          {role === 'owner' && (
+            <InviteMemberButton organizationId={organization.id} size={'sm'}>
+              Пригласить
+            </InviteMemberButton>
+          )}
         </div>
 
         {/* TODO: Меню с kebab иконкой для мобильных устройств */}
@@ -45,31 +54,28 @@ export const OrganizationDetailsPageView: FC<Props> = ({ organization, members, 
               key={m.id}
               member={m}
               actions={
-                <>
-                  <Button variant="ghost" size="icon">
-                    <MessageCircle className="h-4 w-4" />
-                  </Button>
+                m.id !== viewer.sub ? (
+                  <>
+                    <Button variant="ghost" size="icon">
+                      <MessageCircle className="h-4 w-4" />
+                    </Button>
 
-                  <Button asChild={true} variant="ghost" size="icon">
-                    <a href={`tel:+${m.primaryPhone}`}>
-                      <Phone className="h-4 w-4" />
-                    </a>
-                  </Button>
+                    <Button asChild={true} variant="ghost" size="icon">
+                      <a href={`tel:+${m.primaryPhone}`}>
+                        <Phone className="h-4 w-4" />
+                      </a>
+                    </Button>
 
-                  {role === 'owner' && (
-                    <>
-                      <Separator orientation={'vertical'} className={'mx-1 h-6'} />
-
-                      <Button
-                        className={'text-red-500 hover:bg-red-100 hover:text-red-500'}
-                        variant="ghost"
-                        size="icon"
-                      >
-                        <Trash className="h-4 w-4" />
-                      </Button>
-                    </>
-                  )}
-                </>
+                    {role === 'owner' && m.role !== 'owner' && (
+                      <>
+                        <Separator orientation={'vertical'} className={'mx-1 h-6'} />
+                        <RemoveMemberIconButton organizationId={organization.id} memberId={m.id} />
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )
               }
             />
           ))}
