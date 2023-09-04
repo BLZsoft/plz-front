@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, FC, forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 import { useMaskito } from '@maskito/react';
 
@@ -8,8 +8,16 @@ import { phoneMask } from './mask';
 
 export type PhoneInputProps = ComponentProps<typeof Input>;
 
-export const PhoneInput: FC<PhoneInputProps> = (props) => {
+export const PhoneInput: FC<PhoneInputProps> = forwardRef((props, ref) => {
+  const innerRef = useRef<HTMLInputElement>(null);
+
   const maskedInputRef = useMaskito({ options: phoneMask });
 
-  return <Input {...props} ref={maskedInputRef} />;
-};
+  useEffect(() => {
+    maskedInputRef(innerRef.current);
+  }, [innerRef, maskedInputRef]);
+
+  useImperativeHandle(ref, () => innerRef.current as HTMLInputElement);
+
+  return <Input {...props} ref={innerRef} />;
+});

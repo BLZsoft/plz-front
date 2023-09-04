@@ -1,6 +1,7 @@
+import { usersApi } from '~/shared/api/users';
 import { supabaseManager } from '~/shared/lib/supabase';
 
-import { CreateOrganizationDto, Membership, Organization } from './types';
+import { CreateOrganizationDto, MemberData, Membership, Organization } from './types';
 
 export async function availableOrganizations(): Promise<Organization[]> {
   const supabaseClient = await supabaseManager.getClient();
@@ -64,4 +65,21 @@ export async function removeMember(organizationId: string, memberId: string): Pr
   }
 
   return memberId;
+}
+
+export async function inviteMember(organizationId: string, phone: string): Promise<MemberData> {
+  const supabaseClient = await supabaseManager.getClient();
+
+  const usersWithPhone = await usersApi.getUserByFields({ phone });
+  const userToInvite = usersWithPhone[0];
+
+  const { error } = await supabaseClient
+    .from('members_to_organizations')
+    .insert({ user_id: userToInvite.id, organization_id: organizationId });
+
+  if (error) {
+    throw error;
+  }
+
+  return { ...userToInvite, role: 'member' };
 }
