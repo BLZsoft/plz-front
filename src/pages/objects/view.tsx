@@ -10,7 +10,7 @@ type Props = {
   ChildRoutes: FC;
 };
 
-export const HomePageView: FC<Props> = ({ data, ChildRoutes }) => (
+export const ObjectsPageView: FC<Props> = ({ data, ChildRoutes }) => (
   <>
     <div className="container mx-auto py-10">
       <ObjectsTable data={data} columns={columns} />
@@ -19,4 +19,4 @@ export const HomePageView: FC<Props> = ({ data, ChildRoutes }) => (
   </>
 );
 
-export const HomePageLoader = () => <h1>Загрузка...</h1>;
+export const ObjectsPageLoader = () => <h1>Загрузка...</h1>;

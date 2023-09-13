@@ -54,9 +54,10 @@ export function ObjectsTable<TData, TValue>({ columns, data }: DataTableProps<TD
           className="max-w-sm"
         />
         <Link
-          to={routes.home.create}
-          className='h-10 rounded-md bg-red-600 px-4 py-2 text-slate-50 hover:bg-red-900/90'>
-            + Создать Объект
+          to={routes.objects.create}
+          className="h-10 rounded-md bg-red-600 px-4 py-2 text-slate-50 hover:bg-red-900/90"
+        >
+          + Создать Объект
         </Link>
       </div>
       <div className="rounded-md border">

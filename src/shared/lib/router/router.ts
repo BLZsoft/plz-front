@@ -11,15 +11,27 @@ export const router = createHistoryRouter({
   routes: [
     {
       path: '/',
-      route: routes.home.root,
-    },
-    {
-      path: '/object/create',
-      route: routes.home.create,
+      route: routes.home,
     },
     {
       path: '/profile',
       route: routes.profile,
+    },
+    {
+      path: '/objects(.*)',
+      route: routes.objects.root,
+    },
+    {
+      path: '/objects',
+      route: routes.objects.home,
+    },
+    {
+      path: '/objects/create',
+      route: routes.objects.create,
+    },
+    {
+      path: '/objects/:objectId',
+      route: routes.objects.details,
     },
     {
       path: '/organizations(.*)',

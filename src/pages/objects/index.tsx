@@ -5,27 +5,27 @@ import { Layout } from '~/pages/layout';
 
 import { ObjectCreatePage } from './create';
 import { $data, currentRoute, dataLoadedRoute } from './model';
-import { HomePageLoader, HomePageView } from './view';
+import { ObjectsPageLoader, ObjectsPageView } from './view';
 
 const ChildRoutes = createRoutesView({
   routes: [ObjectCreatePage],
   otherwise() {
-    return <div>11111</div>
+    return <div>11111</div>;
   },
 });
 
-export const HomePage = {
+export const ObjectsPage = {
   route: currentRoute,
   view: createRouteView({
     route: dataLoadedRoute,
     view: reflect({
-      view: HomePageView,
+      view: ObjectsPageView,
       bind: {
         data: $data,
         ChildRoutes,
       },
     }),
-    otherwise: HomePageLoader,
+    otherwise: ObjectsPageLoader,
   }),
   layout: Layout,
 };

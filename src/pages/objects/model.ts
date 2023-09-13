@@ -8,7 +8,7 @@ import { objectsModel } from '~/entities/objects';
 
 import { routes } from '~/shared/lib/router';
 
-export const currentRoute = routes.home.root;
+export const currentRoute = routes.objects.root;
 
 export const authenticatedRoute = chainAuthenticated(currentRoute);
 

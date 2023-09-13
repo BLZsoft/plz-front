@@ -1,13 +1,14 @@
-import { createRoute } from 'atomic-router';
+import { createRoute, redirect } from 'atomic-router';
 
 export const routes = {
-  home: {
+  home: createRoute(),
+  profile: createRoute(),
+  objects: {
     root: createRoute(),
+    home: createRoute(),
     create: createRoute(),
     details: createRoute<{ objectId: string }>(),
   },
-  profile: createRoute(),
-  object: createRoute(),
   organizations: {
     root: createRoute(),
     home: createRoute(),
@@ -18,3 +19,8 @@ export const routes = {
     callback: createRoute(),
   },
 };
+
+redirect({
+  clock: routes.home.opened,
+  route: routes.objects.home,
+});
