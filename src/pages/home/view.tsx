@@ -7,12 +7,14 @@ import { columns } from '~/shared/table-ui/columns';
 
 type Props = {
   data: ObjectType[];
+  ChildRoutes: FC;
 };
 
-export const HomePageView: FC<Props> = ({ data }) => (
+export const HomePageView: FC<Props> = ({ data, ChildRoutes }) => (
   <>
     <div className="container mx-auto py-10">
       <ObjectsTable data={data} columns={columns} />
+      <ChildRoutes />
     </div>
   </>
 );

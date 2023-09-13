@@ -11,7 +11,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { Link } from 'atomic-router-react';
 
+import { routes } from '~/shared/lib/router';
 import { Button } from '~/shared/ui/button';
 import { Input } from '~/shared/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/shared/ui/table';
@@ -44,13 +46,18 @@ export function ObjectsTable<TData, TValue>({ columns, data }: DataTableProps<TD
 
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter names..."
           value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
+        <Link
+          to={routes.home.create}
+          className='h-10 rounded-md bg-red-600 px-4 py-2 text-slate-50 hover:bg-red-900/90'>
+            + Создать Объект
+        </Link>
       </div>
       <div className="rounded-md border">
         <Table>
