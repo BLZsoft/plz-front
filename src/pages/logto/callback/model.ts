@@ -10,8 +10,13 @@ export const route = routes.logto.callback;
 export const handleCallbackFx = createEffect(async () => {
   const currentPageUrl = window.location.href;
 
-  await logtoClient.handleSignInCallback(currentPageUrl);
-  await routes.home.open();
+  try {
+    await logtoClient.handleSignInCallback(currentPageUrl);
+  } catch (error) {
+    console.error('handleCallbackFx', error);
+  } finally {
+    await routes.home.open();
+  }
 });
 
 sample({
