@@ -26,18 +26,18 @@ export async function objectsByOrganization(organizationId: Nullable<string>): P
 export async function createObject(object: CreateObjectDto): Promise<ObjectType> {
   const supabaseClient = await supabaseManager.getClient();
 
-  await supabaseClient.from('objects').insert(object);
+  const {error: insertError} =  await supabaseClient.from('objects').insert(object);
 
-  const { data, error } = await supabaseClient
+  if(insertError) throw insertError;
+
+  const { data, error: queryError } = await supabaseClient
     .from('objects')
     .select()
     .eq('name', object.name)
     .order('created_at', { ascending: false })
     .limit(1);
 
-  if (!data) {
-    throw error;
-  }
+  if (!data || queryError) throw queryError;
 
   return data[0];
 }

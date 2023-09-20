@@ -29,7 +29,7 @@ export async function createOrganization(organization: CreateOrganizationDto): P
     .order('created_at', { ascending: false })
     .limit(1);
 
-  if (!data) {
+  if (!data || error) {
     throw error;
   }
 

@@ -1,7 +1,7 @@
 import { ControllerProps, FieldPath, FieldValues, PathValue } from 'react-hook-form';
 
+import { DadataAddress } from '~/shared/ui/dadata';
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '~/shared/ui/form';
-import { Input } from '~/shared/ui/input';
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
@@ -10,10 +10,9 @@ type Props<
   label?: string;
   placeholder?: string;
   description?: string;
-  asNumber?: boolean
 };
 
-export const FormFieldInput = <
+export const FormFieldAddressInput = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >(
@@ -27,8 +26,12 @@ export const FormFieldInput = <
         {props.label && <FormLabel>{props.label}</FormLabel>}
 
         <FormControl>
-          <Input placeholder={props.placeholder} {...field} onChange={
-            props.asNumber ? (e) => field.onChange(parseInt(e.currentTarget.value) as PathValue<TFieldValues, TName>) : field.onChange }/>
+          <DadataAddress
+            defaultQuery={field.value.value}
+            value={field.value}
+            onChange={(e) => e && field.onChange(e as PathValue<TFieldValues, TName>)}
+            inputProps={{ ref: field.ref, name: field.name, placeholder: props.placeholder, onBlur: field.onBlur }}
+          />
         </FormControl>
 
         {props.description && <FormDescription>{props.description}</FormDescription>}
@@ -38,3 +41,6 @@ export const FormFieldInput = <
     )}
   />
 );
+
+export type { AddressSuggestionSchema } from './schema';
+export { AddressSuggestionSchemaZ } from './schema';

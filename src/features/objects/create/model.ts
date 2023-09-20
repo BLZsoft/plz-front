@@ -3,29 +3,61 @@ import { createEffect } from 'effector/compat';
 import { z } from 'zod';
 
 import { CreateObjectDto, ObjectType, objectsApi } from '~/shared/api/objects';
+import { AddressSuggestionSchemaZ } from '~/shared/forms-ui/address-input';
 import { toast } from '~/shared/ui/use-toast';
 
+// TODO: пока так ибо не знаем где создаем в личном или в орге
 export const formSchema = z.object({
-  name: z.string(),
-  address: z.string(),
-  height: z.string(),
-  floor: z.string(),
-  fireRoomArea: z.string(),
+  organizationId: z.string().nonempty().nullish(),
+  userId: z.string().nonempty(),
+
+  name: z.string().nonempty(),
+  address: AddressSuggestionSchemaZ,
+  floors: z.number().positive(),
+  height: z.number().positive(),
+  // TODO: width сделать обязательным?
+  width: z.number().positive().nullish(),
+  fireRoomArea: z.number().positive(),
 });
 
 export type FormValues = z.infer<typeof formSchema>;
 
-export const defaultValues: FormValues = {
-  name: '',
-  address: '',
-  height: '',
-  floor: '',
-  fireRoomArea: '',
-};
+export const initializeDefaultValues = ({
+  organizationId,
+  userId,
+}: {
+  organizationId?: string;
+  userId: string;
+}): FormValues => ({
+  organizationId,
+  userId,
 
-export const createObjectFx = createEffect<CreateObjectDto, ObjectType>((data) =>
-  objectsApi.createObject(data),
-);
+  name: '',
+  address: {
+    value: '',
+  },
+  floors: 0,
+  height: 0,
+  fireRoomArea: 0,
+});
+
+export const createObjectFx = createEffect<FormValues, ObjectType>((data) => {
+  const normalizedPayload: CreateObjectDto = {
+    organization_id: data.organizationId,
+    user_id: data.organizationId ? undefined : data.userId,
+
+    name: data.name,
+    address: data.address.value,
+    floors: data.floors,
+    height: data.height,
+    width: data.width,
+    fire_room_area: data.fireRoomArea,
+  };
+
+  console.log(normalizedPayload)
+
+  return objectsApi.createObject(normalizedPayload);
+});
 
 sample({
   clock: createObjectFx.doneData,
@@ -33,5 +65,14 @@ sample({
     toast({
       title: 'Успех!',
       description: `Объект ${name} создан`,
+    }),
+});
+
+sample({
+  clock: createObjectFx.failData,
+  fn: () =>
+    toast({
+      title: 'Ошибка!',
+      description: `Произошла ошибка при создании объекта`,
     }),
 });

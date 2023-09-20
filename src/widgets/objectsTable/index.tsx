@@ -29,8 +29,6 @@ export function ObjectsTable<TData, TValue>({ columns, data }: DataTableProps<TD
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  console.log(data)
-
   const table = useReactTable({
     data,
     columns,
