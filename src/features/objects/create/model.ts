@@ -54,11 +54,11 @@ export const createObjectFx = createEffect<FormValues, ObjectType>((data) => {
     fire_room_area: data.fireRoomArea,
   };
 
-  console.log(normalizedPayload)
-
   return objectsApi.createObject(normalizedPayload);
 });
 
+// todo: $toastApi
+// eslint-disable-next-line effector/no-useless-methods
 sample({
   clock: createObjectFx.doneData,
   fn: ({ name }) =>
@@ -68,6 +68,7 @@ sample({
     }),
 });
 
+// eslint-disable-next-line effector/no-useless-methods
 sample({
   clock: createObjectFx.failData,
   fn: () =>

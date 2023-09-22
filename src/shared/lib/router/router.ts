@@ -2,7 +2,7 @@ import { createHistoryRouter } from 'atomic-router';
 import { sample } from 'effector';
 import { createBrowserHistory } from 'history';
 
-import { appStarted } from '~/shared/lib/lifecycle';
+import { appStarted } from '~/shared/lifecycle';
 
 import { controls } from './controls';
 import { routes } from './routes';

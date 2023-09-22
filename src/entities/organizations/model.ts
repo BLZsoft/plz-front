@@ -1,7 +1,7 @@
 import { createEffect, createStore, sample, Store } from 'effector';
 
 import { Organization, organizationsApi } from '~/shared/api/organizations';
-import { appStarted } from '~/shared/lib/lifecycle';
+import { appStarted } from '~/shared/lifecycle';
 
 export const getAvailableOrganizationsFx = createEffect<void, Organization[]>(() =>
   organizationsApi.availableOrganizations(),

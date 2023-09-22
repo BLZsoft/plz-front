@@ -1,5 +1,10 @@
+import { zodContract } from '@farfetched/zod';
+import { createEffect, sample } from 'effector';
+import { debug } from 'patronum';
+
 import { usersApi } from '~/shared/api/users';
-import { supabaseManager } from '~/shared/lib/supabase';
+import { createSupabaseEffect, createSupabaseQuery, supabaseManager } from '~/shared/lib/supabase';
+import { $session } from '~/shared/session';
 
 import { CreateOrganizationDto, MemberData, Membership, Organization } from './types';
 
@@ -83,3 +88,49 @@ export async function inviteMember(organizationId: string, phone: string): Promi
 
   return { ...userToInvite, role: 'member' };
 }
+
+const testFx = createSupabaseEffect(async ({ supabase }) => {
+  if (!supabase) throw new Error('Supabase client is not initialized');
+
+  const { data, error } = await supabase.from('organizations').select();
+
+  if (!data || error) throw error;
+
+  return data;
+});
+
+const test2Fx = createSupabaseEffect(async ({ supabase }) => {
+  if (!supabase) throw new Error('Supabase client is not initialized');
+
+  const { data, error } = await supabase.from('organizations').select();
+
+  if (!data || error) throw error;
+
+  return data;
+});
+
+const test3Fx = createEffect(() => Promise.resolve('test3'));
+
+export const organizationsQuery = createSupabaseQuery({
+  effect: testFx,
+  contract: zodContract(Organization.array()),
+});
+
+export const organizationsQuery2 = createSupabaseQuery({
+  effect: test2Fx,
+  contract: zodContract(Organization.array()),
+});
+
+sample({
+  clock: $session.updates,
+  fn: () => null,
+  target: organizationsQuery.start,
+});
+
+sample({
+  clock: $session.updates,
+  fn: () => null,
+  target: organizationsQuery2.start,
+});
+
+test3Fx();

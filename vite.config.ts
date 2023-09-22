@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config';
 
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import viteSvgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -10,7 +10,25 @@ export default defineConfig({
   plugins: [
     tsconfigPaths(),
     react({
-      plugins: [['@effector/swc-plugin', { addLoc: true }]],
+      babel: {
+        plugins: [
+          [
+            'effector/babel-plugin',
+            {
+              addLoc: true,
+            },
+          ],
+          [
+            'effector/babel-plugin',
+            {
+              importName: '~/shared/lib/supabase',
+              effectCreators: ['createSupabaseEffect'],
+              noDefaults: true,
+            },
+            'createSupabaseEffect',
+          ],
+        ],
+      },
     }),
     viteSvgr(),
     VitePWA(),
