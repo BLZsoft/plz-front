@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
+  plugins: ['react-refresh', 'filename-rules', 'effector'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -9,7 +10,10 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:boundaries/recommended',
     'plugin:tailwindcss/recommended',
+    'plugin:effector/recommended',
+    'plugin:effector/scope',
   ],
+  ignorePatterns: ['dist', '*.cjs'],
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: {
@@ -34,7 +38,6 @@ module.exports = {
       config: 'tailwind.config.cjs',
     },
   },
-  plugins: ['filename-rules'],
   rules: {
     'filename-rules/match': ['error', 'kebab-case'],
     'import/order': [
@@ -49,7 +52,12 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: 'vite',
+            pattern: 'vitest/**',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: 'react-dom/*',
             group: 'external',
             position: 'before',
           },
@@ -166,6 +174,7 @@ module.exports = {
         ],
       },
     ],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
   overrides: [{ files: ['**/*.test.*'], rules: { 'boundaries/element-types': 'off' } }],
 };

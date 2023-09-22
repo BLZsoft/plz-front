@@ -13,5 +13,5 @@ export const ObjectHomePage = {
     bind: {
       data: $data,
     },
-  })
+  }),
 };
