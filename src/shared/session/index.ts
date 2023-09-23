@@ -1,13 +1,13 @@
 import LogtoClient, { UserInfoResponse } from '@logto/browser';
 import { attach, createEffect, createStore, sample } from 'effector';
 
-import { $logtoClient, setupLogtoClientFx } from '~/shared/lib/logto';
+import { $logtoClient } from '~/shared/lib/logto';
 
 export type Session = UserInfoResponse;
 
-export const $session = createStore<Session | null>(null);
+const $session = createStore<Session | null>(null);
 
-export const fetchSessionFx = attach({
+const fetchSessionFx = attach({
   source: $logtoClient,
   effect: createEffect((logtoClient: LogtoClient | null) => {
     if (!logtoClient) {
@@ -18,5 +18,10 @@ export const fetchSessionFx = attach({
   }),
 });
 
-sample({ clock: setupLogtoClientFx.doneData, target: fetchSessionFx });
+sample({ clock: $logtoClient.updates, target: fetchSessionFx });
 sample({ clock: fetchSessionFx.doneData, target: $session });
+
+export const sessionModel = {
+  $session,
+  fetchSessionFx,
+};

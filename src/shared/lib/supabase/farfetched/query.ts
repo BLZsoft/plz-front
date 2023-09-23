@@ -2,11 +2,10 @@ import { Contract, DynamicallySourcedField, InvalidDataError, Query, Validator, 
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Effect, attach, createEffect } from 'effector';
 
-import { $supabaseClient, ensureTokenFx } from '../../client';
-import { Database } from '../../database.types';
-import { SupabaseParams } from '../types';
+import { $supabaseClient, ensureTokenFx } from '../client';
+import { Database } from '../database.types';
 
-import { SupabaseQueryConfig } from './types';
+import { SupabaseParams } from './types';
 
 //#region overloads
 export function createSupabaseQuery<
@@ -152,5 +151,3 @@ export function createSupabaseQuery(config) {
     effect: executeFx,
   });
 }
-
-export type { SupabaseQueryConfig };
