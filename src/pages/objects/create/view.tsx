@@ -1,16 +1,17 @@
 import { FC } from 'react';
 
-import { ObjectCreateForm } from '~/features/objects/create';
+import { Model } from 'effector-factorio';
+
+import { CreateObjectForm } from '~/features/objects/create';
 
 type Props = {
-  organizationId?: string;
-  userId: string;
+  model: Model<typeof CreateObjectForm.factory>;
 };
 
-export const ObjectCreatePageView: FC<Props> = ({ organizationId, userId }) => (
+export const ObjectCreatePageView: FC<Props> = ({ model }) => (
   <>
     <div className={'mt-4'}>
-      <ObjectCreateForm organizationId={organizationId} userId={userId} />
+      <CreateObjectForm.View model={model} />
     </div>
   </>
 );

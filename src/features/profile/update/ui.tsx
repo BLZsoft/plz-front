@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useUnit } from 'effector-react';
 import { useForm } from 'react-hook-form';
 
-import { FormFieldInput } from '~/shared/forms/input';
+import { FieldInput } from '~/shared/forms/fields'
 import { cn } from '~/shared/lib/utils';
 import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';
@@ -35,15 +35,15 @@ export const ProfileUpdateForm: FC<Props> = ({ className, defaultValues }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className={cn('space-y-8', className)}>
         <Typography.H3>Основная информация</Typography.H3>
 
-        <FormFieldInput control={form.control} name={'username'} label={'Имя пользователя'} />
+        <FieldInput control={form.control} name={'username'} label={'Имя пользователя'} />
 
-        <FormFieldInput control={form.control} name={'name'} label={'Фамилия, имя, отчество'} />
+        <FieldInput control={form.control} name={'name'} label={'Фамилия, имя, отчество'} />
 
         <Typography.H3>Контактная информация</Typography.H3>
 
-        <FormFieldInput control={form.control} name={'primaryEmail'} label={'Электронная почта'} />
+        <FieldInput control={form.control} name={'primaryEmail'} label={'Электронная почта'} />
 
-        <FormFieldInput control={form.control} name={'primaryPhone'} label={'Номер телефона'} />
+        <FieldInput control={form.control} name={'primaryPhone'} label={'Номер телефона'} />
         <Button type="submit">Сохранить</Button>
       </form>
     </Form>

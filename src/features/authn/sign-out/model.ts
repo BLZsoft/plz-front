@@ -1,15 +1,14 @@
 import { createEffect, sample } from 'effector';
 
-import { viewerModel } from '~/entities/viewer';
-
 import { logtoClient } from '~/shared/lib/logto';
+import { sessionModel } from '~/shared/session';
 
-const baseUrl = window.location.origin
+const baseUrl = window.location.origin;
 
 export const signOutFx = createEffect(() => logtoClient.signOut(baseUrl + '/'));
 
 sample({
   clock: signOutFx.done,
   fn: () => null,
-  target: viewerModel.$viewer,
+  target: sessionModel.$session,
 });

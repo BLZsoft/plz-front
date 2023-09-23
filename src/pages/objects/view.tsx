@@ -4,7 +4,7 @@ type Props = {
   ChildRoutes: FC;
 };
 
-export const ObjectsPageView: FC<Props> = ({ ChildRoutes }) => (
+export const ObjectsRootPageView: FC<Props> = ({ ChildRoutes }) => (
   <>
     <div className="container mx-auto py-10">
       <ChildRoutes />
@@ -12,4 +12,4 @@ export const ObjectsPageView: FC<Props> = ({ ChildRoutes }) => (
   </>
 );
 
-export const ObjectsPageLoader = () => <h1>Загрузка...</h1>;
+export const ObjectsRootPageLoader = () => <h1>Загрузка...</h1>;

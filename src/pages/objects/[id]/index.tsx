@@ -1,19 +1,21 @@
 import { reflect } from '@effector/reflect';
+import { RouteViewConfig, createRouteView } from 'atomic-router-react';
 
-import { selectOrganizationModel } from '~/features/organization/select-workspace';
+import { dataLoadedRoute, editObjectModel, idEnsuredRoute } from './model';
+import { ObjectEditPageLoad, ObjectEditPageView, Props } from './view';
 
-import { viewerModel } from '~/entities/viewer';
-
-import { currentRoute } from './model';
-import { ObjectEditPageView } from './view';
+type Params = { id: string };
 
 export const ObjectEditPage = {
-  route: currentRoute,
-  view: reflect({
-    view: ObjectEditPageView,
-    bind: {
-      organizationId: selectOrganizationModel.$selectedOrganizationId,
-      userId: viewerModel.$viewer.map((viewer) => viewer?.sub),
-    },
+  route: idEnsuredRoute,
+  view: createRouteView<Props, Params, RouteViewConfig<Props, Params>>({
+    route: dataLoadedRoute,
+    view: reflect({
+      view: ObjectEditPageView,
+      bind: {
+        model: editObjectModel,
+      },
+    }),
+    otherwise: ObjectEditPageLoad,
   }),
 };

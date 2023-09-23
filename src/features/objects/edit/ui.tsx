@@ -8,13 +8,16 @@ import { ObjectForm, ObjectFormValues } from '~/shared/forms/object';
 import { factory } from './model';
 
 export const View = modelView(factory, () => {
-  const { $submitting, submitted, defaultValues } = factory.useModel();
+  const { $submitting, submitted, $initialValues } = factory.useModel();
 
   const [submitting, onSubmit] = useUnit([$submitting, submitted]);
+  const defaultValues = useUnit($initialValues);
+
+  console.log(defaultValues);
 
   const form = useForm<ObjectFormValues>({
     resolver: zodResolver(ObjectForm.Schema),
-    defaultValues
+    defaultValues,
   });
 
   return <ObjectForm.View form={form} submitting={submitting} onSubmit={onSubmit} />;

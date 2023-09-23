@@ -1,7 +1,7 @@
 // TODO: @d.tankov — разделить "organizations" на "workspaces" и "organizations"
 import { reflect } from '@effector/reflect';
 import { combine } from 'effector';
-import { and, not } from 'patronum';
+import { and } from 'patronum';
 
 import { organizationsModel } from '~/entities/organizations';
 
@@ -10,10 +10,7 @@ import { Props, View } from './ui';
 
 const PERSONAL_ID = 'personal';
 
-const $loading = and(
-  not(organizationsModel.$availableOrganizations.map((orgs) => orgs.length)),
-  organizationsModel.getAvailableOrganizationsFx.pending,
-);
+const $loading = and(organizationsModel.query.$pending);
 
 const $current = selectOrganizationModel.$selectedOrganizationId.map((v) => v ?? PERSONAL_ID);
 
@@ -25,7 +22,8 @@ const $options = combine(
       id: PERSONAL_ID,
     })),
   },
-  ({ availableOrganizations, personalOrganization }) => [...availableOrganizations, personalOrganization],
+  ({ availableOrganizations, personalOrganization }) =>
+    availableOrganizations ? [...availableOrganizations, personalOrganization] : [personalOrganization],
 );
 
 const onChange = selectOrganizationModel.organizationSelected.prepend<string | null>((selected) =>

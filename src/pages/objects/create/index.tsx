@@ -1,10 +1,6 @@
 import { reflect } from '@effector/reflect';
 
-import { selectOrganizationModel } from '~/features/organization/select-workspace';
-
-import { viewerModel } from '~/entities/viewer';
-
-import { currentRoute } from './model';
+import { createObjectModel, currentRoute } from './model';
 import { ObjectCreatePageView } from './view';
 
 export const ObjectCreatePage = {
@@ -12,8 +8,7 @@ export const ObjectCreatePage = {
   view: reflect({
     view: ObjectCreatePageView,
     bind: {
-      organizationId: selectOrganizationModel.$selectedOrganizationId,
-      userId: viewerModel.$viewer.map((viewer) => viewer?.sub),
+      model: createObjectModel,
     },
   }),
 };

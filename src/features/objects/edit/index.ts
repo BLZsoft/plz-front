@@ -1,7 +1,7 @@
 import { factory } from './model';
 import { View } from './ui';
 
-export const CreateObjectForm = {
+export const EditObjectForm = {
   factory,
   View,
 };

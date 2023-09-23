@@ -9,18 +9,18 @@ import { routes } from '~/shared/router';
 import { Button } from '~/shared/ui/button';
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from '~/shared/ui/dropdown-menu';
 
 export type RowActionsProps = {
   row: Row<Object>;
 };
 
-export const RowActions: FC<RowActionsProps> = ({ row }) => (
+export const RowActions: FC<RowActionsProps> = ({ row: { id } }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button variant="ghost" className="h-8 w-8 p-0">
@@ -34,7 +34,7 @@ export const RowActions: FC<RowActionsProps> = ({ row }) => (
       <DropdownMenuItem>Калькуляторы</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem asChild>
-        <Link to={routes.objects.edit} params={{ objectId: row.id }}>
+        <Link to={routes.objects.edit} params={{ id }}>
           Редактировать объект
         </Link>
       </DropdownMenuItem>

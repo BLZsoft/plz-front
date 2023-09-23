@@ -48,7 +48,7 @@ it('should calculate "$parsedToken" from "$token" and fill "$tokenValid", "$toke
 
   const parsedToken = {
     jti: 'token_id',
-    sub: 'user_id',
+    sub: 'owner_id',
     iat,
     exp,
     scope: '',

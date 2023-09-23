@@ -128,7 +128,7 @@ describe('ensureTokenFx', () => {
       const token_ = token ? oldToken : null;
 
       const now = Date.now() / 1000;
-      const tokenExpiration = expired === null ? null : expired ? now + 1000 : now - 1000;
+      const tokenExpiration = expired === null ? null : expired ? now - 1000 : now + 1000;
 
       const tokenChangedSpy = vi.fn();
       tokenChanged.watch(tokenChangedSpy);

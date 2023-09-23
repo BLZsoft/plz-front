@@ -5,6 +5,9 @@ import { createSupabaseEffect, createSupabaseQuery, supabaseManager } from '~/sh
 
 import { CreateOrganizationDto, MemberData, Membership, Organization } from './types';
 
+/**
+ * @deprecated use query instead
+ */
 export async function availableOrganizations(): Promise<Organization[]> {
   const supabaseClient = await supabaseManager.getClient();
 
@@ -60,7 +63,7 @@ export async function removeMember(organizationId: string, memberId: string): Pr
     .from('members_to_organizations')
     .delete()
     .eq('organization_id', organizationId)
-    .eq('user_id', memberId);
+    .eq('owner_id', memberId);
 
   if (error) {
     throw error;
@@ -86,10 +89,8 @@ export async function inviteMember(organizationId: string, phone: string): Promi
   return { ...userToInvite, role: 'member' };
 }
 
-export const organizationsQuery = createSupabaseQuery({
+export const query = createSupabaseQuery({
   effect: createSupabaseEffect(async ({ supabase }) => {
-    if (!supabase) throw new Error('Supabase client is not initialized');
-
     const { data, error } = await supabase.from('organizations').select();
 
     if (!data || error) throw error;

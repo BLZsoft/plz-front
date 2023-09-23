@@ -8,6 +8,9 @@ dependencies:
   '@effector/reflect':
     specifier: ^8.3.2
     version: 8.3.2(effector-react@22.5.4)(effector@22.8.6)(react@18.2.0)
+  '@farfetched/atomic-router':
+    specifier: ^0.10.0
+    version: 0.10.0(@farfetched/core@0.10.0)(atomic-router@0.8.0)
   '@farfetched/core':
     specifier: ^0.10.0
     version: 0.10.0(effector@22.8.6)
@@ -86,6 +89,9 @@ dependencies:
   effector:
     specifier: ^22.8.6
     version: 22.8.6
+  effector-factorio:
+    specifier: ^1.1.0
+    version: 1.1.0(effector@22.8.6)(react@18.2.0)
   effector-react:
     specifier: ^22.5.4
     version: 22.5.4(effector@22.8.6)(react@18.2.0)
@@ -1884,6 +1890,16 @@ packages:
     resolution: {integrity: sha512-1S8uAY/MTJqVx0SC4epBq+N2yhuwtNwLbJYNZyhL2pO1ZVKn5HFXav5T41Ryzy9K9V7ZId2JB2oy/W4aCd9/2w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@farfetched/atomic-router@0.10.0(@farfetched/core@0.10.0)(atomic-router@0.8.0):
+    resolution: {integrity: sha512-cHPAT1mpBPCmt3fxHva4Vp9rSzIntf6AS24ZESuLkNL9SyNwnZfTWG6Xh7mRw55DGMPit3ipOrR2CW+qWpGYFQ==}
+    peerDependencies:
+      '@farfetched/core': 0.10.0
+      atomic-router: 0.6.3
+    dependencies:
+      '@farfetched/core': 0.10.0(effector@22.8.6)
+      atomic-router: 0.8.0(effector@22.8.6)(history@5.3.0)
+    dev: false
 
   /@farfetched/core@0.10.0(effector@22.8.6):
     resolution: {integrity: sha512-8oHMBPEvpMG3dBCUGfjlWeQwn32erQM57OAnnVVHH8zeVk0VRnjXvsS7GhOgS0J9CFnXPBz9LU+2e/VWk4g2Gw==}
@@ -4565,6 +4581,21 @@ packages:
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
+
+  /effector-factorio@1.1.0(effector@22.8.6)(react@18.2.0):
+    resolution: {integrity: sha512-yTkxvYSGCdzpmYR6AR/0yQHN7PJ3TXKK/XYYdLvWslVEmaZEp8mhrvRalSX3tnycVsZpdgvr7VIM7yFWL2v9fQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      effector: ^22
+      react: '>=16.14.0'
+      solid-js: ~1.4.8
+    peerDependenciesMeta:
+      solid-js:
+        optional: true
+    dependencies:
+      effector: 22.8.6
+      react: 18.2.0
+    dev: false
 
   /effector-logger@0.14.0(effector@22.8.6):
     resolution: {integrity: sha512-Y8K6lH0rVrh5hGeqyN4fknMMkhYAO/z8VV35CVZo577T8U5A25l9H+684EILCecBbVXgF9DHw88x1YgIS7Hicg==}

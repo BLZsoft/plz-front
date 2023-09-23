@@ -1,18 +1,18 @@
-import { createEffect, createStore, sample, Store } from 'effector';
+import { attachOperation } from '@farfetched/core';
+import { createEffect, sample } from 'effector';
 
 import { Organization, organizationsApi } from '~/shared/api/organizations';
-import { appStarted } from '~/shared/lifecycle';
+import { sessionModel } from '~/shared/session';
 
 export const getAvailableOrganizationsFx = createEffect<void, Organization[]>(() =>
   organizationsApi.availableOrganizations(),
 );
 
-export const $availableOrganizations: Store<Organization[]> = createStore<Organization[]>([]).on(
-  getAvailableOrganizationsFx.doneData,
-  (_, payload) => payload,
-);
+export const query = attachOperation(organizationsApi.query);
+
+export const $availableOrganizations = query.$data;
 
 sample({
-  clock: appStarted,
-  target: getAvailableOrganizationsFx,
+  clock: sessionModel.$session.updates,
+  target: query.start,
 });

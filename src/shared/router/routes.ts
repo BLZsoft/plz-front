@@ -7,13 +7,13 @@ export const routes = {
     root: createRoute(),
     home: createRoute(),
     create: createRoute(),
-    edit: createRoute<{ objectId: string }>(),
+    edit: createRoute<{ id: string }>(),
   },
   organizations: {
     root: createRoute(),
     home: createRoute(),
     create: createRoute(),
-    details: createRoute<{ organizationId: string }>(),
+    details: createRoute<{ id: string }>(),
   },
   logto: {
     callback: createRoute(),

@@ -5,12 +5,12 @@ import { Layout } from '~/pages/layout';
 
 import { ObjectEditPage } from './[id]';
 import { ObjectCreatePage } from './create';
-import { ObjectHomePage } from './home';
-import { $data, currentRoute, dataLoadedRoute } from './model';
-import { ObjectsPageLoader, ObjectsPageView } from './view';
+import { ObjectListPage } from './list';
+import { authenticatedRoute, currentRoute } from './model';
+import { ObjectsRootPageLoader, ObjectsRootPageView } from './view';
 
 const ChildRoutes = createRoutesView({
-  routes: [ObjectHomePage, ObjectCreatePage, ObjectEditPage],
+  routes: [ObjectListPage, ObjectCreatePage, ObjectEditPage],
   otherwise() {
     return (
       <div className="flex flex-col items-center">
@@ -25,15 +25,14 @@ const ChildRoutes = createRoutesView({
 export const ObjectsPage = {
   route: currentRoute,
   view: createRouteView({
-    route: dataLoadedRoute,
+    route: authenticatedRoute,
     view: reflect({
-      view: ObjectsPageView,
+      view: ObjectsRootPageView,
       bind: {
-        data: $data,
         ChildRoutes,
       },
     }),
-    otherwise: ObjectsPageLoader,
+    otherwise: ObjectsRootPageLoader,
   }),
   layout: Layout,
 };

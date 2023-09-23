@@ -13,3 +13,5 @@ export const ObjectHomePageView: FC<Props> = ({ data }) => (
     <ObjectsTable data={data} />
   </div>
 );
+
+export const ObjectHomePageLoader = () => <h1>Тут могла быть ваша реклама</h1>;

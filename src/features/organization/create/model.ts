@@ -27,7 +27,7 @@ sample({
   target: organizationsModel.getAvailableOrganizationsFx,
 });
 
-// TODO: toast api as effector store
+// TODO: toast api as effector
 // eslint-disable-next-line effector/no-useless-methods
 sample({
   clock: createOrganizationFx.doneData,
@@ -40,6 +40,5 @@ sample({
 
 sample({
   clock: createOrganizationFx.doneData,
-  fn: ({ id: organizationId }) => ({ organizationId }),
   target: routes.organizations.details.open,
 });

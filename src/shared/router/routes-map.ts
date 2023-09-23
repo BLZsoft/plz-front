@@ -18,7 +18,7 @@ export const routesMap = [
     route: [routes.objects.root, routes.objects.create],
   },
   {
-    path: '/objects/:objectId',
+    path: '/objects/:id',
     route: [routes.objects.root, routes.objects.edit],
   },
   {
@@ -30,7 +30,7 @@ export const routesMap = [
     route: [routes.organizations.root, routes.organizations.create],
   },
   {
-    path: '/organizations/:organizationId',
+    path: '/organizations/:id',
     route: [routes.organizations.root, routes.organizations.details],
   },
   {

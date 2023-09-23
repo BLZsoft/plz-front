@@ -51,7 +51,7 @@ export const ensureTokenFx = attach({
       return null;
     }
 
-    const valid = expiration && expiration < Date.now() / 1000;
+    const valid = expiration && Date.now() / 1000 < expiration;
 
     if (!valid) {
       const newToken = await fetchTokenFx();

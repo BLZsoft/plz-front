@@ -1,43 +1,65 @@
-import { supabaseManager } from '~/shared/lib/supabase';
+import { createSupabaseEffect, createSupabaseMutation, createSupabaseQuery } from '~/shared/lib/supabase';
 import { Nullable } from '~/shared/lib/utils';
 
-import { CreateObjectDto, Object } from './types';
+import { CreateObjectDto, Object, UpdateObjectDto } from './types';
 
-export async function objectsByOrganization(organizationId: Nullable<string>): Promise<Object[]> {
-  const supabaseClient = await supabaseManager.getClient();
+export type ObjectsQueryByIdParams = {
+  id: string;
+};
+export const queryById = createSupabaseQuery({
+  effect: createSupabaseEffect<ObjectsQueryByIdParams, Object>(async ({ supabase, id }) => {
+    const { data, error } = await supabase.from('objects').select().eq('id', id);
 
-  let query = supabaseClient.from('objects').select();
+    if (!data?.length || error) throw error;
 
-  if (organizationId) {
-    query = query.eq('organization_id', organizationId);
-  } else {
-    query = query.is('organization_id', null);
-  }
+    return data[0];
+  }),
+});
 
-  const { data, error } = await query;
+export type ObjectsQueryByOrgParams = {
+  organizationId: Nullable<string>;
+};
+export const queryByOrg = createSupabaseQuery({
+  effect: createSupabaseEffect<ObjectsQueryByOrgParams, Object[]>(async ({ supabase, organizationId }) => {
+    let query = supabase.from('objects').select();
 
-  if (error) {
-    throw error;
-  }
+    if (organizationId) {
+      query = query.eq('organization_id', organizationId);
+    } else if (organizationId === null) {
+      query = query.is('organization_id', null);
+    }
 
-  return data;
-}
+    const { data, error } = await query;
 
-export async function createObject(object: CreateObjectDto): Promise<Object> {
-  const supabaseClient = await supabaseManager.getClient();
+    if (!data || error) throw error;
 
-  const {error: insertError} =  await supabaseClient.from('objects').insert(object);
+    return data;
+  }),
+});
 
-  if(insertError) throw insertError;
+export type CreateObjectMutationParams = {
+  object: CreateObjectDto;
+};
+export const createMutation = createSupabaseMutation({
+  effect: createSupabaseEffect<CreateObjectMutationParams, Object>(async ({ supabase, object }) => {
+    const { data, error } = await supabase.from('objects').insert(object).select();
 
-  const { data, error: queryError } = await supabaseClient
-    .from('objects')
-    .select()
-    .eq('name', object.name)
-    .order('created_at', { ascending: false })
-    .limit(1);
+    if (!data || error) throw error;
 
-  if (!data || queryError) throw queryError;
+    return data[0];
+  }),
+});
 
-  return data[0];
-}
+export type UpdateObjectMutationParams = {
+  id: string;
+  object: UpdateObjectDto;
+};
+export const updateMutation = createSupabaseMutation({
+  effect: createSupabaseEffect<UpdateObjectMutationParams, Object>(async ({ supabase, id, object }) => {
+    const { data, error } = await supabase.from('objects').update(object).eq('id', id).select();
+
+    if (!data || error) throw error;
+
+    return data[0];
+  }),
+});
