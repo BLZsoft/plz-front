@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { clsx } from 'clsx';
-import { useStore } from 'effector-react';
+import { useUnit } from 'effector-react';
 
 import { OrganizationsSidebar } from '~/widgets/organizations-sidebar';
 
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const OrganizationsPageView: FC<Props> = ({ data, ChildRoutes }) => {
-  const isHomePage = useStore(routes.organizations.home.$isOpened);
+  const isHomePage = useUnit(routes.organizations.home.$isOpened);
 
   return (
     <>

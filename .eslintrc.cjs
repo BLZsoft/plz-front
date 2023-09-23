@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
-  plugins: ['react-refresh', 'filename-rules', 'effector'],
+  plugins: ['filename-rules', 'effector'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -177,7 +177,6 @@ module.exports = {
         ],
       },
     ],
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
   overrides: [{ files: ['**/*.test.*'], rules: { 'boundaries/element-types': 'off' } }],
 };

@@ -1,7 +1,5 @@
 import { createEffect, sample } from 'effector';
 
-import { viewerModel } from '~/entities/viewer';
-
 import { logtoClient } from '~/shared/lib/logto';
 import { routes } from '~/shared/lib/router';
 
@@ -26,5 +24,5 @@ sample({
 
 sample({
   clock: handleCallbackFx.doneData,
-  target: viewerModel.fetchUserInfoFx,
+  target: routes.home.open,
 });

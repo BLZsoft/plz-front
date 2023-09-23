@@ -11,5 +11,5 @@ export const supabaseManager = new SupabaseSessionManager<Database>({
   supabaseUrl: SUPABASE_URL,
   supabaseAnonKey: SUPABASE_ANON_KEY,
   sessionProvider: new LogtoSupabaseSessionProvider(logtoClient, LogtoResource.Supabase),
-  sessionStorage: new LocalStorageSupabaseSessionStorage('supabaseToken'),
+  sessionStorage: new LocalStorageSupabaseSessionStorage('__deprecated_supabaseToken'),
 });
