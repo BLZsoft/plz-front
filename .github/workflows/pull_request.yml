@@ -1,4 +1,4 @@
-iname: 'Pull request'
+name: 'Pull request'
 run-name: 'Pull request: #${{ github.event.pull_request.number }} by ${{ github.actor }}'
 
 on:
@@ -12,6 +12,9 @@ concurrency:
 jobs:
   code-quality:
     name: 'Code quality'
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: [ubuntu-latest]
     steps:
       - name: 'Checkout'

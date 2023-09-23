@@ -7,6 +7,6 @@ import { logtoConfig } from './config';
  */
 export const logtoClient = new LogtoClient(logtoConfig);
 
-export { $logtoClient,  fetchResourceTokenFx } from './logto';
+export { $logtoClient, fetchResourceTokenFx } from './logto';
 
 export { LogtoResource } from './config';

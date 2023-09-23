@@ -14,7 +14,7 @@ export const View = modelView(factory, () => {
 
   const form = useForm<ObjectFormValues>({
     resolver: zodResolver(ObjectForm.Schema),
-    defaultValues
+    defaultValues,
   });
 
   return <ObjectForm.View form={form} submitting={submitting} onSubmit={onSubmit} />;

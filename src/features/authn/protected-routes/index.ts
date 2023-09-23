@@ -21,7 +21,7 @@ export function chainAuthenticated<Params extends RouteParams>(route: RouteInsta
     },
     cases: {
       authorized: sessionSuccess,
-      unauthorzied: sessionModel.fetchSessionFx
+      unauthorzied: sessionModel.fetchSessionFx,
     },
   });
 

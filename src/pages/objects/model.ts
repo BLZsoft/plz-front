@@ -1,6 +1,4 @@
-
 import { chainAuthenticated } from '~/features/authn/protected-routes';
-
 
 import { routes } from '~/shared/router';
 

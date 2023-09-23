@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useUnit } from 'effector-react';
 import { useForm } from 'react-hook-form';
 
-import { FieldInput } from '~/shared/forms/fields'
+import { FieldInput } from '~/shared/forms/fields';
 import { cn } from '~/shared/lib/utils';
 import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';
