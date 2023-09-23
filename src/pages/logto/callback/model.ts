@@ -1,17 +1,20 @@
 import { createEffect, sample } from 'effector';
 
-import { viewerModel } from '~/entities/viewer';
-
 import { logtoClient } from '~/shared/lib/logto';
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 
 export const route = routes.logto.callback;
 
 export const handleCallbackFx = createEffect(async () => {
   const currentPageUrl = window.location.href;
 
-  await logtoClient.handleSignInCallback(currentPageUrl);
-  await routes.home.open();
+  try {
+    await logtoClient.handleSignInCallback(currentPageUrl);
+  } catch (error) {
+    console.error('handleCallbackFx', error);
+  } finally {
+    await routes.home.open();
+  }
 });
 
 sample({
@@ -21,5 +24,5 @@ sample({
 
 sample({
   clock: handleCallbackFx.doneData,
-  target: viewerModel.fetchUserInfoFx,
+  target: routes.home.open,
 });

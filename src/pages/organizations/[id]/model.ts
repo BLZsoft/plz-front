@@ -5,14 +5,14 @@ import { organizationMembersModel } from '~/entities/organization-members';
 import { organizationsModel } from '~/entities/organizations';
 import { viewerModel } from '~/entities/viewer';
 
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 
 export const currentRoute = routes.organizations.details;
 
 export const $organization = combine(
   routes.organizations.details.$params,
   organizationsModel.$availableOrganizations,
-  ({ organizationId }, organizations) => organizations.find((org) => org.id === organizationId),
+  ({ id }, organizations) => organizations?.find((org) => org.id === id),
 );
 
 export const $role = combine(
@@ -23,12 +23,12 @@ export const $role = combine(
   ({ viewer, members }) => members?.find((m) => m.id === viewer?.sub)?.role ?? null,
 );
 
-export const dataLoadedRoute = (<Params extends { organizationId: string }>(route: RouteInstance<Params>) => {
+export const dataLoadedRoute = (<Params extends { id: string }>(route: RouteInstance<Params>) => {
   const dataRequested = createEvent<RouteParamsAndQuery<Params>>();
 
   sample({
     clock: dataRequested,
-    fn: ({ params }) => params.organizationId,
+    fn: ({ params }) => params.id,
     target: organizationMembersModel.requestMembershipsFx,
   });
 

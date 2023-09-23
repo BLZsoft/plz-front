@@ -1,3 +1,1 @@
-import * as objectsModel from './model';
-
-export { objectsModel };
+export { ObjectsTable } from './ui/table';

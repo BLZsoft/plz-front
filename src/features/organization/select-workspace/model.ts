@@ -1,5 +1,5 @@
 // FIXME: @d.tankov — разделить логику: вынести работу с персональной организацией в другой файл
-import { combine, createEvent, createStore, Store } from 'effector';
+import { Store, combine, createEvent, createStore } from 'effector';
 
 import { organizationsModel } from '~/entities/organizations';
 import { viewerModel } from '~/entities/viewer';
@@ -31,14 +31,14 @@ organizationSelected.watch((selectedId) => {
 
 export const $selectedOrganizationId = createStore<string | null>(null)
   .on(organizationSelected, (_, id) => id)
-  .on(organizationsModel.getAvailableOrganizationsFx.doneData, (_, organizations) => {
+  .on(organizationsModel.query.finished.success, (_, { result }) => {
     const savedOrganizationId = localStorage.getItem(LOCAL_STORAGE_KEY);
 
     if (!savedOrganizationId) {
       return null;
     }
 
-    const stillInOrganization = organizations.some((org) => org.id === savedOrganizationId);
+    const stillInOrganization = result.some((org) => org.id === savedOrganizationId);
 
     return stillInOrganization ? savedOrganizationId : null;
   });
@@ -51,6 +51,6 @@ export const $selectedOrganization = combine(
   },
   ({ availableOrganizations, personalOrganization, selectedOrganizationId }) =>
     selectedOrganizationId
-      ? availableOrganizations.find((org) => org.id === selectedOrganizationId)
+      ? availableOrganizations?.find((org) => org.id === selectedOrganizationId)
       : personalOrganization,
 );

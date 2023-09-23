@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { RouterProvider } from 'atomic-router-react';
 
-import { router } from '~/shared/lib/router';
+import { router } from '~/shared/router';
 
-export const withRouter = (App: FC) => {
+export const withRouter = (App: FC): FC => {
   const WithRouter = () => (
     <RouterProvider router={router}>
       <App />

@@ -2,7 +2,7 @@ import { chainAuthenticated } from '~/features/authn/protected-routes';
 
 import { viewerModel } from '~/entities/viewer';
 
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 
 export const currentRoute = routes.profile;
 

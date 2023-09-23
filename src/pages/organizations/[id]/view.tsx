@@ -10,7 +10,7 @@ import { OrganizationMemberRow } from '~/entities/organization-members';
 
 import { MemberData, Organization } from '~/shared/api/organizations';
 import { Profile } from '~/shared/api/profile';
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 import { Button } from '~/shared/ui/button';
 import { Separator } from '~/shared/ui/separator';
 import { Skeleton } from '~/shared/ui/skeleton';

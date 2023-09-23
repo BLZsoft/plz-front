@@ -1,7 +1,7 @@
 import { createEffect, createStore, sample } from 'effector';
 
 import { Profile, profileApi } from '~/shared/api/profile';
-import { appStarted } from '~/shared/lib/lifecycle';
+import { appStarted } from '~/shared/lifecycle';
 
 export const fetchUserInfoFx = createEffect<void, Profile>(() => profileApi.getProfile());
 

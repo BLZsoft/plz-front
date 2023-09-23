@@ -7,7 +7,7 @@ import { viewerModel } from '~/entities/viewer';
 import { $organization, $role, currentRoute, dataLoadedRoute } from './model';
 import { OrganizationDetailsPageLoader, OrganizationDetailsPageView, Props } from './view';
 
-type Params = { organizationId: string };
+type Params = { id: string };
 
 export const OrganizationDetailPage = {
   route: currentRoute,

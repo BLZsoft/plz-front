@@ -5,7 +5,7 @@ import { Layout } from '~/pages/layout';
 
 import { OrganizationDetailPage } from './[id]';
 import { OrganizationCreatePage } from './create';
-import { $data, currentRoute, dataLoadedRoute } from './model';
+import { $data, authenticatedRoute, currentRoute } from './model';
 import { OrganizationsPageLoader, OrganizationsPageView } from './view';
 
 const ChildRoutes = createRoutesView({
@@ -22,7 +22,7 @@ const ChildRoutes = createRoutesView({
 export const OrganizationsRoot = {
   route: currentRoute,
   view: createRouteView({
-    route: dataLoadedRoute,
+    route: authenticatedRoute,
     view: reflect({
       view: OrganizationsPageView,
       bind: {

@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { organizationsModel } from '~/entities/organizations';
 
 import { CreateOrganizationDto, Organization, organizationsApi } from '~/shared/api/organizations';
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 import { toast } from '~/shared/ui/use-toast';
 
 export const formSchema = z.object({
@@ -27,6 +27,8 @@ sample({
   target: organizationsModel.getAvailableOrganizationsFx,
 });
 
+// TODO: toast api as effector
+// eslint-disable-next-line effector/no-useless-methods
 sample({
   clock: createOrganizationFx.doneData,
   fn: ({ name }) =>
@@ -38,6 +40,5 @@ sample({
 
 sample({
   clock: createOrganizationFx.doneData,
-  fn: ({ id: organizationId }) => ({ organizationId }),
   target: routes.organizations.details.open,
 });

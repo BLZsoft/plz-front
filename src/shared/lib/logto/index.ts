@@ -1,18 +1,12 @@
 import LogtoClient from '@logto/browser';
 
-import { logtoConfig } from '~/shared/config/logto';
+import { logtoConfig } from './config';
 
-export enum LOGTO_RESOURCES {
-  Supabase = 'https://supabase.пожликбез.рф',
-}
+/**
+ * @deprecated use $logtoClient instead
+ */
+export const logtoClient = new LogtoClient(logtoConfig);
 
-export enum LOGTO_SCOPES {
-  Email = 'email',
-  Phone = 'phone',
-}
+export { $logtoClient, fetchResourceTokenFx } from './logto';
 
-export const logtoClient = new LogtoClient({
-  ...logtoConfig,
-  resources: Object.values(LOGTO_RESOURCES),
-  scopes: Object.values(LOGTO_SCOPES),
-});
+export { LogtoResource } from './config';

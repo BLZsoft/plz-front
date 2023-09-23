@@ -5,7 +5,7 @@ import { CreditCard, LogOut, User, Users } from 'lucide-react';
 
 import { ViewerAvatar } from '~/entities/viewer';
 
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 import { Button } from '~/shared/ui/button';
 import {
   DropdownMenu,

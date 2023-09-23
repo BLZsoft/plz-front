@@ -1,14 +1,7 @@
-import { createEffect, sample } from 'effector';
+import { createEffect } from 'effector';
 
-import { organizationsModel } from '~/entities/organizations';
-import { viewerModel } from '~/entities/viewer';
-
-import { baseUrl } from '~/shared/config/base-url';
 import { logtoClient } from '~/shared/lib/logto';
 
-export const signInFx = createEffect(() => logtoClient.signIn(baseUrl + '/logto/callback'));
+const baseUrl = window.location.origin;
 
-sample({
-  clock: viewerModel.fetchUserInfoFx.doneData,
-  target: organizationsModel.getAvailableOrganizationsFx,
-});
+export const signInFx = createEffect(() => logtoClient.signIn(baseUrl + '/logto/callback'));

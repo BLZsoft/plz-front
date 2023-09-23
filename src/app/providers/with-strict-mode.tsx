@@ -1,9 +1,9 @@
 import { FC, StrictMode } from 'react';
 
-export const withStrictMode = (App: FC) => {
-  const WithStrictMode = () => (
+export const withStrictMode = <P extends Record<string, unknown>>(App: FC<P>): FC<P> => {
+  const WithStrictMode = (props: P) => (
     <StrictMode>
-      <App />
+      <App {...props} />
     </StrictMode>
   );
 

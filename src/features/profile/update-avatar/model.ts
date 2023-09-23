@@ -11,6 +11,8 @@ export const updateAvatarFx = createEffect<Blob | null, string>(async (newAvatar
     throw new Error("New avatar doesn't provided");
   }
 
+  // TODO: attach session store to effect
+  // eslint-disable-next-line effector/no-getState
   const userId = viewerModel.$viewer.getState()?.sub;
   if (!userId) {
     throw new Error('Can not get current user id');

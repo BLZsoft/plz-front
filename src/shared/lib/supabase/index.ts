@@ -1,16 +1,10 @@
-import { SUPABASE_ANON_KEY, SUPABASE_URL } from '~/shared/config/supabase';
-import { LOGTO_RESOURCES, logtoClient } from '~/shared/lib/logto';
+/**
+ * @deprecated use getSupabaseFx instead
+ */
+export { supabaseManager } from './__old__';
 
-import { Database } from './database.types';
-import { SupabaseSessionManager } from './supabase-session-manager';
-import { LogtoSupabaseSessionProvider } from './supabase-session-manager/session-provider/logto';
-import { LocalStorageSupabaseSessionStorage } from './supabase-session-manager/session-storage/local-storage';
+export { $supabaseClient, ensureTokenFx, setupSupabaseFx } from './client';
 
-export const supabaseManager = new SupabaseSessionManager<Database>({
-  supabaseUrl: SUPABASE_URL,
-  supabaseAnonKey: SUPABASE_ANON_KEY,
-  sessionProvider: new LogtoSupabaseSessionProvider(logtoClient, LOGTO_RESOURCES.Supabase),
-  sessionStorage: new LocalStorageSupabaseSessionStorage('supabaseToken'),
-});
+export { createSupabaseEffect, createSupabaseQuery, createSupabaseMutation } from './farfetched';
 
-export type { Database };
+export type { Database } from './database.types';

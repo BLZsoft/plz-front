@@ -1,3 +1,5 @@
+export { chainUuid } from './chain-uuid';
+
 export { cn } from './cn';
 
 export type { Nullable } from './nullable';

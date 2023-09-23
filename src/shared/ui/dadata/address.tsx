@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { FC, forwardRef } from 'react';
 
 import { AddressSuggestions, DaDataAddress, DaDataAddressBounds } from 'react-dadata';
 
-import { DADATA_API_KEY } from '~/shared/config/dadata';
 import { Input } from '~/shared/ui/input';
 
+import { DADATA_API_KEY } from './config';
 import { CommonProps } from './types';
 
 import 'react-dadata/dist/react-dadata.css';
@@ -21,10 +21,11 @@ type BaseDadataAddressProps = CommonProps<DaDataAddress> & {
 
 type DadataAddressProps = Omit<BaseDadataAddressProps, 'token'>;
 
-export const DadataAddress: FC<DadataAddressProps> = (props) => {
-  return (
+export const DadataAddress: FC<DadataAddressProps> = forwardRef<AddressSuggestions, DadataAddressProps>(
+  (props, ref) => (
     <AddressSuggestions
       {...props}
+      ref={ref}
       token={DADATA_API_KEY}
       filterLanguage={'ru'}
       customInput={Input}
@@ -32,5 +33,5 @@ export const DadataAddress: FC<DadataAddressProps> = (props) => {
       delay={300}
       autoload
     />
-  );
-};
+  ),
+);
