@@ -12,9 +12,9 @@ import { routes } from '~/shared/router';
 
 export const currentRoute = routes.objects.edit;
 
-export const authenticatedRoute = chainAuthenticated(currentRoute);
+export const idEnsuredRoute = chainUuid(currentRoute, 'id');
 
-export const idEnsuredRoute = chainUuid(authenticatedRoute, 'id');
+export const authenticatedRoute = chainAuthenticated(idEnsuredRoute);
 
 export const query = attachOperation(objectsApi.queryById);
 
