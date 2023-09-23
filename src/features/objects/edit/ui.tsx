@@ -13,8 +13,6 @@ export const View = modelView(factory, () => {
   const [submitting, onSubmit] = useUnit([$submitting, submitted]);
   const defaultValues = useUnit($initialValues);
 
-  console.log(defaultValues);
-
   const form = useForm<ObjectFormValues>({
     resolver: zodResolver(ObjectForm.Schema),
     defaultValues,

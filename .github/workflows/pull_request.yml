@@ -1,4 +1,4 @@
-name: 'Pull request'
+iname: 'Pull request'
 run-name: 'Pull request: #${{ github.event.pull_request.number }} by ${{ github.actor }}'
 
 on:
@@ -41,3 +41,10 @@ jobs:
 
       - name: 'Check Prettier'
         run: pnpm test:prettier --check
+
+      - name: 'Unit Tests'
+        run: pnpm test:unit --coverage
+
+      - name: 'Report Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses: davelosert/vitest-coverage-report-action@v2

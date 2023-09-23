@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "pnpm test:typescript && pnpm test:lint && pnpm test:prettier",
+    "test:unit": "vitest run",
     "test:typescript": "tsc --noEmit",
     "test:lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test:prettier": "prettier . --ignore-unknown"
