@@ -2,8 +2,8 @@ import { sample } from 'effector';
 import { createEffect } from 'effector/compat';
 import { z } from 'zod';
 
-import { CreateObjectDto, ObjectType, objectsApi } from '~/shared/api/objects';
-import { AddressSuggestionSchemaZ } from '~/shared/forms-ui/address-input';
+import { CreateObjectDto, Object, objectsApi } from '~/shared/api/objects';
+import { AddressSuggestionSchemaZ } from '~/shared/forms/address-input';
 import { toast } from '~/shared/ui/use-toast';
 
 // TODO: пока так ибо не знаем где создаем в личном или в орге
@@ -41,7 +41,7 @@ export const initializeDefaultValues = ({
   fireRoomArea: 0,
 });
 
-export const createObjectFx = createEffect<FormValues, ObjectType>((data) => {
+export const createObjectFx = createEffect<FormValues, Object>((data) => {
   const normalizedPayload: CreateObjectDto = {
     organization_id: data.organizationId,
     user_id: data.organizationId ? undefined : data.userId,

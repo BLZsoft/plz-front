@@ -5,7 +5,7 @@ import { organizationMembersModel } from '~/entities/organization-members';
 import { organizationsModel } from '~/entities/organizations';
 import { viewerModel } from '~/entities/viewer';
 
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 
 export const currentRoute = routes.organizations.details;
 

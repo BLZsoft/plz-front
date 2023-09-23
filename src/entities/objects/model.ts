@@ -1,13 +1,18 @@
 import { createEffect, createStore } from 'effector';
 
-import { ObjectType, objectsApi } from '~/shared/api/objects';
+import { Object, objectsApi } from '~/shared/api/objects';
 import { Nullable } from '~/shared/lib/utils';
 
-export const fetchObjectsFx = createEffect<
+const fetchObjectsFx = createEffect<
   {
     organizationId: Nullable<string>;
   },
-  ObjectType[]
+  Object[]
 >(({ organizationId }) => objectsApi.objectsByOrganization(organizationId));
 
-export const $objects = createStore<ObjectType[] | null>(null).on(fetchObjectsFx.doneData, (_, payload) => payload);
+const $objects = createStore<Object[] | null>(null).on(fetchObjectsFx.doneData, (_, payload) => payload);
+
+export const objectsModel = {
+  $objects,
+  fetchObjectsFx,
+};

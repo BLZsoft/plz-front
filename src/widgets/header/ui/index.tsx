@@ -3,7 +3,7 @@ import { Link } from 'atomic-router-react';
 import { OrganizationSelect } from '~/features/organization/select-workspace';
 
 import Logo from '~/shared/assets/logo.svg';
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 
 import { ProfileMenu } from './profile-menu';
 

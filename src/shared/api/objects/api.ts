@@ -1,9 +1,9 @@
 import { supabaseManager } from '~/shared/lib/supabase';
 import { Nullable } from '~/shared/lib/utils';
 
-import { CreateObjectDto, ObjectType } from './types';
+import { CreateObjectDto, Object } from './types';
 
-export async function objectsByOrganization(organizationId: Nullable<string>): Promise<ObjectType[]> {
+export async function objectsByOrganization(organizationId: Nullable<string>): Promise<Object[]> {
   const supabaseClient = await supabaseManager.getClient();
 
   let query = supabaseClient.from('objects').select();
@@ -23,7 +23,7 @@ export async function objectsByOrganization(organizationId: Nullable<string>): P
   return data;
 }
 
-export async function createObject(object: CreateObjectDto): Promise<ObjectType> {
+export async function createObject(object: CreateObjectDto): Promise<Object> {
   const supabaseClient = await supabaseManager.getClient();
 
   const {error: insertError} =  await supabaseClient.from('objects').insert(object);

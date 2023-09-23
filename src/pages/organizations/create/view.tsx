@@ -5,7 +5,7 @@ import { ChevronLeft } from 'lucide-react';
 
 import { OrganizationCreateForm } from '~/features/organization/create';
 
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 import { Button } from '~/shared/ui/button';
 import { Typography } from '~/shared/ui/typography';
 

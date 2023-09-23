@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { organizationsModel } from '~/entities/organizations';
 
 import { CreateOrganizationDto, Organization, organizationsApi } from '~/shared/api/organizations';
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 import { toast } from '~/shared/ui/use-toast';
 
 export const formSchema = z.object({

@@ -5,7 +5,7 @@ import { useUnit } from 'effector-react';
 import { Plus } from 'lucide-react';
 
 import { Organization } from '~/shared/api/organizations';
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 import { Separator } from '~/shared/ui/separator';
 
 import { OrganizationsSidebarItem } from './item';

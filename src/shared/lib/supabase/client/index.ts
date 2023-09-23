@@ -58,8 +58,6 @@ export const ensureTokenFx = attach({
       return newToken;
     }
 
-    console.log('token:', token);
-
     return token;
   }),
 });

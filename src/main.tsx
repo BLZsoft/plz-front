@@ -1,17 +1,16 @@
 import { createRoot } from 'react-dom/client';
 
 import { allSettled, fork } from 'effector';
-import { attachLogger } from 'effector-logger';
 
 import { App } from '~/app';
 
 import { appStarted } from '~/shared/lifecycle';
 
+import { attachLogger } from './logger';
+
 const scope = fork({});
 
-if (import.meta.env.DEV) {
-  attachLogger({ scope });
-}
+attachLogger('__effectorLogger', { scope });
 
 async function renderApp() {
   await allSettled(appStarted, { scope });
@@ -20,8 +19,6 @@ async function renderApp() {
   const root = createRoot(container);
 
   root.render(<App scope={scope} />);
-
-  console.log(scope);
 }
 
 renderApp();

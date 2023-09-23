@@ -3,8 +3,8 @@ import { FC, useEffect, useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import { FormFieldAddressInput } from '~/shared/forms-ui/address-input';
-import { FormFieldInput } from '~/shared/forms-ui/input';
+import { FormFieldAddressInput } from '~/shared/forms/address-input';
+import { FormFieldInput } from '~/shared/forms/input';
 import { cn } from '~/shared/lib/utils';
 import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import { CreateOrganizationDto } from '~/shared/api/organizations';
-import { FormFieldInput } from '~/shared/forms-ui/input';
+import { FormFieldInput } from '~/shared/forms/input';
 import { cn } from '~/shared/lib/utils';
 import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';

@@ -3,19 +3,20 @@ import { createRouteView, createRoutesView } from 'atomic-router-react';
 
 import { Layout } from '~/pages/layout';
 
+import { ObjectEditPage } from './[id]';
 import { ObjectCreatePage } from './create';
 import { ObjectHomePage } from './home';
 import { $data, currentRoute, dataLoadedRoute } from './model';
 import { ObjectsPageLoader, ObjectsPageView } from './view';
 
 const ChildRoutes = createRoutesView({
-  routes: [ObjectCreatePage, ObjectHomePage],
+  routes: [ObjectHomePage, ObjectCreatePage, ObjectEditPage],
   otherwise() {
     return (
-      <div className='flex flex-col items-center'>
-        <span className='text-2xl text-red-800'>Not found.</span>
-        <span className='mt-8 text-xl'>Edit me here.</span>
-        <code className='text-lg font-bold'>pages/objects/index.tsx</code>
+      <div className="flex flex-col items-center">
+        <span className="text-2xl text-red-800">Not found.</span>
+        <span className="mt-8 text-xl">Edit me here.</span>
+        <code className="text-lg font-bold">pages/objects/index.tsx</code>
       </div>
     );
   },

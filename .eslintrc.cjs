@@ -177,6 +177,16 @@ module.exports = {
         ],
       },
     ],
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          // un-ban a type that's banned by default
+          Object: false,
+        },
+        extendDefaults: true,
+      },
+    ],
   },
   overrides: [{ files: ['**/*.test.*'], rules: { 'boundaries/element-types': 'off' } }],
 };

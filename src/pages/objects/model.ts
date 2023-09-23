@@ -6,7 +6,7 @@ import { selectOrganizationModel } from '~/features/organization/select-workspac
 
 import { objectsModel } from '~/entities/objects';
 
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 
 export const currentRoute = routes.objects.root;
 

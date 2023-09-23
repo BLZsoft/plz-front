@@ -7,7 +7,7 @@ export const routes = {
     root: createRoute(),
     home: createRoute(),
     create: createRoute(),
-    details: createRoute<{ objectId: string }>(),
+    edit: createRoute<{ objectId: string }>(),
   },
   organizations: {
     root: createRoute(),

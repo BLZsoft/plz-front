@@ -1,7 +1,7 @@
 import { createEffect, sample } from 'effector';
 
 import { logtoClient } from '~/shared/lib/logto';
-import { routes } from '~/shared/lib/router';
+import { routes } from '~/shared/router';
 
 export const route = routes.logto.callback;
 

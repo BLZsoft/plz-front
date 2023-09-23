@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   flexRender,
@@ -13,19 +12,20 @@ import {
 } from '@tanstack/react-table';
 import { Link } from 'atomic-router-react';
 
-import { routes } from '~/shared/lib/router';
+import { Object } from '~/shared/api/objects';
+import { routes } from '~/shared/router';
 import { Button } from '~/shared/ui/button';
 import { Input } from '~/shared/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/shared/ui/table';
 
-interface DataTableProps<TData, TValue> {
-  data: TData[];
-  columns: ColumnDef<TData, TValue>[];
+import { columns } from './columns';
+
+interface ObjectsTableProps {
+  data: Object[];
 }
 
-// FIXME: move TableRow to entities/objects/ui/table-row
-
-export function ObjectsTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+// TODO: move table to entities/objects/ui/table
+export function ObjectsTable({ data }: ObjectsTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -33,6 +33,7 @@ export function ObjectsTable<TData, TValue>({ columns, data }: DataTableProps<TD
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getRowId: (object) => object.id,
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),

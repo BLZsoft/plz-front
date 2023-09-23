@@ -19,7 +19,7 @@ export const routesMap = [
   },
   {
     path: '/objects/:objectId',
-    route: [routes.objects.root, routes.objects.details],
+    route: [routes.objects.root, routes.objects.edit],
   },
   {
     path: '/organizations',
