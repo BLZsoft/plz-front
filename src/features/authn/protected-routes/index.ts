@@ -4,9 +4,12 @@ import { empty, not } from 'patronum';
 
 import { signInFx } from '~/features/authn/sign-in';
 
+import { chainLogtoClient } from '~/shared/lib/logto';
 import { sessionModel } from '~/shared/session';
 
 export function chainAuthenticated<Params extends RouteParams>(route: RouteInstance<Params>) {
+  const logtoRoute = chainLogtoClient(route);
+
   const sessionCheckStarted = createEvent<RouteParamsAndQuery<Params>>();
 
   const sessionSuccess = createEvent();
@@ -40,7 +43,7 @@ export function chainAuthenticated<Params extends RouteParams>(route: RouteInsta
   });
 
   return chainRoute({
-    route,
+    route: logtoRoute,
     beforeOpen: sessionCheckStarted,
     openOn: sessionSuccess,
   });

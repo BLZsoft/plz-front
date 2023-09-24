@@ -7,6 +7,7 @@ import { logtoConfig } from './config';
  */
 export const logtoClient = new LogtoClient(logtoConfig);
 
+export { chainLogtoClient } from './chain';
 export { $logtoClient, fetchResourceTokenFx } from './logto';
 
 export { LogtoResource } from './config';
