@@ -1,10 +1,10 @@
 import { createEffect, sample } from 'effector';
 
-import { viewerModel } from '~/entities/viewer';
 
 import { profileApi } from '~/shared/api/profile';
 import { supabaseManager } from '~/shared/lib/supabase';
 import { uuid } from '~/shared/lib/utils';
+import { sessionModel } from '~/shared/session';
 
 export const updateAvatarFx = createEffect<Blob | null, string>(async (newAvatar) => {
   if (!newAvatar) {
@@ -13,7 +13,7 @@ export const updateAvatarFx = createEffect<Blob | null, string>(async (newAvatar
 
   // TODO: attach session store to effect
   // eslint-disable-next-line effector/no-getState
-  const userId = viewerModel.$viewer.getState()?.sub;
+  const userId = sessionModel.$session.getState()?.sub;
   if (!userId) {
     throw new Error('Can not get current user id');
   }
@@ -40,5 +40,5 @@ export const updateAvatarFx = createEffect<Blob | null, string>(async (newAvatar
 
 sample({
   clock: updateAvatarFx.doneData,
-  target: viewerModel.fetchUserInfoFx,
+  target: sessionModel.fetchSessionFx,
 });

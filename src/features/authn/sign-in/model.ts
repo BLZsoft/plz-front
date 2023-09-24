@@ -1,7 +1,12 @@
-import { createEffect } from 'effector';
+import { attach, createEffect } from 'effector';
 
-import { logtoClient } from '~/shared/lib/logto';
+import { $logtoClient } from '~/shared/lib/logto';
 
-const baseUrl = window.location.origin;
+export const signInFx = attach({
+  source: $logtoClient,
+  effect: createEffect(async (logtoClient) => {
+    const baseUrl = window.location.origin;
 
-export const signInFx = createEffect(() => logtoClient.signIn(baseUrl + '/logto/callback'));
+    await logtoClient.signIn(baseUrl + '/logto/callback');
+  }),
+});

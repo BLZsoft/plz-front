@@ -2,7 +2,8 @@ import { reflect } from '@effector/reflect';
 import { createRouteView, RouteViewConfig } from 'atomic-router-react';
 
 import { organizationMembersModel } from '~/entities/organization-members';
-import { viewerModel } from '~/entities/viewer';
+
+import { sessionModel } from '~/shared/session';
 
 import { $organization, $role, currentRoute, dataLoadedRoute } from './model';
 import { OrganizationDetailsPageLoader, OrganizationDetailsPageView, Props } from './view';
@@ -16,7 +17,7 @@ export const OrganizationDetailPage = {
     view: reflect({
       view: OrganizationDetailsPageView,
       bind: {
-        viewer: viewerModel.$viewer,
+        viewer: sessionModel.$session,
         role: $role,
         members: organizationMembersModel.$members,
         organization: $organization,

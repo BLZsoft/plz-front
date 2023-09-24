@@ -2,7 +2,8 @@
 import { Store, combine, createEvent, createStore } from 'effector';
 
 import { organizationsModel } from '~/entities/organizations';
-import { viewerModel } from '~/entities/viewer';
+
+import { sessionModel } from '~/shared/session';
 
 const LOCAL_STORAGE_KEY = 'organization';
 
@@ -12,7 +13,7 @@ export type PersonalOrganization = {
   image: string | null;
 };
 
-export const $personalOrganization: Store<PersonalOrganization> = viewerModel.$viewer.map((v) => ({
+export const $personalOrganization: Store<PersonalOrganization> = sessionModel.$session.map((v) => ({
   id: null,
   name: 'Личное пространство',
   image: v?.picture ?? null,

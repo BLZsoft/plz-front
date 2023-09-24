@@ -1,35 +1,35 @@
 import { chainRoute, RouteInstance, RouteParams, RouteParamsAndQuery } from 'atomic-router';
-import { createEvent, sample, split } from 'effector';
-import { empty, not } from 'patronum';
+import { createEvent, sample } from 'effector';
+import { condition, empty, not } from 'patronum';
 
 import { signInFx } from '~/features/authn/sign-in';
 
+import { chainLogtoClient } from '~/shared/lib/logto';
 import { sessionModel } from '~/shared/session';
 
 export function chainAuthenticated<Params extends RouteParams>(route: RouteInstance<Params>) {
-  const sessionCheckStarted = createEvent<RouteParamsAndQuery<Params>>();
+  const logtoRoute = chainLogtoClient(route);
 
-  const sessionSuccess = createEvent();
+  const checkStarted = createEvent<RouteParamsAndQuery<Params>>();
 
-  // 1. При открытии роута проверяем сессию. Если есть - открываем сразу, если нет - запрашиваем ещё раз.
-  split({
-    clock: sessionCheckStarted,
-    source: not(empty(sessionModel.$session)),
-    match: {
-      authorized: (s) => s,
-      unauthorzied: (s) => !s,
-    },
-    cases: {
-      authorized: sessionSuccess,
-      unauthorzied: sessionModel.fetchSessionFx,
-    },
+  const checkSuccess = createEvent();
+
+  condition({
+    source: checkStarted,
+    if: not(empty(sessionModel.$session)),
+    then: checkSuccess,
+    else: condition({
+      source: sessionModel.fetchSessionFx,
+      if: not(sessionModel.fetchSessionFx.pending),
+      then: sessionModel.fetchSessionFx,
+    }),
   });
 
   // 2. Получили сессию - открываем роут, но только если ещё на странице
   sample({
     clock: sessionModel.fetchSessionFx.doneData,
     filter: route.$isOpened,
-    target: sessionSuccess,
+    target: checkSuccess,
   });
 
   // 3. Сессия отсутствует - инициализируем процесс входа, но только если еще на странице
@@ -40,8 +40,8 @@ export function chainAuthenticated<Params extends RouteParams>(route: RouteInsta
   });
 
   return chainRoute({
-    route,
-    beforeOpen: sessionCheckStarted,
-    openOn: sessionSuccess,
+    route: logtoRoute,
+    beforeOpen: checkStarted,
+    openOn: checkSuccess,
   });
 }

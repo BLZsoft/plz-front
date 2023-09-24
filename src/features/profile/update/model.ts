@@ -2,9 +2,9 @@ import { sample } from 'effector';
 import { createEffect } from 'effector/compat';
 import { z } from 'zod';
 
-import { viewerModel } from '~/entities/viewer';
-
 import { profileApi, UpdateProfileDto, UserData } from '~/shared/api/profile';
+import { sessionModel } from '~/shared/session'
+
 
 export const formSchema = z.object({
   username: z
@@ -21,5 +21,5 @@ export const updateProfileFx = createEffect<UpdateProfileDto, UserData>((data) =
 
 sample({
   clock: updateProfileFx.doneData,
-  target: viewerModel.fetchUserInfoFx,
+  target: sessionModel.fetchSessionFx,
 });

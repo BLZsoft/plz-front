@@ -6,7 +6,7 @@ import { Layout } from '~/pages/layout';
 import { ObjectEditPage } from './[id]';
 import { ObjectCreatePage } from './create';
 import { ObjectListPage } from './list';
-import { authenticatedRoute, currentRoute } from './model';
+import { currentRoute } from './model';
 import { ObjectsRootPageLoader, ObjectsRootPageView } from './view';
 
 const ChildRoutes = createRoutesView({
@@ -25,7 +25,7 @@ const ChildRoutes = createRoutesView({
 export const ObjectsPage = {
   route: currentRoute,
   view: createRouteView({
-    route: authenticatedRoute,
+    route: currentRoute,
     view: reflect({
       view: ObjectsRootPageView,
       bind: {

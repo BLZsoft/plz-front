@@ -3,9 +3,10 @@ import { combine, createEvent, sample } from 'effector';
 
 import { organizationMembersModel } from '~/entities/organization-members';
 import { organizationsModel } from '~/entities/organizations';
-import { viewerModel } from '~/entities/viewer';
 
-import { routes } from '~/shared/router';
+import { routes } from '~/shared/router'
+import { sessionModel } from '~/shared/session';
+
 
 export const currentRoute = routes.organizations.details;
 
@@ -17,7 +18,7 @@ export const $organization = combine(
 
 export const $role = combine(
   {
-    viewer: viewerModel.$viewer,
+    viewer: sessionModel.$session,
     members: organizationMembersModel.$members,
   },
   ({ viewer, members }) => members?.find((m) => m.id === viewer?.sub)?.role ?? null,

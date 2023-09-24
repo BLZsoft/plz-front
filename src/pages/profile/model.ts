@@ -1,14 +1,13 @@
 import { chainAuthenticated } from '~/features/authn/protected-routes';
 
-import { viewerModel } from '~/entities/viewer';
-
 import { routes } from '~/shared/router';
+import { sessionModel } from '~/shared/session';
 
 export const currentRoute = routes.profile;
 
 export const authenticatedRoute = chainAuthenticated(currentRoute);
 
-export const $defaultValues = viewerModel.$viewer.map(
+export const $defaultValues = sessionModel.$session.map(
   (v) =>
     v && {
       username: v.username,
