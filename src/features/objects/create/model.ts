@@ -1,14 +1,17 @@
 import { Mutation } from '@farfetched/core';
 import { RouteInstance, RouteParams, redirect } from 'atomic-router';
-import { createEvent, sample } from 'effector';
+import { Store, createEvent, sample } from 'effector';
 import { modelFactory } from 'effector-factorio';
 
+import { ObjectType } from '~/shared/api/object-types';
 import { CreateObjectDto, Object } from '~/shared/api/objects';
 import { ObjectForm, ObjectFormValues } from '~/shared/forms/object';
 
 type MutationParams = Omit<CreateObjectDto, 'organization_id' | 'owner_id'>;
 
 export type FactoryParams = {
+  $objectTypes: Store<ObjectType[] | null>;
+
   mutation: Mutation<MutationParams, Object, Error>;
   redirectAfter?: {
     route: RouteInstance<RouteParams>;
@@ -16,7 +19,7 @@ export type FactoryParams = {
   };
 };
 
-export const factory = modelFactory(({ mutation, redirectAfter }: FactoryParams) => {
+export const factory = modelFactory(({ $objectTypes, mutation, redirectAfter }: FactoryParams) => {
   const $submitting = mutation.$pending;
   const submitted = createEvent<ObjectFormValues>();
 
@@ -37,6 +40,7 @@ export const factory = modelFactory(({ mutation, redirectAfter }: FactoryParams)
   }
 
   return {
+    $objectTypes,
     $submitting,
     submitted,
     defaultValues,

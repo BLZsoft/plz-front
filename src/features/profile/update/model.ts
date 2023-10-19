@@ -3,8 +3,7 @@ import { createEffect } from 'effector/compat';
 import { z } from 'zod';
 
 import { profileApi, UpdateProfileDto, UserData } from '~/shared/api/profile';
-import { sessionModel } from '~/shared/session'
-
+import { sessionModel } from '~/shared/session';
 
 export const formSchema = z.object({
   username: z
