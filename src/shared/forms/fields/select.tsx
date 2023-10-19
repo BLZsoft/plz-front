@@ -1,6 +1,7 @@
 import { ControllerProps, FieldPath, FieldValue, FieldValues } from 'react-hook-form';
 
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '~/shared/ui/form';
+import { ScrollArea } from '~/shared/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/shared/ui/select';
 
 type Props<
@@ -33,11 +34,13 @@ export const FieldSelect = <
             </SelectTrigger>
           </FormControl>
           <SelectContent>
-            {props.options?.map(({ value, display }) => (
-              <SelectItem key={value} value={value}>
-                {display}
-              </SelectItem>
-            ))}
+            <ScrollArea className="max-h-[20rem] overflow-y-auto">
+              {props.options?.map(({ value, display }) => (
+                <SelectItem key={value} value={value}>
+                  {display}
+                </SelectItem>
+              ))}
+            </ScrollArea>
           </SelectContent>
         </Select>
 
