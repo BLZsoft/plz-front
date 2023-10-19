@@ -1,6 +1,5 @@
 import { createEffect, sample } from 'effector';
 
-
 import { profileApi } from '~/shared/api/profile';
 import { supabaseManager } from '~/shared/lib/supabase';
 import { uuid } from '~/shared/lib/utils';

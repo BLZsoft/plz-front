@@ -4,9 +4,8 @@ import { combine, createEvent, sample } from 'effector';
 import { organizationMembersModel } from '~/entities/organization-members';
 import { organizationsModel } from '~/entities/organizations';
 
-import { routes } from '~/shared/router'
+import { routes } from '~/shared/router';
 import { sessionModel } from '~/shared/session';
-
 
 export const currentRoute = routes.organizations.details;
 

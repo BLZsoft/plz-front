@@ -3,19 +3,22 @@ import { RouteInstance, RouteParams, redirect } from 'atomic-router';
 import { Store, createEvent, sample } from 'effector';
 import { modelFactory } from 'effector-factorio';
 
+import { ObjectType } from '~/shared/api/object-types';
 import { Object } from '~/shared/api/objects';
 import { ObjectForm, ObjectFormPayload, ObjectFormValues } from '~/shared/forms/object';
 
 export type FactoryParams = {
-  mutation: Mutation<ObjectFormPayload, Object, Error>;
+  $objectTypes: Store<ObjectType[] | null>;
   $object: Store<Object | null>;
+
+  mutation: Mutation<ObjectFormPayload, Object, Error>;
   redirectAfter?: {
     route: RouteInstance<RouteParams>;
     params?: RouteParams;
   };
 };
 
-export const factory = modelFactory(({ mutation, $object, redirectAfter }: FactoryParams) => {
+export const factory = modelFactory(({ $objectTypes, $object, mutation, redirectAfter }: FactoryParams) => {
   const $submitting = mutation.$pending;
 
   const $initialValues = $object.map(ObjectForm.normalizeValues);
@@ -37,6 +40,7 @@ export const factory = modelFactory(({ mutation, $object, redirectAfter }: Facto
   }
 
   return {
+    $objectTypes,
     $submitting,
     submitted,
     $initialValues,

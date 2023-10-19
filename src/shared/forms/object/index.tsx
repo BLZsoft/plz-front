@@ -1,46 +1,68 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import { Loader2 } from 'lucide-react';
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn, useWatch } from 'react-hook-form';
 
-import { FieldAddressInput, FieldInput } from '~/shared/forms/fields';
+import { FieldInput, FieldSelect } from '~/shared/forms/fields';
 import { cn } from '~/shared/lib/utils';
 import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';
 
-import { FormValues, Schema, normalizePayload, normalizeValues } from './model';
+import { FormValues, ObjectType, Schema, normalizePayload, normalizeValues } from './model';
+import CLASSIFICATION_TO_QUESTIONS from './model/classification-to-questions.json';
+import { FieldsConstructor } from './ui';
 
 export type ObjectFormProps = {
+  objectTypes: ObjectType[] | null;
   form: UseFormReturn<FormValues>;
   submitting: boolean;
   onSubmit: (object: FormValues) => void;
   className?: string;
 };
 
-const View: FC<ObjectFormProps> = ({ form, submitting, onSubmit, className }) => (
-  <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className={cn('space-y-8', className)}>
-      <FieldInput control={form.control} name={'name'} placeholder="Название объекта" />
-      <FieldAddressInput control={form.control} name={'address'} placeholder="Адрес" />
+const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, className }) => {
+  const type = useWatch({
+    control: form.control,
+    name: 'type',
+    defaultValue: undefined,
+  });
 
-      <FieldInput control={form.control} name={'floors'} placeholder="Количество этажей" />
-      <FieldInput control={form.control} name={'height'} placeholder="Высота" />
-      <FieldInput control={form.control} name={'width'} placeholder="Ширина" />
-      <FieldInput control={form.control} name={'fireRoomArea'} placeholder="Площадь пожарного отсека" />
+  const questions = useMemo(() => {
+    const f = objectTypes?.find((o) => o.id === type)?.f;
+    if (!f) return undefined;
+    return CLASSIFICATION_TO_QUESTIONS[f];
+  }, [objectTypes, type]);
 
-      <Button type="submit" className={'ml-auto flex w-full md:w-auto'} disabled={submitting}>
-        {submitting && (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Сохраняем
-          </>
-        )}
+  if (!objectTypes) return 'Произошла ошибка, пожалуйста, попробуйте ещё раз';
 
-        {!submitting && 'Сохранить'}
-      </Button>
-    </form>
-  </Form>
-);
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={cn('space-y-8', className)}>
+        <FieldInput control={form.control} name={'name'} label="Название объекта" placeholder="Торговое предприятие" />
+
+        <FieldSelect
+          name={'type'}
+          label={'Тип объекта'}
+          placeholder="Выберите значение"
+          options={objectTypes.map((t) => ({ display: `${t.f} ${t.name}`, value: t.id }))}
+        />
+
+        <FieldsConstructor questions={questions} />
+
+        <Button type="submit" className={'ml-auto flex w-full md:w-auto'} disabled={submitting}>
+          {submitting && (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Сохраняем
+            </>
+          )}
+
+          {!submitting && 'Сохранить'}
+        </Button>
+      </form>
+    </Form>
+  );
+};
 
 export const ObjectForm = {
   View,

@@ -15,3 +15,5 @@ export const ObjectCreatePageView: FC<Props> = ({ model }) => (
     </div>
   </>
 );
+
+export const ObjectCreatePageLoad = () => 'Загрузка...';

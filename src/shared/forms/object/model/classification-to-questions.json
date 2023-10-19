@@ -1,0 +1,291 @@
+{
+  "1.1": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors"
+  ],
+  "1.12": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors"
+  ],
+  "1.13": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors"
+  ],
+  "1.2": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "1.3": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "1.4": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "2.1": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "2.2": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "2.3": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors"
+  ],
+  "2.4": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "3.1": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    null
+  ],
+  "3.2": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "isDiningRoomInBasement",
+    "numberOfVisitors"
+  ],
+  "3.3": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "3.4": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors"
+  ],
+  "3.5": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors"
+  ],
+  "3.6": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "3.7": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "4.1": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "4.2": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "numberOfVisitors",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "4.3": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor",
+    "hasSalesRoomWithoutNaturalLight"
+  ],
+  "4.4": [
+    "address",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "5.1": [
+    "address",
+    "width",
+    "category",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "5.2": [
+    "address",
+    "width",
+    "category",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "5.21": [
+    "address",
+    "width",
+    "category",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "5.22": [
+    "address",
+    "width",
+    "category",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "5.23": [
+    "address",
+    "width",
+    "category",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "5.24": [
+    "address",
+    "width",
+    "category",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ],
+  "5.3": [
+    "address",
+    "width",
+    "category",
+    "abovegroundFloors",
+    "fireCompartmentFloorArea",
+    "height",
+    "volume",
+    "undergroundFloors",
+    "hasGroundFloor"
+  ]
+}

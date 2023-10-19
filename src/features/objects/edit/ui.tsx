@@ -8,9 +8,10 @@ import { ObjectForm, ObjectFormValues } from '~/shared/forms/object';
 import { factory } from './model';
 
 export const View = modelView(factory, () => {
-  const { $submitting, submitted, $initialValues } = factory.useModel();
+  const { $objectTypes, $submitting, submitted, $initialValues } = factory.useModel();
 
   const [submitting, onSubmit] = useUnit([$submitting, submitted]);
+  const objectTypes = useUnit($objectTypes);
   const defaultValues = useUnit($initialValues);
 
   const form = useForm<ObjectFormValues>({
@@ -18,5 +19,5 @@ export const View = modelView(factory, () => {
     defaultValues,
   });
 
-  return <ObjectForm.View form={form} submitting={submitting} onSubmit={onSubmit} />;
+  return <ObjectForm.View objectTypes={objectTypes} form={form} submitting={submitting} onSubmit={onSubmit} />;
 });

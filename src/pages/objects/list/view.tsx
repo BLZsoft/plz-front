@@ -8,10 +8,6 @@ type Props = {
   data: Object[];
 };
 
-export const ObjectHomePageView: FC<Props> = ({ data }) => (
-  <div className="container mx-auto py-10">
-    <ObjectsTable data={data} />
-  </div>
-);
+export const ObjectHomePageView: FC<Props> = ({ data }) => <ObjectsTable data={data} />;
 
 export const ObjectHomePageLoader = () => <h1>Тут могла быть ваша реклама</h1>;
