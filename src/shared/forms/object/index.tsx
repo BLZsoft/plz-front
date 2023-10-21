@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
 import { Loader2 } from 'lucide-react';
 import { UseFormReturn, useWatch } from 'react-hook-form';
@@ -9,7 +9,7 @@ import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';
 
 import { FormValues, ObjectType, Schema, normalizePayload, normalizeValues } from './model';
-import CLASSIFICATION_TO_QUESTIONS from './model/classification-to-questions.json';
+import { F_TO_QUESTIONS } from './model/questions-by-f-classification/f-to-questions';
 import { FieldsConstructor } from './ui';
 
 export type ObjectFormProps = {
@@ -30,8 +30,12 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
   const questions = useMemo(() => {
     const f = objectTypes?.find((o) => o.id === type)?.f;
     if (!f) return undefined;
-    return CLASSIFICATION_TO_QUESTIONS[f];
+    return F_TO_QUESTIONS[f];
   }, [objectTypes, type]);
+
+  useEffect(() => {
+    questions?.Questions.map((q) => form.resetField(q as keyof FormValues));
+  }, [form, questions]);
 
   if (!objectTypes) return 'Произошла ошибка, пожалуйста, попробуйте ещё раз';
 
@@ -47,7 +51,7 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
           options={objectTypes.map((t) => ({ display: `${t.f} ${t.name}`, value: t.id }))}
         />
 
-        <FieldsConstructor questions={questions} />
+        {questions && <FieldsConstructor questions={questions} />}
 
         <Button type="submit" className={'ml-auto flex w-full md:w-auto'} disabled={submitting}>
           {submitting && (
