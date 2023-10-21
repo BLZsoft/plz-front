@@ -5,5 +5,6 @@ import { Question, QuestionComponent } from '../types';
 
 export const QuestionCategory: QuestionComponent = ({
   label = 'Категория по взрывопожарной или пожарной опасности',
+  placeholder = 'Выберите значение',
   ...props
-}) => <FieldSelect name={Question.Category} label={label} {...props} />;
+}) => <FieldSelect name={Question.Category} label={label} placeholder={placeholder} {...props} />;

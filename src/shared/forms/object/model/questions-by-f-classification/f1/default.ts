@@ -64,7 +64,7 @@ export const Data = {
       1200: [ResistanceLevel.III, HazardClass.C1],
     },
   },
-  4_5: {
+  4: {
     50: {
       5000: [ResistanceLevel.I, HazardClass.C0],
       4000: [ResistanceLevel.II, HazardClass.C0],
@@ -79,7 +79,7 @@ export const Data = {
       800: [ResistanceLevel.III, HazardClass.C1],
     },
   },
-  6_9: {
+  6: {
     50: {
       5000: [ResistanceLevel.I, HazardClass.C0],
       4000: [ResistanceLevel.II, HazardClass.C0],
@@ -88,7 +88,7 @@ export const Data = {
       1200: [ResistanceLevel.II, HazardClass.C1],
     },
   },
-  10_16: {
+  10: {
     50: {
       2500: [ResistanceLevel.I, HazardClass.C0],
       2200: [ResistanceLevel.II, HazardClass.C0],
@@ -101,9 +101,9 @@ const Dictionary = {
     1: '1 этаж',
     2: '2 этажа',
     3: '3 этажа',
-    4_5: '4-5 этажей',
-    6_9: '6-9 этажей',
-    10_16: '10-16 этажей',
+    4: '4-5 этажей',
+    6: '6-9 этажей',
+    10: '10-16 этажей',
   },
   [Question.Height]: {
     50: 'до 50',
@@ -118,6 +118,8 @@ const Dictionary = {
     5000: 'до 5000',
     4000: 'до 4000',
     3000: 'до 3000',
+    2500: 'до 2500',
+    2200: 'до 2200',
     2000: 'до 2000',
     1400: 'до 1400',
     1200: 'до 1200',
@@ -133,4 +135,3 @@ export const f1 = {
     Data,
     Dictionary
 }
-

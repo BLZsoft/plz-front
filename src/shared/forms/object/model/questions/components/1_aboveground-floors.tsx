@@ -5,6 +5,6 @@ import { Question, QuestionComponent } from '../types';
 
 export const QuestionAbovegroundFloors: QuestionComponent = ({
   label = 'Количество надземных этажей',
-  placeholder = '3',
+  placeholder = 'Выберите значение...',
   ...props
 }) => <FieldSelect name={Question.AbovegroundFloors} label={label} placeholder={placeholder} {...props} />;

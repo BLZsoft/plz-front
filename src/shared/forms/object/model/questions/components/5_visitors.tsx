@@ -3,6 +3,8 @@ import { FieldSelect } from '~/shared/forms/fields';
 
 import { Question, QuestionComponent } from '../types';
 
-export const QuestionVisitors: QuestionComponent = ({ label = 'Число посетителей (мест), чел.', ...props }) => (
-  <FieldSelect name={Question.Visitors} label={label} {...props} />
-);
+export const QuestionVisitors: QuestionComponent = ({
+  label = 'Число посетителей (мест), чел.',
+  placeholder = 'Выберите значение',
+  ...props
+}) => <FieldSelect name={Question.Visitors} label={label} placeholder={placeholder} {...props} />;

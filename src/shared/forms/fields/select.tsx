@@ -27,10 +27,10 @@ export const FieldSelect = <
       <FormItem>
         {props.label && <FormLabel>{props.label}</FormLabel>}
 
-        <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <Select onValueChange={field.onChange} value={field.value}>
           <FormControl>
             <SelectTrigger>
-              <SelectValue placeholder={props.placeholder} />
+              {field.value ? <SelectValue placeholder={props.placeholder} /> : props.placeholder}
             </SelectTrigger>
           </FormControl>
           <SelectContent>

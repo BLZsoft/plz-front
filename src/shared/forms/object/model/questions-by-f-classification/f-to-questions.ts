@@ -24,16 +24,14 @@ export const F_TO_QUESTIONS: Record<string, FormQuestions> = {
 };
 
 export function getOptionsByPrevious(
-  formQuestions: Pick<FormQuestions, 'Data' | 'Questions'>,
+  { Questions, Data }: Pick<FormQuestions, 'Data' | 'Questions'>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  answers: Record<Question, any>,
+  answers: string[],
 ) {
-  const { Questions, Data } = formQuestions;
-
   const path: string[] = [];
 
-  for (const question of Questions) {
-    const answer = answers[question];
+  for (let index = 0; index < Questions.length; index++) {
+    const answer = answers[index];
 
     if (!answer) {
       break;
@@ -45,9 +43,6 @@ export function getOptionsByPrevious(
   if (!path.length) {
     return Object.keys(Data);
   }
-
-  console.log('path:', path.join('.'));
-  console.log('result:', get(Data, path.join('.')));
 
   return Object.keys(get(Data, path.join('.')));
 }
