@@ -30,6 +30,7 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
   const questions = useMemo(() => {
     const f = objectTypes?.find((o) => o.id === type)?.f;
     if (!f) return undefined;
+
     return F_TO_QUESTIONS[f];
   }, [objectTypes, type]);
 

@@ -44,5 +44,5 @@ export function getOptionsByPrevious(
     return Object.keys(Data);
   }
 
-  return Object.keys(get(Data, path.join('.')));
+  return Object.keys(get(Data, path.join('.')) ?? {});
 }
