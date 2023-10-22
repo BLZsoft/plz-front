@@ -1,3 +1,4 @@
+// TODO: DUPLICATES DEFAULT OF "F1" (SP2 table 6.9)
 // eslint-disable-next-line filename-rules/match
 import { HazardClass, ResistanceLevel } from '~/shared/types';
 
@@ -97,7 +98,7 @@ const Data = {
   },
 };
 
-export const f1: FieldsDefinition = {
+export const f2: FieldsDefinition = {
   [Question.AbovegroundFloors]: {
     getOptions: () => Object.keys(Data),
     getLabel: (o) => {

@@ -9,8 +9,8 @@ import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';
 
 import { FormValues, ObjectType, Schema, normalizePayload, normalizeValues } from './model';
-import { F_TO_QUESTIONS } from './model/questions-by-f-classification/f-to-questions';
-import { FieldsConstructor } from './ui';
+import { FieldsConstructor } from './model/constructor';
+import { F_TO_FIELDS } from './model/questions-by-f-classification/f-to-fields';
 
 export type ObjectFormProps = {
   objectTypes: ObjectType[] | null;
@@ -27,16 +27,17 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
     defaultValue: undefined,
   });
 
-  const questions = useMemo(() => {
+  const fields = useMemo(() => {
     const f = objectTypes?.find((o) => o.id === type)?.f;
     if (!f) return undefined;
 
-    return F_TO_QUESTIONS[f];
+    return F_TO_FIELDS[f];
   }, [objectTypes, type]);
 
   useEffect(() => {
-    questions?.Questions.map((q) => form.resetField(q as keyof FormValues));
-  }, [form, questions]);
+    const fieldNames = Object.keys(fields ?? {})
+    fieldNames.map((q) => form.resetField(q as keyof FormValues));
+  }, [form, fields]);
 
   if (!objectTypes) return 'Произошла ошибка, пожалуйста, попробуйте ещё раз';
 
@@ -52,7 +53,7 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
           options={objectTypes.map((t) => ({ display: `${t.f} ${t.name}`, value: t.id }))}
         />
 
-        {questions && <FieldsConstructor questions={questions} />}
+        {fields && <FieldsConstructor fields={fields} />}
 
         <Button type="submit" className={'ml-auto flex w-full md:w-auto'} disabled={submitting}>
           {submitting && (

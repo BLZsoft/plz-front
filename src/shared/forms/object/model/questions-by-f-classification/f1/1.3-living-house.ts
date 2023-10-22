@@ -2,61 +2,49 @@
 import { HazardClass, ResistanceLevel } from '~/shared/types';
 
 import { Question } from '../../questions';
+import { createAnswer } from '../helpers/create-answer';
+import { FieldsDefinition } from '../types';
 
-export const Questions = [Question.Height, Question.FireCompartmentFloorArea];
-
-// Height -> FireCompartmentFloorArea -> ResistanceLevel & HazardClass
-export const Data = {
+const Data = {
   75: {
-    2500: [ResistanceLevel.I, HazardClass.C0],
+    2500: createAnswer([ResistanceLevel.I, HazardClass.C0]),
   },
   50: {
-    2500: [ResistanceLevel.II, HazardClass.C0],
+    2500: createAnswer([ResistanceLevel.II, HazardClass.C0]),
   },
   28: {
-    2200: [ResistanceLevel.II, HazardClass.C1],
-    1800: [ResistanceLevel.III, HazardClass.C0],
+    2200: createAnswer([ResistanceLevel.II, HazardClass.C1]),
+    1800: createAnswer([ResistanceLevel.III, HazardClass.C0]),
   },
   15: {
-    1800: [ResistanceLevel.III, HazardClass.C1],
+    1800: createAnswer([ResistanceLevel.III, HazardClass.C1]),
   },
   5: {
-    1000: [ResistanceLevel.IV, HazardClass.C0],
-    800: [ResistanceLevel.IV, HazardClass.C1],
-    500: [ResistanceLevel.IV, HazardClass.C2],
+    1000: createAnswer([ResistanceLevel.IV, HazardClass.C0]),
+    800: createAnswer([ResistanceLevel.IV, HazardClass.C1]),
+    500: createAnswer([ResistanceLevel.IV, HazardClass.C2]),
   },
   3: {
-    1400: [ResistanceLevel.IV, HazardClass.C0],
-    1200: [ResistanceLevel.IV, HazardClass.C1],
-    900: [ResistanceLevel.IV, HazardClass.C2],
-    800: [ResistanceLevel.V, HazardClass.NotNormative],
+    1400: createAnswer([ResistanceLevel.IV, HazardClass.C0]),
+    1200: createAnswer([ResistanceLevel.IV, HazardClass.C1]),
+    900: createAnswer([ResistanceLevel.IV, HazardClass.C2]),
+    800: createAnswer([ResistanceLevel.V, HazardClass.NotNormative]),
   },
 };
 
-const Dictionary = {
+export const f13LivingHouse: FieldsDefinition = {
   [Question.Height]: {
-    75: 'до 75',
-    50: 'до 50',
-    28: 'до 28',
-    15: 'до 15',
-    5: 'до 5',
-    3: 'до 3',
+    getOptions: () => Object.keys(Data),
+    getLabel: (o) => `до ${o} м.`,
   },
-  [Question.FireCompartmentFloorArea]: {
-    2500: 'до 2500',
-    2200: 'до 2200',
-    1800: 'до 1800',
-    1400: 'до 1400',
-    1200: 'до 1200',
-    1000: 'до 1000',
-    900: 'до 900',
-    800: 'до 800',
-    500: 'до 500',
-  }
-};
+  [Question.AbovegroundFloors]: {
+    getOptions: (dependsOn) => {
+      const height = dependsOn[Question.Height];
 
-export const f13LivingHouse = {
-  Questions,
-  Data,
-  Dictionary
+      return Object.keys(Data[height]);
+    },
+    getLabel: (o) => `до ${o} кв.м.`,
+    getShouldRender: (dependsOn) => dependsOn[Question.Height] !== undefined,
+    dependsOn: [Question.Height],
+  },
 };

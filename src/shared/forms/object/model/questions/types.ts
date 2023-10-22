@@ -22,7 +22,6 @@ export type CommonProps = {
   label: string;
   placeholder?: string;
   description?: string;
-  requires?: string[];
 };
 
 export type QuestionComponent<P = Record<string, unknown>> = ComponentType<CommonProps & P>;
