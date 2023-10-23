@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
 import { Loader2 } from 'lucide-react';
 import { UseFormReturn, useWatch } from 'react-hook-form';
@@ -9,8 +9,10 @@ import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';
 
 import { FormValues, ObjectType, Schema, normalizePayload, normalizeValues } from './model';
-import CLASSIFICATION_TO_QUESTIONS from './model/classification-to-questions.json';
-import { FieldsConstructor } from './ui';
+import { FieldsConstructor } from './model/constructor';
+import { QuestionAddress } from './model/questions/components';
+import { F_TO_FIELDS } from './model/questions-by-f-classification/f-to-fields';
+import { Result } from './ui/result';
 
 export type ObjectFormProps = {
   objectTypes: ObjectType[] | null;
@@ -27,11 +29,17 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
     defaultValue: undefined,
   });
 
-  const questions = useMemo(() => {
+  const fields = useMemo(() => {
     const f = objectTypes?.find((o) => o.id === type)?.f;
     if (!f) return undefined;
-    return CLASSIFICATION_TO_QUESTIONS[f];
+
+    return F_TO_FIELDS[f];
   }, [objectTypes, type]);
+
+  useEffect(() => {
+    const fieldNames = Object.keys(fields ?? {});
+    fieldNames.map((q) => form.resetField(q as keyof FormValues));
+  }, [form, fields]);
 
   if (!objectTypes) return 'Произошла ошибка, пожалуйста, попробуйте ещё раз';
 
@@ -40,6 +48,8 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
       <form onSubmit={form.handleSubmit(onSubmit)} className={cn('space-y-8', className)}>
         <FieldInput control={form.control} name={'name'} label="Название объекта" placeholder="Торговое предприятие" />
 
+        <QuestionAddress label="Адрес объекта" />
+
         <FieldSelect
           name={'type'}
           label={'Тип объекта'}
@@ -47,7 +57,10 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
           options={objectTypes.map((t) => ({ display: `${t.f} ${t.name}`, value: t.id }))}
         />
 
-        <FieldsConstructor questions={questions} />
+        {fields && <FieldsConstructor fields={fields} />}
+
+        {/* TODO: Temporary component */}
+        {fields && <Result fields={fields} />}
 
         <Button type="submit" className={'ml-auto flex w-full md:w-auto'} disabled={submitting}>
           {submitting && (
