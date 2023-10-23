@@ -130,4 +130,11 @@ export const f4: FieldsDefinition = {
     getShouldRender: (dependsOn) => dependsOn[Question.Height] !== undefined,
     dependsOn: [Question.AbovegroundFloors, Question.Height],
   },
+  _getResult: (fields) => {
+    const abovegroundFloors = fields[Question.AbovegroundFloors];
+    const height = fields[Question.Height];
+    const fireCompartmentFloorArea = fields[Question.FireCompartmentFloorArea];
+
+    return Data[abovegroundFloors][height][fireCompartmentFloorArea];
+  },
 };

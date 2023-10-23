@@ -16,6 +16,8 @@ export const FieldsConstructor: FC<FieldConstructorProps> = ({ fields }) => {
   return (
     <>
       {Object.keys(fields).map((q) => {
+        if (q === '_getResult') return null;
+
         const Component = hoc(questionsMap[q]);
         const props = fields[q];
 

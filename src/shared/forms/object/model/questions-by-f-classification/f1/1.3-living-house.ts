@@ -47,4 +47,10 @@ export const f13LivingHouse: FieldsDefinition = {
     getShouldRender: (dependsOn) => dependsOn[Question.Height] !== undefined,
     dependsOn: [Question.Height],
   },
+  _getResult: (fields) => {
+    const height = fields[Question.Height];
+    const abovegroundFloors = fields[Question.AbovegroundFloors];
+
+    return Data[height][abovegroundFloors];
+  },
 };

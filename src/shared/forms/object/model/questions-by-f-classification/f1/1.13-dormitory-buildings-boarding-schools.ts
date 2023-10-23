@@ -47,7 +47,7 @@ export const f113DormitoryBuildingsOfBoardingSchool: FieldsDefinition = {
   [Question.AbovegroundFloors]: {
     getOptions: (dependsOn) => {
       const visitors = dependsOn[Question.Visitors];
-      
+
       return Object.keys(Data[visitors]);
     },
     getLabel: (o) => `${o} э.`,
@@ -64,5 +64,12 @@ export const f113DormitoryBuildingsOfBoardingSchool: FieldsDefinition = {
     getLabel: (o) => `${o} м.`,
     getShouldRender: (dependsOn) => dependsOn[Question.AbovegroundFloors] !== undefined,
     dependsOn: [Question.Visitors, Question.AbovegroundFloors],
+  },
+  _getResult: (fields) => {
+    const visitors = fields[Question.Visitors];
+    const abovegroundFloors = fields[Question.AbovegroundFloors];
+    const height = fields[Question.Height];
+
+    return Data[visitors][abovegroundFloors][height];
   },
 };

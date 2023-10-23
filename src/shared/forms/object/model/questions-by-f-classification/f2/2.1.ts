@@ -74,5 +74,13 @@ export const f21: FieldsDefinition = {
     },
     dependsOn: [Question.Height, Question.AbovegroundFloors],
   },
-};
+  _getResult: (fields) => {
+    const height = fields[Question.Height];
+    const abovegroundFloors = fields[Question.AbovegroundFloors];
+    const visitors = fields[Question.Visitors];
 
+    if (height === '50') return Data[height][visitors];
+
+    return Data[height][abovegroundFloors][visitors];
+  },
+};

@@ -1,3 +1,5 @@
+import { HazardClass, ResistanceLevel } from '~/shared/types';
+
 import { Question } from '../questions';
 
 type Value = string | number;
@@ -9,4 +11,6 @@ export type FieldDefinition<T = Value> = {
   dependsOn?: Question[];
 };
 
-export type FieldsDefinition = Partial<Record<Question, FieldDefinition>>;
+export type FieldsDefinition = Partial<Record<Question, FieldDefinition>> & {
+  _getResult: (fields: Record<Question, Value>) => [ResistanceLevel | ResistanceLevel[], HazardClass | HazardClass[]];
+};
