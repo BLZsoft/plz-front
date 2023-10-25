@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { z } from 'zod';
 
 import type { CreateObjectDto } from '~/shared/api/objects';
@@ -40,19 +42,21 @@ export const normalizeValues = (initial?: Partial<Payload> | null): Partial<Form
   type: initial?.type ?? undefined,
 
   address: { value: initial?.address ?? '' },
-  width: initial?.width ?? undefined,
-  category: initial?.category ?? '',
-  abovegroundFloors: initial?.aboveground_floors ?? undefined,
-  height: initial?.height ?? undefined,
-  volume: initial?.volume ?? undefined,
-  undergroundFloors: initial?.underground_floors ?? undefined,
-  groundFloorArea: initial?.ground_floor_area ?? undefined,
-  totalSalesArea: initial?.total_sales_area ?? undefined,
-  isUndergroundSalesArea: initial?.is_underground_sales_area ?? undefined,
-  salesArea: initial?.sales_area ?? undefined,
-  isDiningRoomInBasement: initial?.is_dining_room_in_basement ?? undefined,
-  numberOfVisitors: initial?.number_of_visitors ?? undefined,
-  hasSalesRoomWithoutNaturalLight: initial?.has_sales_room_without_natural_light ?? undefined,
+
+  width: initial?.width?.toString() ?? undefined,
+  category: initial?.category?.toString() ?? undefined,
+  abovegroundFloors: initial?.aboveground_floors?.toString() ?? undefined,
+  height: initial?.height?.toString() ?? undefined,
+  fireCompartmentFloorArea: initial?.fire_compartment_floor_area?.toString() ?? undefined,
+  volume: initial?.volume?.toString() ?? undefined,
+  undergroundFloors: initial?.underground_floors?.toString() ?? undefined,
+  groundFloorArea: initial?.ground_floor_area?.toString() ?? undefined,
+  totalSalesArea: initial?.total_sales_area?.toString() ?? undefined,
+  isUndergroundSalesArea: initial?.is_underground_sales_area?.toString() ?? undefined,
+  salesArea: initial?.sales_area?.toString() ?? undefined,
+  isDiningRoomInBasement: initial?.is_dining_room_in_basement?.toString() ?? undefined,
+  numberOfVisitors: initial?.number_of_visitors?.toString() ?? undefined,
+  hasSalesRoomWithoutNaturalLight: initial?.has_sales_room_without_natural_light?.toString() ?? undefined,
 });
 
 export const normalizePayload = (values: FormValues): Payload => ({
@@ -64,6 +68,7 @@ export const normalizePayload = (values: FormValues): Payload => ({
   category: values.category,
   aboveground_floors: values.abovegroundFloors,
   height: values.height,
+  fire_compartment_floor_area: values.fireCompartmentFloorArea,
   volume: values.volume,
   underground_floors: values.undergroundFloors,
   ground_floor_area: values.groundFloorArea,

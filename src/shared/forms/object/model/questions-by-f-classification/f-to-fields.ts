@@ -10,6 +10,7 @@ import { f35ConsumerServiceEnterprises } from './f3/3.5-consumer-service-enterpr
 import { f3 } from './f3/default';
 import { f41Schools } from './f4/4.1-schools';
 import { f4 } from './f4/default';
+import { f5 } from './f5/default';
 import { FieldsDefinition } from './types';
 
 export const F_TO_FIELDS: Record<string, FieldsDefinition> = {
@@ -38,4 +39,6 @@ export const F_TO_FIELDS: Record<string, FieldsDefinition> = {
   '4.2': f4,
   '4.3': f4,
   '4.4': f4,
+  // Ф5
+  '5.1': f5,
 };

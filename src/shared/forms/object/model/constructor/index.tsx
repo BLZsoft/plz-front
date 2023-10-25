@@ -19,9 +19,9 @@ export const FieldsConstructor: FC<FieldConstructorProps> = ({ fields }) => {
         if (q === '_getResult') return null;
 
         const Component = hoc(questionsMap[q]);
-        const props = fields[q];
+        const field = fields[q];
 
-        return <Component key={q} name={q} {...props} />;
+        return <Component key={q} name={q} field={field} />;
       })}
     </>
   );
@@ -29,15 +29,14 @@ export const FieldsConstructor: FC<FieldConstructorProps> = ({ fields }) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function hoc<C extends ComponentType<CommonProps & any>>(Component: C) {
-  const WithFieldConstructor: FC<FieldDefinition & ComponentProps<C> & { name: string }> = ({
+  const WithFieldConstructor: FC<{ field: FieldDefinition } & ComponentProps<C> & { name: string }> = ({
     name,
-    getOptions,
-    getLabel,
-    getShouldRender = () => true,
-    dependsOn = [],
+    field,
     ...props
   }) => {
     const form = useFormContext();
+
+    const dependsOn = useMemo(() => field?.dependsOn ?? [], [field]);
     const dependsOnValues = form.watch(dependsOn);
 
     // Сбрасываем поле, если поля от которых зависит изменились
@@ -49,8 +48,8 @@ function hoc<C extends ComponentType<CommonProps & any>>(Component: C) {
       [dependsOnValues, dependsOn],
     );
 
-    const options = useOptions({ previousAnswers, getOptions, getLabel });
-    const shouldRender = getShouldRender(previousAnswers);
+    const options = useOptions({ previousAnswers, getOptions: field.getOptions, getLabel: field.getLabel });
+    const shouldRender = useShouldRender(field, previousAnswers);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -112,4 +111,18 @@ function useOptions({
   }, [previousAnswers, getOptions, getLabel]);
 
   return options;
+}
+
+function useShouldRender(field, previousAnswers) {
+  const shouldRender = useMemo(() => {
+    if (!field.getShouldRender) return true;
+
+    try {
+      return field.getShouldRender(previousAnswers);
+    } catch {
+      return false;
+    }
+  }, [field, previousAnswers]);
+
+  return shouldRender;
 }

@@ -12,5 +12,5 @@ export type FieldDefinition<T = Value> = {
 };
 
 export type FieldsDefinition = Partial<Record<Question, FieldDefinition>> & {
-  _getResult: (fields: Record<Question, Value>) => [ResistanceLevel | ResistanceLevel[], HazardClass | HazardClass[]];
+  _getResult: (fields: Record<Question, Value>) => [ResistanceLevel | ResistanceLevel[], HazardClass | HazardClass[]] | null;
 };

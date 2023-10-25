@@ -130,8 +130,6 @@ export const f1: FieldsDefinition = {
     dependsOn: [Question.AbovegroundFloors, Question.Height],
   },
   _getResult: (fields) => {
-    console.log(fields);
-
     const abovegroundFloors = fields[Question.AbovegroundFloors];
     const height = fields[Question.Height];
     const fireCompartmentFloorArea = fields[Question.FireCompartmentFloorArea];
