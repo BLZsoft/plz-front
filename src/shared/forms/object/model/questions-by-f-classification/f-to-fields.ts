@@ -10,6 +10,13 @@ import { f35ConsumerServiceEnterprises } from './f3/3.5-consumer-service-enterpr
 import { f3 } from './f3/default';
 import { f41Schools } from './f4/4.1-schools';
 import { f4 } from './f4/default';
+import { f52 } from './f5/5.2';
+import { f521UndergroundParking } from './f5/5.21-underground-parking copy';
+import { f522AbovegroundParkingClosed } from './f5/5.22-aboveground-parking-closed';
+import { f523AbovegroundParkingOpened } from './f5/5.23-aboveground-parking-opened';
+import { f524LumberWarehouse } from './f5/5.24-lumber-warehouse';
+import { f53 } from './f5/5.3';
+import { f5 } from './f5/default';
 import { FieldsDefinition } from './types';
 
 export const F_TO_FIELDS: Record<string, FieldsDefinition> = {
@@ -38,4 +45,12 @@ export const F_TO_FIELDS: Record<string, FieldsDefinition> = {
   '4.2': f4,
   '4.3': f4,
   '4.4': f4,
+  // Ф5
+  '5.1': f5,
+  '5.2': f52,
+  '5.21': f521UndergroundParking,
+  '5.22': f522AbovegroundParkingClosed,
+  '5.23': f523AbovegroundParkingOpened,
+  '5.24': f524LumberWarehouse,
+  '5.3': f53,
 };

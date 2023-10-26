@@ -13,9 +13,6 @@ export const Result: FC<Props> = ({ fields }) => {
   const form = useFormContext();
   const answers = form.watch();
 
-  // const [resistanceLevel, setResistanceLevel] = useState<string | null>(null);
-  // const [hazardClass, setHazardClass] = useState<string | null>(null);
-
   const result = useMemo(() => {
     try {
       return fields._getResult(answers as Record<Question, string | number>);
