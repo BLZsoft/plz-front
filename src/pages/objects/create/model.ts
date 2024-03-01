@@ -12,6 +12,8 @@ import { ObjectFormPayload } from '~/shared/forms/object';
 import { routes } from '~/shared/router';
 import { sessionModel } from '~/shared/session';
 
+import { objectsListPageQuery } from '../list/model';
+
 const objectTypesQuery = attachOperation(objectTypesApi.query);
 
 export const currentRoute = routes.objects.create;
@@ -21,10 +23,9 @@ export const dataLoadedRoute = chainRoute({
 });
 
 const $userId = sessionModel.$session.map((session) => session?.sub ?? '');
-const $currentOrganization = selectOrganizationModel.$selectedOrganizationId;
 
 const $mutation = attachOperation(objectsApi.createMutation, {
-  source: combine({ organizationId: $currentOrganization, userId: $userId }),
+  source: combine({ organizationId: selectOrganizationModel.$selectedOrganizationId, userId: $userId }),
   mapParams: (params: ObjectFormPayload, { organizationId, userId }): objectsApi.CreateObjectMutationParams => ({
     object: {
       ...params,
@@ -34,7 +35,7 @@ const $mutation = attachOperation(objectsApi.createMutation, {
   }),
 });
 
-update(objectsApi.queryByOrg, {
+update(objectsListPageQuery, {
   on: $mutation,
   by: {
     success({ mutation, query }) {

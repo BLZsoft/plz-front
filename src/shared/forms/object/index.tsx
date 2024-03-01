@@ -8,8 +8,9 @@ import { cn } from '~/shared/lib/utils';
 import { Button } from '~/shared/ui/button';
 import { Form } from '~/shared/ui/form';
 
-import { FormValues, ObjectType, Schema, normalizePayload, normalizeValues } from './model';
+import { FormValues, normalizePayload, normalizeValues, ObjectType, Schema } from './model';
 import { FieldsConstructor } from './model/constructor';
+import { Question } from './model/questions';
 import { QuestionAddress } from './model/questions/components';
 import { F_TO_FIELDS } from './model/questions-by-f-classification/f-to-fields';
 import { Result } from './ui/result';
@@ -29,23 +30,38 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
     defaultValue: undefined,
   });
 
-  const fields = useMemo(() => {
-    const f = objectTypes?.find((o) => o.id === type)?.f;
-    if (!f) return undefined;
+  const f = useMemo(() => objectTypes?.find((o) => o.id === type)?.f, [objectTypes, type]);
 
-    return F_TO_FIELDS[f];
-  }, [objectTypes, type]);
+  const fields = useMemo(() => !!f && F_TO_FIELDS[f], [f]);
 
   useEffect(() => {
     const fieldNames = Object.keys(fields ?? {});
     fieldNames.map((q) => form.resetField(q as keyof FormValues));
   }, [form, fields]);
 
+  useEffect(() => {
+    console.log(f);
+
+    if (f) form.setValue('f', f);
+  }, [form, f]);
+
+  // Обёртка для вычисления Resistance Level и Hazard Class
+  const _onSubmit = (values: FormValues) => {
+    const result = fields && fields._getResult(values as unknown as Record<Question, string | number>);
+
+    if (!result) return;
+
+    const hazardClass = (result && (Array.isArray(result[1]) ? result[1] : [result[1]])) ?? undefined;
+    const resistanceLevel = (result && (Array.isArray(result[0]) ? result[0] : [result[0]])) ?? undefined;
+
+    return onSubmit({ ...values, hazardClass, resistanceLevel });
+  };
+
   if (!objectTypes) return 'Произошла ошибка, пожалуйста, попробуйте ещё раз';
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={cn('space-y-8', className)}>
+      <form onSubmit={form.handleSubmit(_onSubmit)} className={cn('space-y-8', className)}>
         <FieldInput control={form.control} name={'name'} label="Название объекта" placeholder="Торговое предприятие" />
 
         <QuestionAddress label="Адрес объекта" />
@@ -59,7 +75,6 @@ const View: FC<ObjectFormProps> = ({ objectTypes, form, submitting, onSubmit, cl
 
         {fields && <FieldsConstructor fields={fields} />}
 
-        {/* TODO: Temporary component */}
         {fields && <Result fields={fields} />}
 
         <Button type="submit" className={'ml-auto flex w-full md:w-auto'} disabled={submitting}>

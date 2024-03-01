@@ -1,5 +1,5 @@
 import { reflect } from '@effector/reflect';
-import { createRouteView, createRoutesView } from 'atomic-router-react';
+import { createRoutesView, createRouteView } from 'atomic-router-react';
 
 import { Layout } from '~/pages/layout';
 

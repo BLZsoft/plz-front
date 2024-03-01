@@ -30,33 +30,33 @@ const Data = {
 };
 
 export const f112GeneralPreschoolInstitutions: FieldsDefinition = {
-  [Question.Visitors]: {
+  [Question.NumberOfVisitors]: {
     getOptions: () => Object.keys(Data),
     getLabel: (o) => `до ${o} чел.`,
   },
   [Question.AbovegroundFloors]: {
     getOptions: (dependsOn) => {
-      const visitors = dependsOn[Question.Visitors];
+      const visitors = dependsOn[Question.NumberOfVisitors];
 
       return Object.keys(Data[visitors]);
     },
     getLabel: (o) => `${o} э.`,
-    getShouldRender: (dependsOn) => dependsOn[Question.Visitors] !== undefined,
-    dependsOn: [Question.Visitors],
+    getShouldRender: (dependsOn) => Boolean(dependsOn[Question.NumberOfVisitors]),
+    dependsOn: [Question.NumberOfVisitors],
   },
   [Question.Height]: {
     getOptions: (dependsOn) => {
-      const visitors = dependsOn[Question.Visitors];
+      const visitors = dependsOn[Question.NumberOfVisitors];
       const abovegroundFloors = dependsOn[Question.AbovegroundFloors];
 
       return Object.keys(Data[visitors][abovegroundFloors]);
     },
     getLabel: (o) => `${o} м.`,
-    getShouldRender: (dependsOn) => dependsOn[Question.Height] !== undefined,
-    dependsOn: [Question.Visitors, Question.AbovegroundFloors],
+    getShouldRender: (dependsOn) => Boolean(dependsOn[Question.AbovegroundFloors]),
+    dependsOn: [Question.NumberOfVisitors, Question.AbovegroundFloors],
   },
   _getResult: (fields) => {
-    const visitors = fields[Question.Visitors];
+    const visitors = fields[Question.NumberOfVisitors];
     const abovegroundFloors = fields[Question.AbovegroundFloors];
     const height = fields[Question.Height];
 

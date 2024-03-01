@@ -50,11 +50,11 @@ export const f21: FieldsDefinition = {
 
       if (height === '50') return false;
 
-      return dependsOn[Question.Height] !== undefined;
+      return Boolean(dependsOn[Question.Height]);
     },
     dependsOn: [Question.Height],
   },
-  [Question.Visitors]: {
+  [Question.NumberOfVisitors]: {
     getOptions: (dependsOn) => {
       const height = dependsOn[Question.Height];
 
@@ -70,14 +70,14 @@ export const f21: FieldsDefinition = {
 
       if (height === '50') return true;
 
-      return dependsOn[Question.AbovegroundFloors] !== undefined;
+      return Boolean(dependsOn[Question.AbovegroundFloors]);
     },
     dependsOn: [Question.Height, Question.AbovegroundFloors],
   },
   _getResult: (fields) => {
     const height = fields[Question.Height];
     const abovegroundFloors = fields[Question.AbovegroundFloors];
-    const visitors = fields[Question.Visitors];
+    const visitors = fields[Question.NumberOfVisitors];
 
     if (height === '50') return Data[height][visitors];
 

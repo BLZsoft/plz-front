@@ -63,3 +63,16 @@ export const updateMutation = createSupabaseMutation({
     return data[0];
   }),
 });
+
+export type RemoveObjectMutationParams = {
+  id: string;
+};
+export const removeMutation = createSupabaseMutation({
+  effect: createSupabaseEffect<RemoveObjectMutationParams, Object>(async ({ supabase, id }) => {
+    const { data, error } = await supabase.from('objects').delete().eq('id', id).select();
+
+    if (!data || error) throw error;
+
+    return data[0];
+  }),
+});

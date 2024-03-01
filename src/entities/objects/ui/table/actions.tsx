@@ -4,6 +4,9 @@ import type { Row } from '@tanstack/react-table';
 import { Link } from 'atomic-router-react';
 import { MoreHorizontal } from 'lucide-react';
 
+// eslint-disable-next-line boundaries/element-types
+import { ObjectsRemoveDropdownMenuItem } from '~/features/objects/remove';
+
 import type { Object } from '~/shared/api/objects';
 import { routes } from '~/shared/router';
 import { Button } from '~/shared/ui/button';
@@ -31,14 +34,18 @@ export const RowActions: FC<RowActionsProps> = ({ row: { id } }) => (
     <DropdownMenuContent align="end">
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
       <DropdownMenuItem>Журналы</DropdownMenuItem>
-      <DropdownMenuItem>Калькуляторы</DropdownMenuItem>
+      <DropdownMenuItem asChild>
+        <Link to={routes.calculators.home} params={{ objectId: id }}>
+          Калькуляторы
+        </Link>
+      </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem asChild>
         <Link to={routes.objects.edit} params={{ id }}>
           Редактировать объект
         </Link>
       </DropdownMenuItem>
-      <DropdownMenuItem>Удалить объект</DropdownMenuItem>
+      <ObjectsRemoveDropdownMenuItem id={id} />
     </DropdownMenuContent>
   </DropdownMenu>
 );

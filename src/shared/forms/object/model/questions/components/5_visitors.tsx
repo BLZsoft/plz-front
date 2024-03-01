@@ -7,4 +7,4 @@ export const QuestionVisitors: QuestionComponent = ({
   label = 'Число посетителей (мест), чел.',
   placeholder = 'Выберите значение',
   ...props
-}) => <FieldSelect name={Question.Visitors} label={label} placeholder={placeholder} {...props} />;
+}) => <FieldSelect name={Question.NumberOfVisitors} label={label} placeholder={placeholder} {...props} />;

@@ -25,5 +25,7 @@ coverage
 *.sln
 *.sw?
 
+.env
+
 # Generated
 /src/shared/lib/supabase/database.types.ts
