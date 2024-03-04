@@ -116,7 +116,7 @@ export const f2: FieldsDefinition = {
       return Object.keys(Data[abovegroundFloors]);
     },
     getLabel: (o) => `до ${o} м.`,
-    getShouldRender: (dependsOn) => dependsOn[Question.AbovegroundFloors] !== undefined,
+    getShouldRender: (dependsOn) => Boolean(dependsOn[Question.AbovegroundFloors]),
     dependsOn: [Question.AbovegroundFloors],
   },
   [Question.FireCompartmentFloorArea]: {
@@ -127,7 +127,7 @@ export const f2: FieldsDefinition = {
       return Object.keys(Data[abovegroundFloors][height]);
     },
     getLabel: (o) => `до ${o} кв.м.`,
-    getShouldRender: (dependsOn) => dependsOn[Question.Height] !== undefined,
+    getShouldRender: (dependsOn) => Boolean(dependsOn[Question.Height]),
     dependsOn: [Question.AbovegroundFloors, Question.Height],
   },
   _getResult: (fields) => {

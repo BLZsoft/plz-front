@@ -16,7 +16,7 @@ export const questionsMap = {
   [Question.FireCompartmentFloorArea]: QuestionFireCompartmentFloorArea,
   [Question.Height]: QuestionHeight,
   [Question.Category]: QuestionCategory,
-  [Question.Visitors]: QuestionVisitors,
+  [Question.NumberOfVisitors]: QuestionVisitors,
 };
 
 export { Question };

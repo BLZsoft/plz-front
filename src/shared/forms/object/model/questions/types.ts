@@ -14,7 +14,7 @@ export enum Question {
   IsUndergroundSalesArea = 'isUndergroundSalesArea',
   SalesArea = 'salesArea',
   IsDinningRoomInBasement = 'isDinningRoomInBasement',
-  Visitors = 'visitors',
+  NumberOfVisitors = 'numberOfVisitors',
   HasSalesRoomWithoutNaturalLight = 'hasSalesRoomWithoutNaturalLight',
 }
 

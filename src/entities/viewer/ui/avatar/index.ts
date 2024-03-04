@@ -1,9 +1,9 @@
 import { variant } from '@effector/reflect';
 
 import { $isLoading, $picture } from './model';
-import { Loading, Props, View } from './ui';
+import { Loading, View } from './ui';
 
-export const ViewerAvatar = variant<Props>({
+export const ViewerAvatar = variant({
   if: $isLoading,
   then: Loading,
   else: View,

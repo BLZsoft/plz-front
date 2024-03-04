@@ -195,7 +195,7 @@ export const f5: FieldsDefinition = {
   [Question.Height]: {
     getOptions: ({ category }) => Object.keys(Data[category] ?? {}),
     getLabel: (o) => `до ${o} м.`,
-    getShouldRender: (dependsOn) => dependsOn[Question.Category] !== undefined,
+    getShouldRender: (dependsOn) => Boolean(dependsOn[Question.Category]),
     dependsOn: [Question.Category],
   },
   [Question.AbovegroundFloors]: {
@@ -209,7 +209,7 @@ export const f5: FieldsDefinition = {
     },
     getLabel: (o) => (o === '3' ? `3 или более э.` : `${o} э.`),
     getShouldRender(dependsOn) {
-      return this.getOptions(dependsOn) !== null;
+      return Boolean(this.getOptions(dependsOn));
     },
     dependsOn: [Question.Category, Question.Height],
   },
@@ -229,7 +229,7 @@ export const f5: FieldsDefinition = {
     },
     getLabel: (o) => `до ${o} кв. м.`,
     getShouldRender(dependsOn) {
-      return this.getOptions(dependsOn) !== null;
+      return Boolean(this.getOptions(dependsOn));
     },
     dependsOn: [Question.Category, Question.Height, Question.AbovegroundFloors],
   },

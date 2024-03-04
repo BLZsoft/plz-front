@@ -15,6 +15,15 @@ export const routes = {
     create: createRoute(),
     details: createRoute<{ id: string }>(),
   },
+  calculators: {
+    root: createRoute<{ objectId: string }>(),
+    home: createRoute<{ objectId: string }>(),
+    fireResistanceLimitBuildingStructures03: createRoute<{ objectId: string }>(),
+    // СОУЭ - Система оповещения и управления эвакуацией
+    // WEACS - Warning and evacuation control system
+    wecs04: createRoute<{ objectId: string }>(),
+    minimalDistance05: createRoute<{ objectId: string }>(),
+  },
   logto: {
     callback: createRoute(),
   },

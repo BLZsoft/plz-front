@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import type { CreateObjectDto } from '~/shared/api/objects';
 import { FieldAddressSchemaZ } from '~/shared/forms/fields';
+import { HazardClass, ResistanceLevel } from '~/shared/types';
 
 export type ObjectType = {
   id: string;
@@ -15,6 +16,7 @@ export type ObjectType = {
 export const Schema = z.object({
   name: z.string().nonempty(),
   type: z.string().uuid(),
+  f: z.string(),
 
   address: FieldAddressSchemaZ.optional(),
   width: z.coerce.number().positive().optional(),
@@ -32,6 +34,9 @@ export const Schema = z.object({
   isDiningRoomInBasement: z.boolean().optional(),
   numberOfVisitors: z.coerce.number().positive().optional(),
   hasSalesRoomWithoutNaturalLight: z.boolean().optional(),
+
+  resistanceLevel: z.array(z.nativeEnum(ResistanceLevel)).optional(),
+  hazardClass: z.array(z.nativeEnum(HazardClass)).optional(),
 });
 
 export type Payload = Omit<CreateObjectDto, 'organization_id' | 'owner_id'>;
@@ -40,6 +45,7 @@ export type FormValues = z.infer<typeof Schema>;
 export const normalizeValues = (initial?: Partial<Payload> | null): Partial<FormValues> => ({
   name: initial?.name ?? '',
   type: initial?.type ?? undefined,
+  f: initial?.f ?? undefined,
 
   address: { value: initial?.address ?? '' },
 
@@ -57,11 +63,15 @@ export const normalizeValues = (initial?: Partial<Payload> | null): Partial<Form
   isDiningRoomInBasement: initial?.is_dining_room_in_basement?.toString() ?? undefined,
   numberOfVisitors: initial?.number_of_visitors?.toString() ?? undefined,
   hasSalesRoomWithoutNaturalLight: initial?.has_sales_room_without_natural_light?.toString() ?? undefined,
+
+  resistanceLevel: initial?.resistance_level ?? undefined,
+  hazardClass: initial?.hazard_class ?? undefined,
 });
 
 export const normalizePayload = (values: FormValues): Payload => ({
   name: values.name,
   type: values.type,
+  f: values.f,
 
   address: values.address?.value,
   width: values.width,
@@ -78,4 +88,7 @@ export const normalizePayload = (values: FormValues): Payload => ({
   is_dining_room_in_basement: values.isDiningRoomInBasement,
   number_of_visitors: values.numberOfVisitors,
   has_sales_room_without_natural_light: values.hasSalesRoomWithoutNaturalLight,
+
+  resistance_level: values.resistanceLevel,
+  hazard_class: values.hazardClass,
 });

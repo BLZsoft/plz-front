@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-type Props = {
+export type ObjectsRootPageProps = {
   ChildRoutes: FC;
 };
 
-export const ObjectsRootPageView: FC<Props> = ({ ChildRoutes }) => <ChildRoutes />;
+export const ObjectsRootPageView: FC<ObjectsRootPageProps> = ({ ChildRoutes }) => <ChildRoutes />;
 
 export const ObjectsRootPageLoader = () => <h1>Загрузка...</h1>;

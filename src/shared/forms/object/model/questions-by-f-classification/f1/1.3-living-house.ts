@@ -44,7 +44,7 @@ export const f13LivingHouse: FieldsDefinition = {
       return Object.keys(Data[height]);
     },
     getLabel: (o) => `до ${o} кв.м.`,
-    getShouldRender: (dependsOn) => dependsOn[Question.Height] !== undefined,
+    getShouldRender: (dependsOn) => Boolean(dependsOn[Question.Height]),
     dependsOn: [Question.Height],
   },
   _getResult: (fields) => {

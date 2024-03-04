@@ -2,6 +2,7 @@ import { startChain } from '@farfetched/atomic-router';
 import { attachOperation, update } from '@farfetched/core';
 import { chainRoute } from 'atomic-router';
 
+import { chainAuthenticated } from '~/features/authn/protected-routes';
 import { EditObjectForm } from '~/features/objects/edit';
 
 import { objectTypesApi } from '~/shared/api/object-types';
@@ -10,8 +11,13 @@ import { ObjectFormPayload } from '~/shared/forms/object';
 import { chainUuid } from '~/shared/lib/utils';
 import { routes } from '~/shared/router';
 
+import { objectsListPageQuery } from '../list/model';
+
 export const currentRoute = routes.objects.edit;
-export const idEnsuredRoute = chainUuid(currentRoute, 'id');
+
+export const authenticatedRoute = chainAuthenticated(currentRoute);
+
+export const idEnsuredRoute = chainUuid(authenticatedRoute, 'id');
 
 const objectTypesQuery = attachOperation(objectTypesApi.query);
 const objectQuery = attachOperation(objectsApi.queryById);
@@ -20,7 +26,7 @@ const objectQuery = attachOperation(objectsApi.queryById);
 // 2. load object
 export const dataLoadedRoute = chainRoute({
   route: chainRoute({
-    route: idEnsuredRoute,
+    route: authenticatedRoute,
     ...startChain(objectTypesQuery),
   }),
   ...startChain(objectQuery),
@@ -34,7 +40,7 @@ const $mutation = attachOperation(objectsApi.updateMutation, {
   }),
 });
 
-update(objectsApi.queryByOrg, {
+update(objectsListPageQuery, {
   on: $mutation,
   by: {
     success({ mutation, query }) {

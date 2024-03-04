@@ -1,7 +1,7 @@
 import { reflect } from '@effector/reflect';
 import { createRouteView } from 'atomic-router-react';
 
-import { currentRoute, dataLoadedRoute, query } from './model';
+import { currentRoute, dataLoadedRoute, objectsListPageQuery } from './model';
 import { ObjectHomePageLoader as ObjectListPageLoader, ObjectHomePageView as ObjectListPageView } from './view';
 
 export const ObjectListPage = {
@@ -11,7 +11,7 @@ export const ObjectListPage = {
     view: reflect({
       view: ObjectListPageView,
       bind: {
-        data: query.$data,
+        data: objectsListPageQuery.$data,
       },
     }),
     otherwise: ObjectListPageLoader,

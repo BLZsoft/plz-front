@@ -6,7 +6,7 @@ import { and } from 'patronum';
 import { organizationsModel } from '~/entities/organizations';
 
 import * as selectOrganizationModel from './model';
-import { Props, View } from './ui';
+import { View } from './ui';
 
 const PERSONAL_ID = 'personal';
 
@@ -30,7 +30,7 @@ const onChange = selectOrganizationModel.organizationSelected.prepend<string | n
   selected === PERSONAL_ID ? null : selected,
 );
 
-export const OrganizationSelect = reflect<Props>({
+export const OrganizationSelect = reflect({
   view: View,
   bind: {
     loading: $loading,
